@@ -1,0 +1,505 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		34813A0D1CE7783400417CD2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34813A0C1CE7783400417CD2 /* AppDelegate.swift */; };
+		34813A0F1CE7783400417CD2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34813A0E1CE7783400417CD2 /* ViewController.swift */; };
+		34813A121CE7783400417CD2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34813A101CE7783400417CD2 /* Main.storyboard */; };
+		34813A141CE7783400417CD2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 34813A131CE7783400417CD2 /* Assets.xcassets */; };
+		34813A171CE7783400417CD2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34813A151CE7783400417CD2 /* LaunchScreen.storyboard */; };
+		34813A221CE7783400417CD2 /* RizeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34813A211CE7783400417CD2 /* RizeTests.swift */; };
+		34813A2D1CE7783500417CD2 /* RizeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34813A2C1CE7783500417CD2 /* RizeUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		34813A1E1CE7783400417CD2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 34813A011CE7783400417CD2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 34813A081CE7783400417CD2;
+			remoteInfo = Rize;
+		};
+		34813A291CE7783500417CD2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 34813A011CE7783400417CD2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 34813A081CE7783400417CD2;
+			remoteInfo = Rize;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		34813A091CE7783400417CD2 /* Rize.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rize.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		34813A0C1CE7783400417CD2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		34813A0E1CE7783400417CD2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		34813A111CE7783400417CD2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		34813A131CE7783400417CD2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		34813A161CE7783400417CD2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		34813A181CE7783400417CD2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		34813A1D1CE7783400417CD2 /* RizeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RizeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		34813A211CE7783400417CD2 /* RizeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RizeTests.swift; sourceTree = "<group>"; };
+		34813A231CE7783400417CD2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		34813A281CE7783500417CD2 /* RizeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RizeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		34813A2C1CE7783500417CD2 /* RizeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RizeUITests.swift; sourceTree = "<group>"; };
+		34813A2E1CE7783500417CD2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		34813A061CE7783400417CD2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		34813A1A1CE7783400417CD2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		34813A251CE7783500417CD2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		34813A001CE7783400417CD2 = {
+			isa = PBXGroup;
+			children = (
+				34813A0B1CE7783400417CD2 /* Rize */,
+				34813A201CE7783400417CD2 /* RizeTests */,
+				34813A2B1CE7783500417CD2 /* RizeUITests */,
+				34813A0A1CE7783400417CD2 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		34813A0A1CE7783400417CD2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				34813A091CE7783400417CD2 /* Rize.app */,
+				34813A1D1CE7783400417CD2 /* RizeTests.xctest */,
+				34813A281CE7783500417CD2 /* RizeUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		34813A0B1CE7783400417CD2 /* Rize */ = {
+			isa = PBXGroup;
+			children = (
+				34813A0C1CE7783400417CD2 /* AppDelegate.swift */,
+				34813A0E1CE7783400417CD2 /* ViewController.swift */,
+				34813A101CE7783400417CD2 /* Main.storyboard */,
+				34813A131CE7783400417CD2 /* Assets.xcassets */,
+				34813A151CE7783400417CD2 /* LaunchScreen.storyboard */,
+				34813A181CE7783400417CD2 /* Info.plist */,
+			);
+			path = Rize;
+			sourceTree = "<group>";
+		};
+		34813A201CE7783400417CD2 /* RizeTests */ = {
+			isa = PBXGroup;
+			children = (
+				34813A211CE7783400417CD2 /* RizeTests.swift */,
+				34813A231CE7783400417CD2 /* Info.plist */,
+			);
+			path = RizeTests;
+			sourceTree = "<group>";
+		};
+		34813A2B1CE7783500417CD2 /* RizeUITests */ = {
+			isa = PBXGroup;
+			children = (
+				34813A2C1CE7783500417CD2 /* RizeUITests.swift */,
+				34813A2E1CE7783500417CD2 /* Info.plist */,
+			);
+			path = RizeUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		34813A081CE7783400417CD2 /* Rize */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 34813A311CE7783500417CD2 /* Build configuration list for PBXNativeTarget "Rize" */;
+			buildPhases = (
+				34813A051CE7783400417CD2 /* Sources */,
+				34813A061CE7783400417CD2 /* Frameworks */,
+				34813A071CE7783400417CD2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Rize;
+			productName = Rize;
+			productReference = 34813A091CE7783400417CD2 /* Rize.app */;
+			productType = "com.apple.product-type.application";
+		};
+		34813A1C1CE7783400417CD2 /* RizeTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 34813A341CE7783500417CD2 /* Build configuration list for PBXNativeTarget "RizeTests" */;
+			buildPhases = (
+				34813A191CE7783400417CD2 /* Sources */,
+				34813A1A1CE7783400417CD2 /* Frameworks */,
+				34813A1B1CE7783400417CD2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				34813A1F1CE7783400417CD2 /* PBXTargetDependency */,
+			);
+			name = RizeTests;
+			productName = RizeTests;
+			productReference = 34813A1D1CE7783400417CD2 /* RizeTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		34813A271CE7783500417CD2 /* RizeUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 34813A371CE7783500417CD2 /* Build configuration list for PBXNativeTarget "RizeUITests" */;
+			buildPhases = (
+				34813A241CE7783500417CD2 /* Sources */,
+				34813A251CE7783500417CD2 /* Frameworks */,
+				34813A261CE7783500417CD2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				34813A2A1CE7783500417CD2 /* PBXTargetDependency */,
+			);
+			name = RizeUITests;
+			productName = RizeUITests;
+			productReference = 34813A281CE7783500417CD2 /* RizeUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		34813A011CE7783400417CD2 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = Rize;
+				TargetAttributes = {
+					34813A081CE7783400417CD2 = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+					34813A1C1CE7783400417CD2 = {
+						CreatedOnToolsVersion = 7.3.1;
+						TestTargetID = 34813A081CE7783400417CD2;
+					};
+					34813A271CE7783500417CD2 = {
+						CreatedOnToolsVersion = 7.3.1;
+						TestTargetID = 34813A081CE7783400417CD2;
+					};
+				};
+			};
+			buildConfigurationList = 34813A041CE7783400417CD2 /* Build configuration list for PBXProject "Rize" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 34813A001CE7783400417CD2;
+			productRefGroup = 34813A0A1CE7783400417CD2 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				34813A081CE7783400417CD2 /* Rize */,
+				34813A1C1CE7783400417CD2 /* RizeTests */,
+				34813A271CE7783500417CD2 /* RizeUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		34813A071CE7783400417CD2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				34813A171CE7783400417CD2 /* LaunchScreen.storyboard in Resources */,
+				34813A141CE7783400417CD2 /* Assets.xcassets in Resources */,
+				34813A121CE7783400417CD2 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		34813A1B1CE7783400417CD2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		34813A261CE7783500417CD2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		34813A051CE7783400417CD2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				34813A0F1CE7783400417CD2 /* ViewController.swift in Sources */,
+				34813A0D1CE7783400417CD2 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		34813A191CE7783400417CD2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				34813A221CE7783400417CD2 /* RizeTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		34813A241CE7783500417CD2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				34813A2D1CE7783500417CD2 /* RizeUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		34813A1F1CE7783400417CD2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 34813A081CE7783400417CD2 /* Rize */;
+			targetProxy = 34813A1E1CE7783400417CD2 /* PBXContainerItemProxy */;
+		};
+		34813A2A1CE7783500417CD2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 34813A081CE7783400417CD2 /* Rize */;
+			targetProxy = 34813A291CE7783500417CD2 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		34813A101CE7783400417CD2 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				34813A111CE7783400417CD2 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		34813A151CE7783400417CD2 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				34813A161CE7783400417CD2 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		34813A2F1CE7783500417CD2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		34813A301CE7783500417CD2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		34813A321CE7783500417CD2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = Rize/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.rize.Rize;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		34813A331CE7783500417CD2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = Rize/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.rize.Rize;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		34813A351CE7783500417CD2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = RizeTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.rize.RizeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Rize.app/Rize";
+			};
+			name = Debug;
+		};
+		34813A361CE7783500417CD2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = RizeTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.rize.RizeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Rize.app/Rize";
+			};
+			name = Release;
+		};
+		34813A381CE7783500417CD2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = RizeUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.rize.RizeUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = Rize;
+			};
+			name = Debug;
+		};
+		34813A391CE7783500417CD2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = RizeUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.rize.RizeUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = Rize;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		34813A041CE7783400417CD2 /* Build configuration list for PBXProject "Rize" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				34813A2F1CE7783500417CD2 /* Debug */,
+				34813A301CE7783500417CD2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		34813A311CE7783500417CD2 /* Build configuration list for PBXNativeTarget "Rize" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				34813A321CE7783500417CD2 /* Debug */,
+				34813A331CE7783500417CD2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		34813A341CE7783500417CD2 /* Build configuration list for PBXNativeTarget "RizeTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				34813A351CE7783500417CD2 /* Debug */,
+				34813A361CE7783500417CD2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		34813A371CE7783500417CD2 /* Build configuration list for PBXNativeTarget "RizeUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				34813A381CE7783500417CD2 /* Debug */,
+				34813A391CE7783500417CD2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 34813A011CE7783400417CD2 /* Project object */;
+}
