@@ -1,0 +1,6 @@
+framework module Pods_Rize {
+  umbrella header "Pods-Rize-umbrella.h"
+
+  export *
+  module * { export * }
+}

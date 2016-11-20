@@ -1,0 +1,280 @@
+//
+//  RZCameraViewController.swift
+//  Rize
+//
+//  Created by Matthew Russell on 6/21/16.
+//  Copyright © 2016 Rize. All rights reserved.
+//
+
+import UIKit
+import AVFoundation
+import MobileCoreServices
+
+protocol RZCameraViewControllerDelegate: class {
+  func cameraViewDidFinish(_ sender: RZCameraViewController)
+}
+
+class RZCameraViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    var challenge : RZChallenge! // which challenge this capture is for
+    
+    var captureSession : AVCaptureSession?
+    
+    var backCaptureDevice : AVCaptureDevice?
+    var frontCaptureDevice : AVCaptureDevice?
+    var audioDevice : AVCaptureDevice?
+    
+    var previewLayer : AVCaptureVideoPreviewLayer?
+    
+    var avPlayer : AVPlayer?
+    var reviewLayer : AVPlayerLayer?
+    
+    var usingFrontCamera : Bool = true
+    var videoFileOutput : AVCaptureMovieFileOutput?
+    var outputFileUrl : URL?
+    
+    var hideBar : Bool = false
+    
+    weak var delegate : RZCameraViewControllerDelegate?
+    
+    @IBOutlet var progressBar: UIView?
+    @IBOutlet var dismissButton: UIButton?
+    @IBOutlet var closeButton: UIButton?
+    @IBOutlet var swapButton: UIButton?
+    @IBOutlet var rollButton: UIButton?
+    @IBOutlet var shutterButton: UIButton?
+    @IBOutlet var uploadButton: UIButton?
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        let devices = AVCaptureDevice.devices()
+        
+        // grab the front and back cameras
+        for device in devices!
+        {
+            if ((device as AnyObject).hasMediaType(AVMediaTypeVideo))
+            {
+                if ((device as AnyObject).position == AVCaptureDevicePosition.back)
+                {
+                    backCaptureDevice = device as? AVCaptureDevice
+                }
+                else if ((device as AnyObject).position == AVCaptureDevicePosition.front)
+                {
+                    frontCaptureDevice = device as? AVCaptureDevice
+                }
+            }
+        }
+        
+        // grab the audio device
+        audioDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeAudio)
+        
+        // make sure we have the devices before starting
+        if backCaptureDevice != nil && frontCaptureDevice != nil && audioDevice != nil
+        {
+            beginSession(usingFrontCamera)
+        }
+        
+        // Show the record UI first
+        showRecordUI()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        // hide the status bar
+        hideBar = true
+        UIView.animate(withDuration: 0.25, animations: {
+            self.setNeedsStatusBarAppearanceUpdate()
+        }) 
+        
+    }
+    
+    override var prefersStatusBarHidden : Bool {
+        return hideBar
+    }
+    
+    override var preferredStatusBarUpdateAnimation : UIStatusBarAnimation {
+        return .slide
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    // MARK: - Visibility setup
+    func showRecordUI() {
+        shutterButton?.isHidden = false
+        rollButton?.isHidden = false
+        swapButton?.isHidden = false
+        dismissButton?.isHidden = true
+        closeButton?.isHidden = false
+        uploadButton?.isHidden = true
+    }
+    
+    func showReviewUI() {
+        shutterButton?.isHidden = true
+        rollButton?.isHidden = true
+        swapButton?.isHidden = true
+        dismissButton?.isHidden = false
+        closeButton?.isHidden = true
+        uploadButton?.isHidden = false
+    }
+    
+    // MARK: - AV Session
+    
+    func beginSession(_ useFrontCamera: Bool)
+    {
+        do
+        {
+            captureSession?.stopRunning()
+            previewLayer?.removeFromSuperlayer()
+            reviewLayer?.removeFromSuperlayer()
+            captureSession = AVCaptureSession()
+            captureSession?.sessionPreset = AVCaptureSessionPresetMedium
+            usingFrontCamera = useFrontCamera
+            if useFrontCamera
+            {
+                try captureSession?.addInput(AVCaptureDeviceInput(device: frontCaptureDevice))
+            } else {
+                try captureSession?.addInput(AVCaptureDeviceInput(device: backCaptureDevice))
+            }
+            try captureSession?.addInput(AVCaptureDeviceInput(device: audioDevice))
+            self.videoFileOutput = AVCaptureMovieFileOutput()
+            self.captureSession?.addOutput(self.videoFileOutput)
+            let maxDuration: CMTime = CMTimeMakeWithSeconds(6, 1)
+            self.videoFileOutput?.maxRecordedDuration = maxDuration
+            
+            
+            previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+            previewLayer?.frame = self.view.bounds
+            previewLayer?.videoGravity = AVLayerVideoGravityResizeAspectFill
+            self.view.layer.insertSublayer(previewLayer!, at: 0)
+            captureSession?.startRunning()
+        } catch { }
+    }
+    
+    @IBAction func done()
+    {
+        self.delegate?.cameraViewDidFinish(self)
+    }
+    
+    @IBAction func dismissReview()
+    {
+        showRecordUI()
+        self.beginSession(self.usingFrontCamera)
+    }
+    
+    @IBAction func upload()
+    {
+        RZStorage.sharedInstance().uploadVideo(self.outputFileUrl!, forChallenge: challenge.id)
+        done()
+    }
+    
+    // MARK: Camera Roll Functions
+    @IBAction func openCameraRoll()
+    {
+        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+            let imagePicker = UIImagePickerController()
+            imagePicker.allowsEditing = true
+            imagePicker.sourceType = .photoLibrary
+            imagePicker.delegate = self
+            imagePicker.mediaTypes = [kUTTypeMovie as String]
+            imagePicker.videoMaximumDuration = 6.0
+            self.present(imagePicker, animated: true, completion: nil)
+        }
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        self.dismiss(animated: true, completion: nil)
+
+        showReviewUI() // load the other ui buttons
+        self.captureSession?.stopRunning()
+        self.progressBar?.layer.removeAllAnimations()
+        previewLayer?.removeFromSuperlayer() // remove the preview layer
+        // display the review
+        self.avPlayer = AVPlayer(url: info[UIImagePickerControllerMediaURL] as! URL)
+        self.reviewLayer = AVPlayerLayer(player: self.avPlayer)
+        self.avPlayer?.actionAtItemEnd = AVPlayerActionAtItemEnd.none
+        NotificationCenter.default.addObserver(self, selector: #selector(restartVideo), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: self.avPlayer?.currentItem)
+        self.reviewLayer?.frame = self.view.bounds
+        self.view.layer.insertSublayer(self.reviewLayer!, at: 0)
+        self.reviewLayer?.videoGravity = AVLayerVideoGravityResizeAspectFill
+        self.avPlayer?.play()
+        
+        self.outputFileUrl = info[UIImagePickerControllerMediaURL] as? URL
+
+
+    }
+    
+    // MARK: Camera Functions
+    
+    @IBAction func flipCamera()
+    {
+        usingFrontCamera = !usingFrontCamera
+        beginSession(usingFrontCamera)
+    }
+    
+    @IBAction func startRecording()
+    {
+        if self.captureSession!.isRunning {
+            let outputUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("video.mp4")
+            do {
+                try FileManager.default.removeItem(at: outputUrl)
+            } catch {
+                print("Error")
+            }
+            self.videoFileOutput?.startRecording(toOutputFileURL: outputUrl, recordingDelegate: self)
+            // animate the progress bar
+            self.progressBar?.isHidden = false
+            self.progressBar?.frame = CGRect(x: 0, y: 0, width: 0, height: 10)
+            UIView.animate(withDuration: 6.0, delay: 0, options: .curveLinear, animations: { () in
+                self.progressBar?.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 10)
+            }) { (completed) in
+                self.progressBar?.isHidden = true
+            }
+
+        }
+    }
+    
+    @IBAction func stopRecording()
+    {
+        self.videoFileOutput?.stopRecording()
+    }
+    
+    // MARK: Capture Delegate
+    
+    func capture(_ captureOutput: AVCaptureFileOutput!, didFinishRecordingToOutputFileAt outputURL: URL!, fromConnections connections: [Any]!, error: Error!) {
+        // finished recording the video
+        showReviewUI() // load the other ui buttons
+        self.captureSession?.stopRunning()
+        self.progressBar?.layer.removeAllAnimations()
+        previewLayer?.removeFromSuperlayer() // remove the preview layer
+        
+        // display the review
+        self.avPlayer = AVPlayer(url: outputURL)
+        self.reviewLayer = AVPlayerLayer(player: self.avPlayer)
+        self.avPlayer?.actionAtItemEnd = AVPlayerActionAtItemEnd.none
+        NotificationCenter.default.addObserver(self, selector: #selector(restartVideo), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: self.avPlayer?.currentItem)
+        self.reviewLayer?.frame = self.view.bounds
+        self.view.layer.insertSublayer(self.reviewLayer!, at: 0)
+        self.reviewLayer?.videoGravity = AVLayerVideoGravityResizeAspectFill
+        self.avPlayer?.play()
+        
+        self.outputFileUrl = outputURL
+    }
+    
+    func restartVideo(_ notification: Notification) {
+        self.avPlayer?.seek(to: kCMTimeZero)
+    }
+
+    /*
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+    }
+    */
+
+}

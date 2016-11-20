@@ -1,0 +1,6 @@
+framework module Pods_RizeTests {
+  umbrella header "Pods-RizeTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
