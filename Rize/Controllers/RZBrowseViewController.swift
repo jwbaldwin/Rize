@@ -56,9 +56,9 @@ class RZBrowseViewController: UIViewController, UICollectionViewDelegateFlowLayo
         
         // Try to login the user
         if (FBSDKAccessToken.current() == nil) {
-            //showLogin()
+            showLogin()
         }
-        
+                
         locationManager.delegate = self
         
         RZDatabase.sharedInstance().delegate = self

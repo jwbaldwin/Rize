@@ -21,10 +21,7 @@ class RZDatabase: NSObject {
     fileprivate var _location : String?                 // this user's location
     fileprivate var _challenges : [RZChallenge]?        // challenges
     var delegate : RZDatabaseDelegate?
-    
-    // track load status
-    fileprivate var _likesLoaded = false
-    fileprivate var _challengesLoaded = false
+
 
     static func sharedInstance() -> RZDatabase {
         // check if the instance needs to be created
@@ -41,18 +38,7 @@ class RZDatabase: NSObject {
         firebaseRef = FIRDatabase.database().reference()
     }
     
-    fileprivate func _checkIfDataLoaded() {
-        if (self._likesLoaded && self._challengesLoaded)
-        {
-            self.delegate?.databaseDidFinishLoading(self)
-        }
-    }
-    
     func refresh() {
-        // reset loaded flags
-        self._challengesLoaded = false
-        self._likesLoaded = false
-        
         // load challenge data
         self.firebaseRef?.child("challenges").observe(.value, with: { (snapshot) in
             let snap = snapshot
@@ -64,22 +50,23 @@ class RZDatabase: NSObject {
                 
                 // add the challenge to the list
                 self._challenges!.append(challenge)
-                self._challengesLoaded = true
-                self._checkIfDataLoaded()
             }
+            self.delegate?.databaseDidFinishLoading(self)
         })
         
-        if (FIRAuth.auth()!.currentUser != nil)
+        // get likes
+        let userLikesRef = self.firebaseRef?.child("users/\(FIRAuth.auth()!.currentUser!.uid)/likes")
+        if (userLikesRef != nil)
         {
             // load user likes
-            self.firebaseRef?.child("users/\(FIRAuth.auth()!.currentUser!.uid)/likes").observeSingleEvent(of: .value, with: { (snapshot) in
+            userLikesRef?.observeSingleEvent(of: .value, with: { (snapshot) in
                 if (snapshot.hasChildren()) {
                     self._likes = snapshot.value as! [String]
+                    self.delegate?.databaseDidFinishLoading(self)
                 }
-                self._likesLoaded = true
-                self._checkIfDataLoaded()
             })
         }
+        
     }
     
     func pushLikes() {
