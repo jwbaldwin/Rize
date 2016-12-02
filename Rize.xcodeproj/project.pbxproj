@@ -34,7 +34,6 @@
 		34CB5F701D1A124B00B0E95B /* RZCameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34CB5F6F1D1A124B00B0E95B /* RZCameraViewController.swift */; };
 		34DC55AE1CFE6D5D00359C44 /* RZChallengeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34DC55AD1CFE6D5D00359C44 /* RZChallengeCollectionViewCell.swift */; };
 		34DE791E1D5E14E100803148 /* RZLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34DE791D1D5E14E100803148 /* RZLoginViewController.swift */; };
-		34F04C721D3EE30700F26E97 /* RZBrowseCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F04C711D3EE30700F26E97 /* RZBrowseCollectionViewLayout.swift */; };
 		37AEC37F429E0387E91D9FC8 /* Pods_Rize.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D10661D745FC4162B6F1E84 /* Pods_Rize.framework */; };
 		48ECB7F64AF42F69C000141E /* Pods_RizeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2214942F74CB0BBFD869C154 /* Pods_RizeTests.framework */; };
 /* End PBXBuildFile section */
@@ -108,7 +107,6 @@
 		34CB5F6F1D1A124B00B0E95B /* RZCameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RZCameraViewController.swift; sourceTree = "<group>"; };
 		34DC55AD1CFE6D5D00359C44 /* RZChallengeCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RZChallengeCollectionViewCell.swift; sourceTree = "<group>"; };
 		34DE791D1D5E14E100803148 /* RZLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RZLoginViewController.swift; sourceTree = "<group>"; };
-		34F04C711D3EE30700F26E97 /* RZBrowseCollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RZBrowseCollectionViewLayout.swift; sourceTree = "<group>"; };
 		9565951270174C9FAB6A3EAB /* Pods-RizeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RizeUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-RizeUITests/Pods-RizeUITests.release.xcconfig"; sourceTree = "<group>"; };
 		A192DE98B4C47ED8F4322BE3 /* Pods-RizeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RizeTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RizeTests/Pods-RizeTests.debug.xcconfig"; sourceTree = "<group>"; };
 		C502535F03F4CCB9E3312FEE /* Pods-RizeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RizeTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-RizeTests/Pods-RizeTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -252,7 +250,6 @@
 			children = (
 				34DC55AD1CFE6D5D00359C44 /* RZChallengeCollectionViewCell.swift */,
 				3447A1321D01204C00AAB490 /* RZChallengeHeaderView.swift */,
-				34F04C711D3EE30700F26E97 /* RZBrowseCollectionViewLayout.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -569,7 +566,6 @@
 				345B93B91CF7D4BA00456D84 /* RZChallenge.swift in Sources */,
 				348CBA4C1D80ADD7003678F7 /* RZStorage.swift in Sources */,
 				34DE791E1D5E14E100803148 /* RZLoginViewController.swift in Sources */,
-				34F04C721D3EE30700F26E97 /* RZBrowseCollectionViewLayout.swift in Sources */,
 				3478F0401D61197100113EB1 /* RZDatabase.swift in Sources */,
 				344429951D28447100F44401 /* RZUser.swift in Sources */,
 				343D51E11D329B5800E8741E /* RZSettingsTableViewController.swift in Sources */,

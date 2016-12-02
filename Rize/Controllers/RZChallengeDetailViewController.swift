@@ -13,8 +13,9 @@ import FirebaseDatabase
 
 class RZChallengeDetailViewController: UIViewController, UIScrollViewDelegate, RZCameraViewControllerDelegate {
     var challenge : RZChallenge!
-    @IBOutlet var headerView : RZChallengeHeaderView!
-    @IBOutlet var headerHeightConstraint : NSLayoutConstraint!
+    @IBOutlet var imageView : UIImageView!
+    @IBOutlet var daysLabel : UILabel!
+    @IBOutlet var timeLabel : UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,8 +24,6 @@ class RZChallengeDetailViewController: UIViewController, UIScrollViewDelegate, R
         if (self.challenge != nil) {
             // Update the title
             self.title = self.challenge.title.uppercased()
-            self.headerView.challenge = self.challenge
-            self.headerView.navBarHeight = 0
         }
         let favButton = UIBarButtonItem(image: UIImage(named: "heart"), style: .plain, target: self, action: #selector(toggleFavorite))
         if (RZDatabase.sharedInstance().isLiked(self.challenge.id)) {
@@ -32,10 +31,29 @@ class RZChallengeDetailViewController: UIViewController, UIScrollViewDelegate, R
         }
         self.navigationItem.setRightBarButtonItems([favButton], animated: true)
         
-        // setup the header view
-        self.headerView.maxHeight = self.view.frame.height * 0.3;
-        self.headerView.minHeight = self.view.frame.height * 0.2;
-        self.headerHeightConstraint.constant = self.headerView.maxHeight + self.headerView.navBarHeight;
+        // Update the view components for the new challenge
+        if (self.imageView != nil)
+        {
+            // set up the image view as a circle
+            self.imageView.contentMode = .scaleAspectFill
+            self.imageView.clipsToBounds = true
+            ImageLoader.setImageViewImage(self.challenge.imageUrl, view: self.imageView)
+        }
+        
+        let calendar = Calendar(identifier: Calendar.Identifier.gregorian)
+        var comps = (calendar as NSCalendar?)?.components(.day, from: Date(), to:             Date(timeIntervalSince1970: Double(challenge.endDate)), options: NSCalendar.Options())
+        let days = comps!.day
+        comps = (calendar as NSCalendar?)?.components(.hour, from: Date(), to:             Date(timeIntervalSince1970: Double(challenge.endDate)), options: NSCalendar.Options())
+        let hours = comps!.hour! - days! * 24
+        daysLabel.text = String(format: "%02d", days!)
+        timeLabel.text = String(format: "%02d", hours)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        // make the image view a circle
+        self.imageView.layer.cornerRadius = self.imageView.frame.width / 2
     }
     
     func toggleFavorite()

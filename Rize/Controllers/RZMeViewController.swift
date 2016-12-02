@@ -12,23 +12,11 @@ import Firebase
 class RZMeViewController: UIViewController {
     @IBOutlet var profileImageView : UIImageView!
     @IBOutlet var activityIndicator : UIActivityIndicatorView!
-    @IBOutlet var headerView : UIView!
     @IBOutlet var profileViewHeightConstraint : NSLayoutConstraint!
     var userId : String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.headerView.translatesAutoresizingMaskIntoConstraints = true
-        self.profileImageView.translatesAutoresizingMaskIntoConstraints = true
-        
-        let profileImageWidth = self.view.frame.width*0.25
-        self.headerView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: profileImageWidth + 134)
-        self.profileImageView.frame = CGRect(x: self.view.frame.width/2 - profileImageWidth/2, y: 84, width: profileImageWidth, height: profileImageWidth)
-        
-        self.profileImageView.contentMode = .scaleAspectFill
-        self.profileImageView.layer.cornerRadius = self.profileImageView.frame.width / 2
-        self.profileImageView.clipsToBounds = true
         
         loadUserInfo();
 
@@ -45,15 +33,6 @@ class RZMeViewController: UIViewController {
         if (FIRAuth.auth()?.currentUser != nil)
         {
             self.userId = FIRAuth.auth()?.currentUser!.uid
-            if (FIRAuth.auth()?.currentUser?.photoURL != nil)
-            {
-                ImageLoader.downloadImageFromURL((FIRAuth.auth()?.currentUser?.photoURL?.absoluteString)!) { (image: UIImage) -> Void in
-                    self.activityIndicator.stopAnimating()
-                    UIView.transition(with: self.profileImageView, duration: 0.5, options: UIViewAnimationOptions.transitionCrossDissolve, animations: {
-                        self.profileImageView.image = image
-                    }, completion: nil)
-                }
-            }
         }
     }
 

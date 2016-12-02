@@ -14,13 +14,13 @@ class RZLoginViewController: UIViewController, UIScrollViewDelegate {
 
     @IBOutlet var pageControl   : UIPageControl!
     @IBOutlet var scrollView    : UIScrollView!
+    @IBOutlet var loginButton   : FBSDKLoginButton!
     weak var delegate : FBSDKLoginButtonDelegate?
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let loginButton = FBSDKLoginButton()
-        loginButton.center = self.view.center
-        loginButton.delegate = delegate
+        self.loginButton.delegate = delegate
         self.view.addSubview(loginButton)
     }
     

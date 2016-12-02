@@ -57,6 +57,8 @@ class RZBrowseViewController: UIViewController, UICollectionViewDelegateFlowLayo
         // Try to login the user
         if (FBSDKAccessToken.current() == nil) {
             showLogin()
+        } else {
+            self.loginWithCurrentFacebookToken()
         }
                 
         locationManager.delegate = self
@@ -82,28 +84,32 @@ class RZBrowseViewController: UIViewController, UICollectionViewDelegateFlowLayo
         if (error == nil)
         {
             // Authenticate Firebase via Facebook
-            let credential = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
-            FIRAuth.auth()?.signIn(with: credential) { (user, error) in
-                // Signed in! Awesome!
-                if (error == nil) {
-                    // Dismiss the modal view if we sign in with the other view controller
-                    self.dismiss(animated: true, completion: nil)
-                    self.setupData()
-                }
-            }
-            self.tabBarController?.selectedIndex = 0
-            self.navigationController?.popToRootViewController(animated: false)
+            self.loginWithCurrentFacebookToken()
         }
         else
         {
             // Error: not logged in
             // Show the login controller
-            showLogin()
+            print(error)
         }
     }
     
     public func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
         // do nothing
+    }
+    
+    public func loginWithCurrentFacebookToken() {
+        let credential = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
+        FIRAuth.auth()?.signIn(with: credential) { (user, error) in
+            // Signed in! Awesome!
+            if (error == nil) {
+                // Dismiss the modal view if we sign in with the other view controller
+                self.dismiss(animated: true, completion: nil)
+                self.setupData()
+            }
+        }
+        self.tabBarController?.selectedIndex = 0
+        self.navigationController?.popToRootViewController(animated: false)
     }
     
     // MARK: - Data setup

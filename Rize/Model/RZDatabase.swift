@@ -56,16 +56,15 @@ class RZDatabase: NSObject {
         
         // get likes
         let userLikesRef = self.firebaseRef?.child("users/\(FIRAuth.auth()!.currentUser!.uid)/likes")
-        if (userLikesRef != nil)
-        {
-            // load user likes
-            userLikesRef?.observeSingleEvent(of: .value, with: { (snapshot) in
-                if (snapshot.hasChildren()) {
-                    self._likes = snapshot.value as! [String]
-                    self.delegate?.databaseDidFinishLoading(self)
-                }
-            })
-        }
+        print("users/\(FIRAuth.auth()!.currentUser!.uid)/likes")
+        // load user likes
+        userLikesRef?.observeSingleEvent(of: .value, with: { (snapshot) in
+            print("We done got likes")
+            if (snapshot.hasChildren()) {
+                self._likes = snapshot.value as! [String]
+                self.delegate?.databaseDidFinishLoading(self)
+            }
+        })
         
     }
     

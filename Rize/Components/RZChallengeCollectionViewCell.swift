@@ -58,8 +58,6 @@ class RZChallengeCollectionViewCell: UICollectionViewCell {
             self.likeImageView.image = nil
         }
     }
-    
-    // MARK: Load Image Helper
-    
+        
     
 }

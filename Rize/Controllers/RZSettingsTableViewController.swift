@@ -25,11 +25,7 @@ class RZSettingsTableViewController: UITableViewController {
         var frame = self.view.frame
         print("\(frame)")
         frame.size.height -= self.tabBarController!.tabBar.frame.size.height
-        UIGraphicsBeginImageContext(self.view.frame.size)
-        UIImage(named: "wallpaper")!.draw(in: frame)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        self.navigationController?.view.backgroundColor = UIColor(patternImage: image!)
+        self.view.backgroundColor = UIColor(white: 0.95, alpha: 1.0)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -127,6 +123,7 @@ class RZSettingsTableViewController: UITableViewController {
         {
             // Logged out. Show the login screen
             try! FIRAuth.auth()!.signOut()
+            FBSDKLoginManager().logOut()
             let loginController = self.storyboard!.instantiateViewController(withIdentifier: "LoginViewController")
             self.present(loginController, animated: true, completion: nil)
         }
