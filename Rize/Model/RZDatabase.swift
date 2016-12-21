@@ -138,9 +138,13 @@ class RZDatabase: NSObject {
         firebaseRef!.child("users/\(FIRAuth.auth()!.currentUser!.uid)/submissions/\(challengeId)").setValue(submission)
     }
     
+    func submissions() -> [RZSubmission]?
+    {
+        return self._submissions
+    }
+    
     func getSubmission(_ challengeId : String) -> RZSubmission?
     {
-        print(self._submissions)
         if (self._submissions != nil) {
             for submission in self._submissions!
             {

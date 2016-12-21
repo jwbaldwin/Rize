@@ -24,7 +24,7 @@ class ArrowBaseShape: CAShapeLayer {
     }
 
     var finalBasePath : UIBezierPath {
-        var finalPath = UIBezierPath()
+        let finalPath = UIBezierPath()
         finalPath.move(to: CGPoint(x: self.frame.width/2, y: self.frame.height))
         finalPath.addLine(to: CGPoint(x: self.frame.width/2, y: 0))
         finalPath.stroke()

@@ -157,7 +157,7 @@ class RZBrowseViewController: UIViewController, UICollectionViewDelegateFlowLayo
     
     // MARK: - Location Delegate
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        // 
+        // location stuff
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {

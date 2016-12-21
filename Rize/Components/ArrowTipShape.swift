@@ -25,7 +25,7 @@ class ArrowTipShape: CAShapeLayer {
     }
 
     var finalTipPath : UIBezierPath {
-        var tipPath = UIBezierPath()
+        let tipPath = UIBezierPath()
         tipPath.move(to: CGPoint(x: 0, y: self.frame.height))
         tipPath.addLine(to: CGPoint(x: self.frame.width/2, y: 0))
         tipPath.addLine(to: CGPoint(x: self.frame.width, y: self.frame.height))

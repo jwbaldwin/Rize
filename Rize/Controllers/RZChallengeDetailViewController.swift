@@ -52,7 +52,7 @@ class RZChallengeDetailViewController: UIViewController, UIScrollViewDelegate, R
         updateClock()
 
         // setup the timer
-        let timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateClock), userInfo: nil, repeats: true)
+        Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateClock), userInfo: nil, repeats: true)
     }
     
     override func viewDidLayoutSubviews() {

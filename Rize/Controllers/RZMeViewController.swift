@@ -9,16 +9,14 @@
 import UIKit
 import Firebase
 
-class RZMeViewController: UIViewController {
-    @IBOutlet var profileImageView : UIImageView!
-    @IBOutlet var activityIndicator : UIActivityIndicatorView!
-    @IBOutlet var profileViewHeightConstraint : NSLayoutConstraint!
+class RZMeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     var userId : String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         loadUserInfo();
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         if (FIRAuth.auth()?.currentUser != nil && FIRAuth.auth()?.currentUser!.uid != self.userId)
         {
@@ -64,5 +62,25 @@ class RZMeViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    // MARK: - Table View data source/delegate
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return (RZDatabase.sharedInstance().submissions()?.count)!
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell")
+        cell?.textLabel?.text = RZDatabase.sharedInstance().submissions()?[indexPath.row].challenge_id
+        cell?.accessoryType = .disclosureIndicator
+        return cell!
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
 
 }
