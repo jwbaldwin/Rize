@@ -19,6 +19,7 @@ class RZDatabase: NSObject {
     fileprivate var firebaseRef : FIRDatabaseReference? // Firebase database reference
     fileprivate var _likes : [String]?                  // list of this user's likes
     fileprivate var _challenges : [RZChallenge]?        // challenges
+    fileprivate var _submissions : [RZSubmission]?      // user submissions
     var delegate : RZDatabaseDelegate?
 
 
@@ -38,6 +39,27 @@ class RZDatabase: NSObject {
     }
     
     func refresh() {
+        // get submissions
+        self.firebaseRef?.child("users/\(FIRAuth.auth()!.currentUser!.uid)/submissions").observe(.value, with: { (snapshot) in
+            self._submissions = []
+            for child in snapshot.children {
+                // create the challenge object
+                let item = (child as! FIRDataSnapshot).value as! [ String : AnyObject ]
+                let submission = RZSubmission()
+                submission.challenge_id = item["challenge_id"] as? String
+                submission.facebook = ((item["facebook"] as? String) == "true")
+                submission.fb_id = item["fb_id"] as? String
+                submission.approved = ((item["approved"] as? String) == "true")
+                submission.redeemed = ((item["redeemed"] as? String) == "true")
+                submission.views = item["views"] as? Int
+                submission.likes = item["likes"] as? Int
+                submission.shares = item["shares"] as? Int
+                submission.points = item["points"] as? Int
+                submission.friends = item["friends"] as? Int
+                self._submissions?.append(submission)
+            }
+        })
+        
         // load challenge data
         self.firebaseRef?.child("challenges").observe(.value, with: { (snapshot) in
             let snap = snapshot
@@ -57,13 +79,16 @@ class RZDatabase: NSObject {
         let userLikesRef = self.firebaseRef?.child("users/\(FIRAuth.auth()!.currentUser!.uid)/likes")
         print("users/\(FIRAuth.auth()!.currentUser!.uid)/likes")
         // load user likes
-        userLikesRef?.observeSingleEvent(of: .value, with: { (snapshot) in
-            print("We done got likes")
+        userLikesRef?.observe(.value, with: { (snapshot) in
+            print("Retrieved likes")
             if (snapshot.hasChildren()) {
                 self._likes = snapshot.value as! [String]
                 self.delegate?.databaseDidFinishLoading(self)
             }
+            self.delegate?.databaseDidFinishLoading(self)
         })
+        
+        
         
     }
     
@@ -102,7 +127,6 @@ class RZDatabase: NSObject {
         return false
     }
     
-    
     // MARK: - Challenges
     func challenges() -> [RZChallenge]? {
         return _challenges
@@ -112,6 +136,20 @@ class RZDatabase: NSObject {
     func pushSubmission(_ challengeId: String, submission: [String : String])
     {
         firebaseRef!.child("users/\(FIRAuth.auth()!.currentUser!.uid)/submissions/\(challengeId)").setValue(submission)
+    }
+    
+    func getSubmission(_ challengeId : String) -> RZSubmission?
+    {
+        print(self._submissions)
+        if (self._submissions != nil) {
+            for submission in self._submissions!
+            {
+                if submission.challenge_id == challengeId {
+                    return submission
+                }
+            }
+        }
+        return nil
     }
     
     // MARK: - Utility

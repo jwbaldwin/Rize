@@ -16,6 +16,7 @@ class RZChallengeDetailViewController: UIViewController, UIScrollViewDelegate, R
     @IBOutlet var imageView : UIImageView!
     @IBOutlet var daysLabel : UILabel!
     @IBOutlet var timeLabel : UILabel!
+    @IBOutlet var rizeButton : UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,12 +33,19 @@ class RZChallengeDetailViewController: UIViewController, UIScrollViewDelegate, R
         self.navigationItem.setRightBarButtonItems([favButton], animated: true)
         
         // Update the view components for the new challenge
-        if (self.imageView != nil)
-        {
-            // set up the image view as a circle
-            self.imageView.contentMode = .scaleAspectFill
-            self.imageView.clipsToBounds = true
-            ImageLoader.setImageViewImage(self.challenge.imageUrl, view: self.imageView)
+        // set up the image view as a circle
+        self.imageView.contentMode = .scaleAspectFill
+        self.imageView.clipsToBounds = true
+        ImageLoader.setImageViewImage(self.challenge.imageUrl, view: self.imageView)
+        
+        // disable the rize button if the user has already uploaded a submission
+        if (RZDatabase.sharedInstance().getSubmission(self.challenge.id) != nil) {
+            // challenge submission already exists
+            self.rizeButton.isEnabled = false
+            self.rizeButton.isHidden = true 
+        } else {
+            self.rizeButton.isEnabled = true
+            self.rizeButton.isHidden = false
         }
         
         // initial clock setup

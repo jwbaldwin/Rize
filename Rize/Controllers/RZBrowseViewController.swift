@@ -110,7 +110,6 @@ class RZBrowseViewController: UIViewController, UICollectionViewDelegateFlowLayo
         }
         self.tabBarController?.selectedIndex = 0
         self.navigationController?.popToRootViewController(animated: false)
-        
     }
     
     // MARK: - Data setup

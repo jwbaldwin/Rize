@@ -22,6 +22,10 @@ class RZUploadAlertViewController: UIViewController, CAAnimationDelegate {
     let ARC_PERIOD = 0.8
     let ARROW_GROW_TIME = 0.3
     let PAUSE_BEFORE_DISMISS = 1.0
+    let TIP_HEIGHT : CGFloat = 30.0
+    let TIP_WIDTH : CGFloat = 60.0
+    let BASE_HEIGHT : CGFloat = 70.0
+    let TOTAL_HEIGHT : CGFloat = 100.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,12 +41,12 @@ class RZUploadAlertViewController: UIViewController, CAAnimationDelegate {
         self.view.addSubview(contentView!)
         
         // add the grayed out arrow
-        let grayArrowBaseLayer = ArrowBaseShape(frame: CGRect(x: self.contentView!.frame.size.width/2 - 75/2, y: self.contentView!.frame.size.height/2 - 100/2, width: 75, height: 100))
+        let grayArrowBaseLayer = ArrowBaseShape(frame: CGRect(x: self.contentView!.frame.size.width/2 - 60/2, y: self.contentView!.frame.size.height/2 - TOTAL_HEIGHT/2 + TIP_HEIGHT, width: TIP_WIDTH, height: BASE_HEIGHT))
         grayArrowBaseLayer.path = grayArrowBaseLayer.finalBasePath.cgPath
         grayArrowBaseLayer.strokeColor = UIColor(white: 0.85, alpha: 1.0).cgColor
         self.contentView!.layer.addSublayer(grayArrowBaseLayer)
         
-        let grayArrowTipLayer = ArrowTipShape(frame: CGRect(x: self.contentView!.frame.size.width/2 - 75/2, y: self.contentView!.frame.size.height/2 - 100/2, width: 75, height: 100))
+        let grayArrowTipLayer = ArrowTipShape(frame: CGRect(x: self.contentView!.frame.size.width/2 - TIP_WIDTH/2, y: self.contentView!.frame.size.height/2 - TOTAL_HEIGHT/2, width: TIP_WIDTH, height: TIP_HEIGHT))
         grayArrowTipLayer.path = grayArrowTipLayer.finalTipPath.cgPath
         grayArrowTipLayer.strokeColor = UIColor(white: 0.85, alpha: 1.0).cgColor
         self.contentView!.layer.addSublayer(grayArrowTipLayer)
@@ -96,7 +100,7 @@ class RZUploadAlertViewController: UIViewController, CAAnimationDelegate {
             shrinkAnim.delegate = self
             self.arcLayer?.add(shrinkAnim, forKey: "shrink")
             
-            arrowBaseLayer = ArrowBaseShape(frame: CGRect(x: self.contentView!.frame.size.width/2 - 75/2, y: self.contentView!.frame.size.height/2 - 100/2, width: 75, height: 125))
+            arrowBaseLayer = ArrowBaseShape(frame: CGRect(x: self.contentView!.frame.size.width/2 - 60/2, y: self.contentView!.frame.size.height/2 - TOTAL_HEIGHT/2 + TIP_HEIGHT, width: TIP_WIDTH, height: BASE_HEIGHT+(150-TOTAL_HEIGHT)/2))
             arrowBaseLayer?.path = arrowBaseLayer?.finalBasePath.cgPath
             self.contentView!.layer.addSublayer(arrowBaseLayer!)
             
@@ -112,7 +116,7 @@ class RZUploadAlertViewController: UIViewController, CAAnimationDelegate {
             arrowBaseLayer?.add(baseAnim, forKey: "strokeDraw")
             
         } else if (animId == "shrinkArc") {
-            arrowTipLayer = ArrowTipShape(frame: CGRect(x: self.contentView!.frame.size.width/2 - 75/2, y: self.contentView!.frame.size.height/2 - 100/2, width: 75, height: 100))
+            arrowTipLayer = ArrowTipShape(frame: CGRect(x: self.contentView!.frame.size.width/2 - 60/2, y: self.contentView!.frame.size.height/2 - TOTAL_HEIGHT/2, width: TIP_WIDTH, height: TIP_HEIGHT))
             arrowTipLayer?.path = arrowTipLayer?.finalTipPath.cgPath
             self.contentView!.layer.addSublayer(arrowTipLayer!)
             
@@ -140,7 +144,7 @@ class RZUploadAlertViewController: UIViewController, CAAnimationDelegate {
             let baseAnim = CABasicAnimation(keyPath: "strokeStart")
             baseAnim.duration = 0.1
             baseAnim.fromValue = 0
-            baseAnim.toValue = 0.2
+            baseAnim.toValue = ((150 - TOTAL_HEIGHT)/2) / (BASE_HEIGHT + (150 - TOTAL_HEIGHT)/2)
             baseAnim.fillMode = kCAFillModeForwards
             baseAnim.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
             baseAnim.isRemovedOnCompletion = false
