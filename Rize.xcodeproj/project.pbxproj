@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		1CBA6AAF4F762A9C1B871EC3 /* Pods_RizeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1332FA95016A53F6ADCB355B /* Pods_RizeUITests.framework */; };
+		343910C41E0AD05E003DA86D /* ArrowBaseShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343910C31E0AD05E003DA86D /* ArrowBaseShape.swift */; };
+		343910C61E0AD071003DA86D /* ArrowTipShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343910C51E0AD071003DA86D /* ArrowTipShape.swift */; };
 		343D51E11D329B5800E8741E /* RZSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343D51E01D329B5800E8741E /* RZSettingsTableViewController.swift */; };
 		344429931D2821EA00F44401 /* RZMeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344429921D2821EA00F44401 /* RZMeViewController.swift */; };
 		344429951D28447100F44401 /* RZUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344429941D28447100F44401 /* RZUser.swift */; };
@@ -34,6 +36,8 @@
 		34CB5F701D1A124B00B0E95B /* RZCameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34CB5F6F1D1A124B00B0E95B /* RZCameraViewController.swift */; };
 		34DC55AE1CFE6D5D00359C44 /* RZChallengeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34DC55AD1CFE6D5D00359C44 /* RZChallengeCollectionViewCell.swift */; };
 		34DE791E1D5E14E100803148 /* RZLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34DE791D1D5E14E100803148 /* RZLoginViewController.swift */; };
+		34E00F2F1E09AE2E00542A06 /* RZUploadAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E00F2E1E09AE2E00542A06 /* RZUploadAlertViewController.swift */; };
+		34E00F311E09C43100542A06 /* LoadingArcShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E00F301E09C43100542A06 /* LoadingArcShape.swift */; };
 		37AEC37F429E0387E91D9FC8 /* Pods_Rize.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D10661D745FC4162B6F1E84 /* Pods_Rize.framework */; };
 		48ECB7F64AF42F69C000141E /* Pods_RizeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2214942F74CB0BBFD869C154 /* Pods_RizeTests.framework */; };
 /* End PBXBuildFile section */
@@ -73,6 +77,8 @@
 		0D10661D745FC4162B6F1E84 /* Pods_Rize.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Rize.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1332FA95016A53F6ADCB355B /* Pods_RizeUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RizeUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2214942F74CB0BBFD869C154 /* Pods_RizeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RizeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		343910C31E0AD05E003DA86D /* ArrowBaseShape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrowBaseShape.swift; sourceTree = "<group>"; };
+		343910C51E0AD071003DA86D /* ArrowTipShape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrowTipShape.swift; sourceTree = "<group>"; };
 		343D51E01D329B5800E8741E /* RZSettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RZSettingsTableViewController.swift; sourceTree = "<group>"; };
 		344429921D2821EA00F44401 /* RZMeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RZMeViewController.swift; sourceTree = "<group>"; };
 		344429941D28447100F44401 /* RZUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RZUser.swift; sourceTree = "<group>"; };
@@ -107,6 +113,8 @@
 		34CB5F6F1D1A124B00B0E95B /* RZCameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RZCameraViewController.swift; sourceTree = "<group>"; };
 		34DC55AD1CFE6D5D00359C44 /* RZChallengeCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RZChallengeCollectionViewCell.swift; sourceTree = "<group>"; };
 		34DE791D1D5E14E100803148 /* RZLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RZLoginViewController.swift; sourceTree = "<group>"; };
+		34E00F2E1E09AE2E00542A06 /* RZUploadAlertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RZUploadAlertViewController.swift; sourceTree = "<group>"; };
+		34E00F301E09C43100542A06 /* LoadingArcShape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoadingArcShape.swift; path = Rize/Components/LoadingArcShape.swift; sourceTree = SOURCE_ROOT; };
 		9565951270174C9FAB6A3EAB /* Pods-RizeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RizeUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-RizeUITests/Pods-RizeUITests.release.xcconfig"; sourceTree = "<group>"; };
 		A192DE98B4C47ED8F4322BE3 /* Pods-RizeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RizeTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RizeTests/Pods-RizeTests.debug.xcconfig"; sourceTree = "<group>"; };
 		C502535F03F4CCB9E3312FEE /* Pods-RizeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RizeTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-RizeTests/Pods-RizeTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -170,6 +178,7 @@
 				344429921D2821EA00F44401 /* RZMeViewController.swift */,
 				343D51E01D329B5800E8741E /* RZSettingsTableViewController.swift */,
 				34DE791D1D5E14E100803148 /* RZLoginViewController.swift */,
+				34E00F2E1E09AE2E00542A06 /* RZUploadAlertViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -250,6 +259,9 @@
 			children = (
 				34DC55AD1CFE6D5D00359C44 /* RZChallengeCollectionViewCell.swift */,
 				3447A1321D01204C00AAB490 /* RZChallengeHeaderView.swift */,
+				34E00F301E09C43100542A06 /* LoadingArcShape.swift */,
+				343910C31E0AD05E003DA86D /* ArrowBaseShape.swift */,
+				343910C51E0AD071003DA86D /* ArrowTipShape.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -557,10 +569,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				3447A1351D01227800AAB490 /* ImageLoader.swift in Sources */,
+				343910C41E0AD05E003DA86D /* ArrowBaseShape.swift in Sources */,
 				34DC55AE1CFE6D5D00359C44 /* RZChallengeCollectionViewCell.swift in Sources */,
+				343910C61E0AD071003DA86D /* ArrowTipShape.swift in Sources */,
 				34813A0D1CE7783400417CD2 /* AppDelegate.swift in Sources */,
 				3483D0DD1CF6710B00832BE4 /* RZBrowseViewController.swift in Sources */,
 				34CB5F701D1A124B00B0E95B /* RZCameraViewController.swift in Sources */,
+				34E00F311E09C43100542A06 /* LoadingArcShape.swift in Sources */,
+				34E00F2F1E09AE2E00542A06 /* RZUploadAlertViewController.swift in Sources */,
 				344429931D2821EA00F44401 /* RZMeViewController.swift in Sources */,
 				3447A12E1D01117B00AAB490 /* RZChallengeDetailViewController.swift in Sources */,
 				345B93B91CF7D4BA00456D84 /* RZChallenge.swift in Sources */,

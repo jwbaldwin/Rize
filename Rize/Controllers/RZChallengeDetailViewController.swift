@@ -40,13 +40,11 @@ class RZChallengeDetailViewController: UIViewController, UIScrollViewDelegate, R
             ImageLoader.setImageViewImage(self.challenge.imageUrl, view: self.imageView)
         }
         
-        let calendar = Calendar(identifier: Calendar.Identifier.gregorian)
-        var comps = (calendar as NSCalendar?)?.components(.day, from: Date(), to:             Date(timeIntervalSince1970: Double(challenge.endDate)), options: NSCalendar.Options())
-        let days = comps!.day
-        comps = (calendar as NSCalendar?)?.components(.hour, from: Date(), to:             Date(timeIntervalSince1970: Double(challenge.endDate)), options: NSCalendar.Options())
-        let hours = comps!.hour! - days! * 24
-        daysLabel.text = String(format: "%02d", days!)
-        timeLabel.text = String(format: "%02d", hours)
+        // initial clock setup
+        updateClock()
+
+        // setup the timer
+        let timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateClock), userInfo: nil, repeats: true)
     }
     
     override func viewDidLayoutSubviews() {
@@ -54,6 +52,13 @@ class RZChallengeDetailViewController: UIViewController, UIScrollViewDelegate, R
         
         // make the image view a circle
         self.imageView.layer.cornerRadius = self.imageView.frame.width / 2
+    }
+    
+    func updateClock()
+    {
+        let comps = Calendar.current.dateComponents([.day, .hour, .minute, .second], from: Date(), to: Date(timeIntervalSince1970: Double(self.challenge.endDate)))
+        daysLabel.text = String(format: "%d", comps.day!)
+        timeLabel.text = String(format: "%d:%02d:%02d", comps.hour!, comps.minute!, comps.second!)
     }
     
     func toggleFavorite()

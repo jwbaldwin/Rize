@@ -17,9 +17,7 @@ class RZMeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         loadUserInfo();
-
     }
     override func viewWillAppear(_ animated: Bool) {
         if (FIRAuth.auth()?.currentUser != nil && FIRAuth.auth()?.currentUser!.uid != self.userId)
@@ -34,7 +32,22 @@ class RZMeViewController: UIViewController {
         {
             self.userId = FIRAuth.auth()?.currentUser!.uid
         }
+        self.getLikesForVideo(id: "527797930754581")
+        
     }
+    
+    func getLikesForVideo(id: String)
+    {
+        let request = FBSDKGraphRequest(graphPath: "\(id)?fields=likes.limit(1).summary(true)", parameters: nil)
+        request?.start(completionHandler: { (connection, result, error) -> Void in
+            if (error != nil) {
+                print(error)
+            } else {
+                print((result as? Dictionary)!["likes"]!)
+            }
+        })
+    }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

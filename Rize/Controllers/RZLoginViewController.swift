@@ -21,6 +21,7 @@ class RZLoginViewController: UIViewController, UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.loginButton.delegate = delegate
+        self.loginButton.readPermissions = ["public_profile", "user_friends", "user_videos", "email"]
         self.view.addSubview(loginButton)
     }
     

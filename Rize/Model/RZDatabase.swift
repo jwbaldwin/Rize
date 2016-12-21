@@ -18,7 +18,6 @@ class RZDatabase: NSObject {
     
     fileprivate var firebaseRef : FIRDatabaseReference? // Firebase database reference
     fileprivate var _likes : [String]?                  // list of this user's likes
-    fileprivate var _location : String?                 // this user's location
     fileprivate var _challenges : [RZChallenge]?        // challenges
     var delegate : RZDatabaseDelegate?
 
@@ -73,11 +72,6 @@ class RZDatabase: NSObject {
         firebaseRef!.child("users/\(FIRAuth.auth()!.currentUser!.uid)/likes").setValue(self._likes)
     }
     
-    func pushLocation() {
-        // sync location
-        firebaseRef!.child("users/\(FIRAuth.auth()!.currentUser!.uid)/location").setValue(self._location)
-    }
-    
     // MARK: - Likes
     
     func likes() -> [String]? {
@@ -108,18 +102,30 @@ class RZDatabase: NSObject {
         return false
     }
     
-    // MARK: - Location
-    func location() -> String? {
-        return _location
-    }
-    
-    func putLocation(_ loc: String?) {
-        _location = loc
-    }
     
     // MARK: - Challenges
     func challenges() -> [RZChallenge]? {
         return _challenges
     }
+    
+    // MARK: - Submission
+    func pushSubmission(_ challengeId: String, submission: [String : String])
+    {
+        firebaseRef!.child("users/\(FIRAuth.auth()!.currentUser!.uid)/submissions/\(challengeId)").setValue(submission)
+    }
+    
+    // MARK: - Utility
+    func setDatabaseValue(value: String, forKey key: String)
+    {
+        firebaseRef!.child("users/\(FIRAuth.auth()!.currentUser!.uid)/\(key)").setValue(value)
+    }
+    
+    func getDatabaseValueForKey(key : String, complete: ((_ value: String?) -> Void)?)
+    {
+        firebaseRef!.child("users/\(FIRAuth.auth()!.currentUser!.uid)/\(key)").observeSingleEvent(of: .value, with: { (snapshot) in
+            complete?(snapshot.value as! String?)
+        })
+    }
+    
     
 }

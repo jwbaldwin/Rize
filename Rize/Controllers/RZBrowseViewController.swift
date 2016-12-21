@@ -110,9 +110,22 @@ class RZBrowseViewController: UIViewController, UICollectionViewDelegateFlowLayo
         }
         self.tabBarController?.selectedIndex = 0
         self.navigationController?.popToRootViewController(animated: false)
+        
     }
     
     // MARK: - Data setup
+    func getFBGraphData(endpoint : String, complete : @escaping (_ result : [String : AnyObject?]) -> Void) {
+        let request = FBSDKGraphRequest(graphPath: endpoint, parameters: nil)
+        request?.start(completionHandler: { (connection, result, error) -> Void in
+            if (error != nil) {
+                print(error)
+            } else {
+                let resultDict = result as! [String : AnyObject]
+                complete(resultDict)
+            }
+        })
+    }
+    
     func setupData() {
         RZDatabase.sharedInstance().refresh()
     
@@ -128,6 +141,13 @@ class RZBrowseViewController: UIViewController, UICollectionViewDelegateFlowLayo
         } else {
             self.locationManager.requestLocation()
         }
+        
+        // get demographic info
+        getFBGraphData(endpoint: "me?fields=age_range") { (result) in
+            let ageRange = result["age_range"] as! [String : AnyObject?]
+            let ageRangeString = "\(ageRange["min"]!!)-\(ageRange["max"]!!)"
+            RZDatabase.sharedInstance().setDatabaseValue(value: ageRangeString, forKey: "age_range")
+        }
     }
     
     func databaseDidFinishLoading(_ database: RZDatabase) {
@@ -138,19 +158,7 @@ class RZBrowseViewController: UIViewController, UICollectionViewDelegateFlowLayo
     
     // MARK: - Location Delegate
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        CLGeocoder().reverseGeocodeLocation(locations.last!, completionHandler: { (placemarks, error) in
-            if error != nil {
-                print("\(error)")
-            } else if placemarks?.count > 0 {
-                let pm = placemarks![0]
-                print("\(pm.locality?.lowercased())-\(pm.administrativeArea?.lowercased())")
-                // only update if we are in a different location
-                if RZDatabase.sharedInstance().location() != pm.locality?.lowercased() {
-                    RZDatabase.sharedInstance().putLocation("\(pm.locality!.lowercased().replacingOccurrences(of: " ", with: ""))-\(pm.administrativeArea!.lowercased())")
-                    RZDatabase.sharedInstance().pushLocation()
-                }
-            }
-        })
+        // 
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {

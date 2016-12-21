@@ -14,7 +14,7 @@ protocol RZCameraViewControllerDelegate: class {
   func cameraViewDidFinish(_ sender: RZCameraViewController)
 }
 
-class RZCameraViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class RZCameraViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, RZUploadAlertViewControllerDelegate {
     var challenge : RZChallenge! // which challenge this capture is for
     
     var captureSession : AVCaptureSession?
@@ -84,8 +84,7 @@ class RZCameraViewController: UIViewController, AVCaptureFileOutputRecordingDele
         hideBar = true
         UIView.animate(withDuration: 0.25, animations: {
             self.setNeedsStatusBarAppearanceUpdate()
-        }) 
-        
+        })
     }
     
     override var prefersStatusBarHidden : Bool {
@@ -118,6 +117,15 @@ class RZCameraViewController: UIViewController, AVCaptureFileOutputRecordingDele
         dismissButton?.isHidden = false
         closeButton?.isHidden = true
         uploadButton?.isHidden = false
+    }
+    
+    func hideAllUI() {
+        shutterButton?.isHidden = true
+        rollButton?.isHidden = true
+        swapButton?.isHidden = true
+        dismissButton?.isHidden = true
+        closeButton?.isHidden = true
+        uploadButton?.isHidden = true
     }
     
     // MARK: - AV Session
@@ -166,12 +174,88 @@ class RZCameraViewController: UIViewController, AVCaptureFileOutputRecordingDele
     
     @IBAction func upload()
     {
-        RZStorage.sharedInstance().uploadVideo(self.outputFileUrl!, forChallenge: challenge.id)
-        done()
+        // hide all the ui 
+        UIView.animate(withDuration: 0.5) {
+            self.hideAllUI()
+        }
+        
+        // fade out the video layers
+        let fadeOut = CABasicAnimation(keyPath: "opacity")
+        fadeOut.duration = 0.5
+        fadeOut.fromValue = 1.0
+        fadeOut.toValue = 0.0
+        fadeOut.fillMode = kCAFillModeForwards
+        fadeOut.isRemovedOnCompletion = false
+        previewLayer?.add(fadeOut, forKey: "animateOpacity")
+        reviewLayer?.add(fadeOut, forKey: "animateOpacity")
+        reviewLayer?.removeFromSuperlayer()
+        previewLayer?.removeFromSuperlayer()
+        
+        // upload the video to Facebook
+        if (!FBSDKAccessToken.current().hasGranted("publish_actions")) {
+            let loginManager = FBSDKLoginManager()
+            loginManager.logIn(withPublishPermissions: ["publish_actions"], from: self, handler: nil)
+        }
+        
+        let videoData = NSData(contentsOf: self.outputFileUrl!)
+        var videoObject = [AnyHashable : Any]()
+        videoObject["title"] = "Rize"
+        videoObject["description"] = "Please just ignore this video! I'm working on an app that posts to Facebook and testing a few things right now!"
+        videoObject[self.outputFileUrl!.lastPathComponent] = videoData
+        
+        // TESTING
+        videoObject["privacy"] = "{ \"value\" : \"SELF\" }"
+        
+        let request = FBSDKGraphRequest(graphPath: "me/videos", parameters: videoObject, httpMethod: "POST")
+        
+        let uploadAlert = RZUploadAlertViewController()
+        uploadAlert.modalPresentationStyle = UIModalPresentationStyle.overFullScreen
+        uploadAlert.delegate = self
+        self.present(uploadAlert, animated: false, completion: nil)
+
+        request?.start(completionHandler: {(connection, result, error) -> Void in
+            if ((error) != nil)
+            {
+                // Process error
+                print("Error: \(error)")
+                let alert = UIAlertController(title: "Oops", message: "Something went wrong and we couldn't upload your video", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
+                    self.done()
+                }))
+                self.present(alert, animated: true,completion: nil)
+            }
+            else
+            {
+                uploadAlert.showSuccess()
+                let resultDict = result! as! [ String : AnyObject? ]
+                
+                // record the submission information in the database
+                var submission = [String : String]()
+                submission["challenge_id"] = self.challenge.id
+                submission["fb_id"] = (resultDict["id"]! as! String)
+                submission["approved"] = "false"
+                submission["facebook"] = "true"
+                submission["views"] = "0"
+                submission["likes"] = "0"
+                submission["shares"] = "0"
+                submission["friends"] = "0"
+                submission["points"] = "0"
+                submission["redeemed"] = "false"
+                
+                RZDatabase.sharedInstance().pushSubmission(self.challenge.id, submission: submission)
+            }
+        })
     }
     
-    // MARK: Camera Roll Functions
-    @IBAction func openCameraRoll()
+    // MARK: - Upload Alert Delegate
+    func uploadAlertDidFinish(_ sender: RZUploadAlertViewController, success: Bool) {
+        self.dismiss(animated: false) {
+            self.done()
+        }
+    }
+    
+    // MARK: - Camera Roll Functions
+    func openCameraRoll()
     {
         if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
             let imagePicker = UIImagePickerController()
@@ -202,8 +286,6 @@ class RZCameraViewController: UIViewController, AVCaptureFileOutputRecordingDele
         self.avPlayer?.play()
         
         self.outputFileUrl = info[UIImagePickerControllerMediaURL] as? URL
-
-
     }
     
     // MARK: Camera Functions
@@ -232,7 +314,6 @@ class RZCameraViewController: UIViewController, AVCaptureFileOutputRecordingDele
             }) { (completed) in
                 self.progressBar?.isHidden = true
             }
-
         }
     }
     
@@ -259,7 +340,6 @@ class RZCameraViewController: UIViewController, AVCaptureFileOutputRecordingDele
         self.view.layer.insertSublayer(self.reviewLayer!, at: 0)
         self.reviewLayer?.videoGravity = AVLayerVideoGravityResizeAspectFill
         self.avPlayer?.play()
-        
         self.outputFileUrl = outputURL
     }
     

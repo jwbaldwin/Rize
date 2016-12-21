@@ -124,7 +124,10 @@ class RZSettingsTableViewController: UITableViewController {
             // Logged out. Show the login screen
             try! FIRAuth.auth()!.signOut()
             FBSDKLoginManager().logOut()
-            let loginController = self.storyboard!.instantiateViewController(withIdentifier: "LoginViewController")
+            let loginController : RZLoginViewController = self.storyboard!.instantiateViewController(withIdentifier: "LoginViewController") as! RZLoginViewController
+            let browseNavController = self.tabBarController?.viewControllers![0] as! UINavigationController
+            browseNavController.popToRootViewController(animated: false)
+            loginController.delegate = browseNavController.viewControllers[0] as! RZBrowseViewController
             self.present(loginController, animated: true, completion: nil)
         }
         tableView.deselectRow(at: indexPath, animated: true)
