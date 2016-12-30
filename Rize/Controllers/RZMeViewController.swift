@@ -11,39 +11,38 @@ import Firebase
 
 class RZMeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     var userId : String?
+    @IBOutlet var tableView : UITableView?
+    
+    let ROW_HEIGHT : CGFloat = 100
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // apply the color scheme
+        self.view.backgroundColor = RZColors.background
+        self.navigationController?.navigationBar.backgroundColor = RZColors.navigationBar
+        self.navigationController?.navigationBar.tintColor = RZColors.primary
+        self.navigationController?.navigationBar.titleTextAttributes?[NSForegroundColorAttributeName] = RZColors.primary
+        
+        self.tableView?.backgroundColor = RZColors.background
+        
         loadUserInfo();
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        if (FIRAuth.auth()?.currentUser != nil && FIRAuth.auth()?.currentUser!.uid != self.userId)
-        {
-            loadUserInfo()
-        }
+        super.viewWillAppear(animated)
+        loadUserInfo()
     }
     
     func loadUserInfo()
     {
-        if (FIRAuth.auth()?.currentUser != nil)
-        {
-            self.userId = FIRAuth.auth()?.currentUser!.uid
+        RZDatabase.sharedInstance().updateAllSubmissionStats() {
+            // reload the table
+            self.tableView?.reloadData()
+            
+            // sync back with the database
+            RZDatabase.sharedInstance().syncAllSubmissions()
         }
-        self.getLikesForVideo(id: "527797930754581")
-        
-    }
-    
-    func getLikesForVideo(id: String)
-    {
-        let request = FBSDKGraphRequest(graphPath: "\(id)?fields=likes.limit(1).summary(true)", parameters: nil)
-        request?.start(completionHandler: { (connection, result, error) -> Void in
-            if (error != nil) {
-                print(error)
-            } else {
-                print((result as? Dictionary)!["likes"]!)
-            }
-        })
     }
     
 
@@ -72,14 +71,38 @@ class RZMeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         return (RZDatabase.sharedInstance().submissions()?.count)!
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return ROW_HEIGHT
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell")
-        cell?.textLabel?.text = RZDatabase.sharedInstance().submissions()?[indexPath.row].challenge_id
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as? RZSubmissionTableViewCell
+        let challengeId = RZDatabase.sharedInstance().submissions()?[indexPath.row].challenge_id
+        let submission = RZDatabase.sharedInstance().getSubmission(challengeId!)
+        let challenge = RZDatabase.sharedInstance().getChallenge(challengeId!)
+        
+        cell?.textLabel?.text = "\(challenge!.title!) (\(Int(submission!.progress() * 100))%)"
+        cell?.progressView?.setProgress(submission!.progress(), animated: true)
+        ImageLoader.setImageViewImage(challenge!.iconUrl!, view: cell!.iconView!, round: true)
+        ImageLoader.setImageViewImage(challenge!.bannerUrl!, view: cell!.bannerView!, round: false)
         cell?.accessoryType = .disclosureIndicator
         return cell!
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let challengeId = RZDatabase.sharedInstance().submissions()?[indexPath.row].challenge_id
+        
+        // create the submission detail controller
+        let submissionDetailController = self.storyboard?.instantiateViewController(withIdentifier: "RZSubmissionDetailViewController") as! RZSubmissionDetailViewController
+        submissionDetailController.submissionId = challengeId
+        
+        // Get rid of the back button label
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        
+        // display the detail screen
+        self.navigationController?.pushViewController(submissionDetailController, animated: true)
+
+        
         tableView.deselectRow(at: indexPath, animated: true)
     }
 

@@ -22,7 +22,6 @@ class RZDatabase: NSObject {
     fileprivate var _submissions : [RZSubmission]?      // user submissions
     var delegate : RZDatabaseDelegate?
 
-
     static func sharedInstance() -> RZDatabase {
         // check if the instance needs to be created
         if (instance == nil)
@@ -47,17 +46,19 @@ class RZDatabase: NSObject {
                 let item = (child as! FIRDataSnapshot).value as! [ String : AnyObject ]
                 let submission = RZSubmission()
                 submission.challenge_id = item["challenge_id"] as? String
-                submission.facebook = ((item["facebook"] as? String) == "true")
+                submission.id = (child as! FIRDataSnapshot).key as? String
+                submission.facebook = item["facebook"] as? Bool
                 submission.fb_id = item["fb_id"] as? String
-                submission.approved = ((item["approved"] as? String) == "true")
-                submission.redeemed = ((item["redeemed"] as? String) == "true")
-                submission.views = item["views"] as? Int
+                submission.approved = item["approved"] as? Bool
+                submission.redeemed = item["redeemed"] as? Bool
                 submission.likes = item["likes"] as? Int
                 submission.shares = item["shares"] as? Int
                 submission.points = item["points"] as? Int
                 submission.friends = item["friends"] as? Int
+                submission.complete = item["complete"] as? Bool
                 self._submissions?.append(submission)
             }
+            self.updateAllSubmissionStats(nil)
         })
         
         // load challenge data
@@ -67,7 +68,29 @@ class RZDatabase: NSObject {
             for child in snap.children {
                 // create the challenge object
                 let item = (child as! FIRDataSnapshot).value as! [ String : AnyObject ]
-                let challenge = RZChallenge(id: (child as AnyObject).key, title: item["title"] as! String, sponsor: item["sponsor"] as! String, imageUrl: item["image"] as! String, date: item["end_date"] as! Int)
+                let challenge = RZChallenge()
+                challenge.id = (child as AnyObject).key
+                challenge.title = item["title"] as? String
+                challenge.sponsor = item["sponsor"] as? String
+                challenge.iconUrl = item["icon"] as? String
+                challenge.bannerUrl = item["banner"] as? String
+                challenge.endDate = item["end_date"] as? Int
+                challenge.reward = item["reward"] as? String
+                challenge.pointsRequired = item["points_required"] as? Int
+                challenge.maxSubmissions = item["max_submissions"] as? Int
+                challenge.submissions = item["submissions"] as? Int
+                
+                if let limits = item["limits"] as? [String : Int] {
+                    challenge.likesLimit = limits["likes"]
+                    challenge.sharesLimit = limits["shares"]
+                    challenge.viewsLimit = limits["views"]
+                }
+                
+                if (item["geofence"] != nil) {
+                    let geofenceData = item["geofence"] as! [String : AnyObject]
+                    let center = geofenceData["center"] as! [String : Double]
+                    challenge.geofence = RZGeofence(lat: center["lat"]!, lon: center["lon"]!, radius: geofenceData["radius"] as! Double)
+                }
                 
                 // add the challenge to the list
                 self._challenges!.append(challenge)
@@ -87,9 +110,6 @@ class RZDatabase: NSObject {
             }
             self.delegate?.databaseDidFinishLoading(self)
         })
-        
-        
-        
     }
     
     func pushLikes() {
@@ -132,10 +152,23 @@ class RZDatabase: NSObject {
         return _challenges
     }
     
-    // MARK: - Submission
-    func pushSubmission(_ challengeId: String, submission: [String : String])
+    func getChallenge(_ id : String) -> RZChallenge?
     {
-        firebaseRef!.child("users/\(FIRAuth.auth()!.currentUser!.uid)/submissions/\(challengeId)").setValue(submission)
+        if (self._challenges != nil) {
+            for challenge in self._challenges!
+            {
+                if challenge.id == id {
+                    return challenge
+                }
+            }
+        }
+        return nil
+    }
+    
+    // MARK: - Submission
+    func pushSubmission(_ submissionId: String, submission: [String : AnyObject])
+    {
+        firebaseRef!.child("users/\(FIRAuth.auth()!.currentUser!.uid)/submissions/\(submissionId)").setValue(submission)
     }
     
     func submissions() -> [RZSubmission]?
@@ -143,17 +176,54 @@ class RZDatabase: NSObject {
         return self._submissions
     }
     
-    func getSubmission(_ challengeId : String) -> RZSubmission?
+    func getSubmission(_ submissionId : String) -> RZSubmission?
     {
         if (self._submissions != nil) {
             for submission in self._submissions!
             {
-                if submission.challenge_id == challengeId {
+                if submission.id == submissionId {
                     return submission
                 }
             }
         }
         return nil
+    }
+    
+    func deleteSubmission(_ submissionId : String) {
+        firebaseRef!.child("users/\(FIRAuth.auth()!.currentUser!.uid)/submissions/\(submissionId)").removeValue()
+    }
+    
+    func syncSubmission(_ submissionId : String) {
+        firebaseRef!.child("users/\(FIRAuth.auth()!.currentUser!.uid)/submissions/\(submissionId)").setValue(self.getSubmission(submissionId)?.dictionaryValue())
+    }
+    
+    func syncAllSubmissions() {
+        for submission in self._submissions! {
+            self.syncSubmission(submission.id!)
+        }
+    }
+    
+    func updateAllSubmissionStats(_ complete: (() -> Void)?) {
+        var myGroup = DispatchGroup()
+        if (self._submissions != nil) {
+            for submission in self._submissions!
+            {
+                myGroup.enter()
+                RZFBGraphRequestHelper.getFBGraphData(endpoint: "\(submission.fb_id!)?fields=likes.limit(0).summary(true),sharedposts") { (result) in
+                    if let likes = result["likes"] as? [String : AnyObject?] {
+                        if let summary = likes["summary"] as? [String : AnyObject?] {
+                            let likeCount = summary["total_count"] as! Int
+                            submission.likes = likeCount
+                        }
+                    }
+                    submission.updatePoints()
+                    myGroup.leave()
+                }
+            }
+        }
+        myGroup.notify(queue: DispatchQueue.main) {
+            complete?()
+        }
     }
     
     // MARK: - Utility

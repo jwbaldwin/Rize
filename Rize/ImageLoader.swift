@@ -10,9 +10,22 @@ import Foundation
 import UIKit
 
 class ImageLoader {
-    static func setImageViewImage(_ url: String, view: UIImageView, complete: (() -> Void)? = {}) {
+    static func createRoundImage(_ input : UIImage) -> UIImage {
+        UIGraphicsBeginImageContext(input.size)
+        UIBezierPath(roundedRect: CGRect(origin: CGPoint(x: 0, y: 0), size: input.size), cornerRadius: input.size.width/2).addClip()
+        input.draw(in: CGRect(origin: CGPoint(x: 0, y: 0), size: input.size))
+        let output = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return output!
+    }
+    
+    static func setImageViewImage(_ url: String, view: UIImageView, round : Bool, complete: (() -> Void)? = {}) {
         downloadImageFromURL(url, complete: {(image: UIImage) -> Void in
-            view.image = image
+            if round {
+                view.image = createRoundImage(image)
+            } else {
+                view.image = image
+            }
             view.setNeedsDisplay()
             complete?()
         })

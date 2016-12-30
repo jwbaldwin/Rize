@@ -13,7 +13,7 @@ class ArrowBaseShape: CAShapeLayer {
     init(frame: CGRect) {
         super.init()
         self.frame = frame
-        self.strokeColor = UIColor(red: 0.914, green: 0.118, blue: 0.388, alpha: 1.0).cgColor
+        self.strokeColor = RZColors.primary.cgColor
         self.lineWidth = 5.0
         self.fillColor = UIColor.clear.cgColor
         self.lineCap = kCALineCapRound

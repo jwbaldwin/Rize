@@ -9,19 +9,19 @@
 import UIKit
 
 class RZChallenge: NSObject {
-    var id : String
-    var title : String
-    var sponsor : String
-    var imageUrl : String
-    var endDate : Int
+    var id : String?
+    var title : String?
+    var sponsor : String?
+    var iconUrl : String?
+    var bannerUrl : String?
+    var endDate : Int?
     var liked : Bool = false
-    
-    init(id: String, title: String, sponsor: String, imageUrl: String, date: Int)
-    {
-        self.id = id
-        self.sponsor = sponsor
-        self.title = title
-        self.imageUrl = imageUrl
-        self.endDate = date
-    }
+    var geofence : RZGeofence?
+    var reward : String?
+    var pointsRequired : Int?
+    var maxSubmissions : Int?
+    var submissions : Int?
+    var likesLimit : Int?
+    var viewsLimit : Int?
+    var sharesLimit: Int?
 }

@@ -200,7 +200,7 @@ class RZCameraViewController: UIViewController, AVCaptureFileOutputRecordingDele
         let videoData = NSData(contentsOf: self.outputFileUrl!)
         var videoObject = [AnyHashable : Any]()
         videoObject["title"] = "Rize"
-        videoObject["description"] = "Please just ignore this video! I'm working on an app that posts to Facebook and testing a few things right now!"
+        videoObject["description"] = "I just particpated in the \(challenge.title!) Rize challenge!"
         videoObject[self.outputFileUrl!.lastPathComponent] = videoData
         
         // TESTING
@@ -230,19 +230,18 @@ class RZCameraViewController: UIViewController, AVCaptureFileOutputRecordingDele
                 let resultDict = result! as! [ String : AnyObject? ]
                 
                 // record the submission information in the database
-                var submission = [String : String]()
-                submission["challenge_id"] = self.challenge.id
-                submission["fb_id"] = (resultDict["id"]! as! String)
-                submission["approved"] = "false"
-                submission["facebook"] = "true"
-                submission["views"] = "0"
-                submission["likes"] = "0"
-                submission["shares"] = "0"
-                submission["friends"] = "0"
-                submission["points"] = "0"
-                submission["redeemed"] = "false"
-                
-                RZDatabase.sharedInstance().pushSubmission(self.challenge.id, submission: submission)
+                var submission = [String : AnyObject]()
+                submission["challenge_id"] = self.challenge.id as AnyObject
+                submission["fb_id"] = resultDict["id"]! as! AnyObject
+                submission["approved"] = "false" as AnyObject
+                submission["facebook"] = "true" as AnyObject
+                submission["views"] = 0 as AnyObject
+                submission["likes"] = 0 as AnyObject
+                submission["shares"] = 0 as AnyObject
+                submission["friends"] = 0 as AnyObject
+                submission["points"] = 0 as AnyObject
+                submission["redeemed"] = "false" as AnyObject
+                RZDatabase.sharedInstance().pushSubmission(self.challenge.id!, submission: submission)
             }
         })
     }

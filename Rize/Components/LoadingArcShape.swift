@@ -20,7 +20,7 @@ class LoadingArcShape: CAShapeLayer {
         super.init()
         self.frame = frame
         self.fillColor = UIColor.clear.cgColor
-        self.strokeColor = UIColor(white: 0.85, alpha: 1.0).cgColor//UIColor(red: 0.914, green: 0.118, blue: 0.388, alpha: 1.0).cgColor
+        self.strokeColor = UIColor(white: 0.85, alpha: 1.0).cgColor
         let arcPath = UIBezierPath()
         arcPath.addArc(withCenter: CGPoint(x: self.frame.size.width/2, y: self.frame.size.height/2), radius: self.frame.size.width/2, startAngle: 3.14159*(0.5 - 0.3), endAngle: 3.14159*0.5, clockwise: true)
         self.lineWidth = 5.0

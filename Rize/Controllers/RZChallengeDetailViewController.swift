@@ -17,17 +17,21 @@ class RZChallengeDetailViewController: UIViewController, UIScrollViewDelegate, R
     @IBOutlet var daysLabel : UILabel!
     @IBOutlet var timeLabel : UILabel!
     @IBOutlet var rizeButton : UIButton!
+    @IBOutlet var bannerImageView : UIImageView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // apply the background color
+        self.view.backgroundColor = RZColors.background
                 
         // Make sure we actually have a challenge to display
         if (self.challenge != nil) {
             // Update the title
-            self.title = self.challenge.title.uppercased()
+            self.title = self.challenge.title!.uppercased()
         }
         let favButton = UIBarButtonItem(image: UIImage(named: "heart"), style: .plain, target: self, action: #selector(toggleFavorite))
-        if (RZDatabase.sharedInstance().isLiked(self.challenge.id)) {
+        if (RZDatabase.sharedInstance().isLiked(self.challenge.id!)) {
             favButton.image = UIImage(named: "heart-liked")
         }
         self.navigationItem.setRightBarButtonItems([favButton], animated: true)
@@ -36,13 +40,17 @@ class RZChallengeDetailViewController: UIViewController, UIScrollViewDelegate, R
         // set up the image view as a circle
         self.imageView.contentMode = .scaleAspectFill
         self.imageView.clipsToBounds = true
-        ImageLoader.setImageViewImage(self.challenge.imageUrl, view: self.imageView)
+        ImageLoader.setImageViewImage(self.challenge.iconUrl!, view: self.imageView, round: true)
+        
+        // set up the banner image view
+        self.bannerImageView.contentMode = .scaleAspectFill
+        ImageLoader.setImageViewImage(self.challenge.bannerUrl!, view: self.bannerImageView, round: false)
         
         // disable the rize button if the user has already uploaded a submission
-        if (RZDatabase.sharedInstance().getSubmission(self.challenge.id) != nil) {
+        if (RZDatabase.sharedInstance().getSubmission(self.challenge.id!) != nil) {
             // challenge submission already exists
             self.rizeButton.isEnabled = false
-            self.rizeButton.isHidden = true 
+            self.rizeButton.isHidden = false
         } else {
             self.rizeButton.isEnabled = true
             self.rizeButton.isHidden = false
@@ -64,21 +72,21 @@ class RZChallengeDetailViewController: UIViewController, UIScrollViewDelegate, R
     
     func updateClock()
     {
-        let comps = Calendar.current.dateComponents([.day, .hour, .minute, .second], from: Date(), to: Date(timeIntervalSince1970: Double(self.challenge.endDate)))
+        let comps = Calendar.current.dateComponents([.day, .hour, .minute, .second], from: Date(), to: Date(timeIntervalSince1970: Double(self.challenge.endDate!)))
         daysLabel.text = String(format: "%d", comps.day!)
         timeLabel.text = String(format: "%d:%02d:%02d", comps.hour!, comps.minute!, comps.second!)
     }
     
     func toggleFavorite()
     {
-        if (!RZDatabase.sharedInstance().isLiked(self.challenge.id)) {
-            RZDatabase.sharedInstance().putLike(self.challenge.id)
+        if (!RZDatabase.sharedInstance().isLiked(self.challenge.id!)) {
+            RZDatabase.sharedInstance().putLike(self.challenge.id!)
         } else {
-            RZDatabase.sharedInstance().removeLike(self.challenge.id)
+            RZDatabase.sharedInstance().removeLike(self.challenge.id!)
         }
         RZDatabase.sharedInstance().pushLikes()
         let favButton = UIBarButtonItem(image: UIImage(named: "heart"), style: .plain, target: self, action: #selector(toggleFavorite))
-        if (RZDatabase.sharedInstance().isLiked(self.challenge.id)) {
+        if (RZDatabase.sharedInstance().isLiked(self.challenge.id!)) {
             favButton.image = UIImage(named: "heart-liked")
         } else {
             favButton.image = UIImage(named: "heart")

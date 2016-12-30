@@ -11,47 +11,42 @@ import Firebase
 
 class RZSettingsTableViewController: UITableViewController {
 
-    let SIGNOUT_INDEXPATH = IndexPath(row: 0, section: 1)
+    let SIGNOUT_INDEXPATH = IndexPath(row: 0, section: 0)
     @IBOutlet var profileImageView : UIImageView!
     @IBOutlet var nameLabel : UILabel!
-    @IBOutlet var emailLabel : UILabel!
 
     var userId : String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Add the wallpaper image
-        var frame = self.view.frame
-        print("\(frame)")
-        frame.size.height -= self.tabBarController!.tabBar.frame.size.height
-        self.view.backgroundColor = UIColor(white: 0.95, alpha: 1.0)
+        // apply the color scheme
+        self.view.backgroundColor = RZColors.background
+        self.navigationController?.navigationBar.backgroundColor = RZColors.navigationBar
+        self.navigationController?.navigationBar.tintColor = RZColors.primary
+        self.navigationController?.navigationBar.titleTextAttributes?[NSForegroundColorAttributeName] = RZColors.primary
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
         // Load the user information
         if (FIRAuth.auth()?.currentUser != nil && FIRAuth.auth()?.currentUser!.uid != self.userId)
         {
             self.userId = FIRAuth.auth()?.currentUser!.uid
             self.nameLabel.text = FIRAuth.auth()?.currentUser!.displayName
-            self.emailLabel.text = FIRAuth.auth()?.currentUser!.email
-            self.profileImageView.image = UIImage(named: "generic_profile")
+            self.profileImageView.image = ImageLoader.createRoundImage(UIImage(named: "generic_profile")!)
+            self.profileImageView.contentMode = .scaleAspectFit
+            self.profileImageView.clipsToBounds = true
             if (FIRAuth.auth()?.currentUser!.photoURL != nil)
             {
                 ImageLoader.downloadImageFromURL((FIRAuth.auth()?.currentUser?.photoURL?.absoluteString)!) { (image: UIImage) -> Void in
                     UIView.transition(with: self.profileImageView, duration: 0.5, options: UIViewAnimationOptions.transitionCrossDissolve, animations: {
-                        self.profileImageView.image = image
+                        self.profileImageView.image = ImageLoader.createRoundImage(image)
                     }, completion: nil)
                 }
             }
         }
-    }
-    
-    override func viewDidLayoutSubviews() {
-        // Add corner radius
-        self.profileImageView.contentMode = .scaleAspectFill
-        self.profileImageView.layer.cornerRadius = self.profileImageView.frame.width / 2
-        self.profileImageView.clipsToBounds = true
     }
 
     override func didReceiveMemoryWarning() {

@@ -16,9 +16,12 @@
 		344429951D28447100F44401 /* RZUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344429941D28447100F44401 /* RZUser.swift */; };
 		3445D3D91D0F8D4B00866BB2 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3445D3D81D0F8D4B00866BB2 /* MediaPlayer.framework */; };
 		3447A12E1D01117B00AAB490 /* RZChallengeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3447A12D1D01117B00AAB490 /* RZChallengeDetailViewController.swift */; };
-		3447A1331D01204C00AAB490 /* RZChallengeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3447A1321D01204C00AAB490 /* RZChallengeHeaderView.swift */; };
 		3447A1351D01227800AAB490 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3447A1341D01227800AAB490 /* ImageLoader.swift */; };
+		345A51431E0C1F4E0051840F /* RZSubmissionDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 345A51421E0C1F4E0051840F /* RZSubmissionDetailViewController.swift */; };
+		345A51451E0C219D0051840F /* RZCircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 345A51441E0C219D0051840F /* RZCircularProgressView.swift */; };
+		345A51471E0C4C7A0051840F /* RZGeofence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 345A51461E0C4C7A0051840F /* RZGeofence.swift */; };
 		345B93B91CF7D4BA00456D84 /* RZChallenge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 345B93B81CF7D4BA00456D84 /* RZChallenge.swift */; };
+		345DFEE51E143E7D00DB216A /* RZColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 345DFEE41E143E7D00DB216A /* RZColors.swift */; };
 		3478F0401D61197100113EB1 /* RZDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3478F03F1D61197100113EB1 /* RZDatabase.swift */; };
 		34813A0D1CE7783400417CD2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34813A0C1CE7783400417CD2 /* AppDelegate.swift */; };
 		34813A121CE7783400417CD2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34813A101CE7783400417CD2 /* Main.storyboard */; };
@@ -39,6 +42,8 @@
 		34DE791E1D5E14E100803148 /* RZLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34DE791D1D5E14E100803148 /* RZLoginViewController.swift */; };
 		34E00F2F1E09AE2E00542A06 /* RZUploadAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E00F2E1E09AE2E00542A06 /* RZUploadAlertViewController.swift */; };
 		34E00F311E09C43100542A06 /* LoadingArcShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E00F301E09C43100542A06 /* LoadingArcShape.swift */; };
+		34EC2E7A1E156BD20033E827 /* RZSubmissionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34EC2E791E156BD20033E827 /* RZSubmissionTableViewCell.swift */; };
+		34F800AD1E120642005D11E0 /* RZFBGraphRequestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F800AC1E120642005D11E0 /* RZFBGraphRequestHelper.swift */; };
 		37AEC37F429E0387E91D9FC8 /* Pods_Rize.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D10661D745FC4162B6F1E84 /* Pods_Rize.framework */; };
 		48ECB7F64AF42F69C000141E /* Pods_RizeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2214942F74CB0BBFD869C154 /* Pods_RizeTests.framework */; };
 /* End PBXBuildFile section */
@@ -87,9 +92,12 @@
 		3445D3D81D0F8D4B00866BB2 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		3446BA101DE3950900F5B429 /* Rize.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Rize.entitlements; sourceTree = "<group>"; };
 		3447A12D1D01117B00AAB490 /* RZChallengeDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RZChallengeDetailViewController.swift; sourceTree = "<group>"; };
-		3447A1321D01204C00AAB490 /* RZChallengeHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RZChallengeHeaderView.swift; sourceTree = "<group>"; };
 		3447A1341D01227800AAB490 /* ImageLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
+		345A51421E0C1F4E0051840F /* RZSubmissionDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RZSubmissionDetailViewController.swift; sourceTree = "<group>"; };
+		345A51441E0C219D0051840F /* RZCircularProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RZCircularProgressView.swift; sourceTree = "<group>"; };
+		345A51461E0C4C7A0051840F /* RZGeofence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RZGeofence.swift; sourceTree = "<group>"; };
 		345B93B81CF7D4BA00456D84 /* RZChallenge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RZChallenge.swift; sourceTree = "<group>"; };
+		345DFEE41E143E7D00DB216A /* RZColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RZColors.swift; sourceTree = "<group>"; };
 		3478F03F1D61197100113EB1 /* RZDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RZDatabase.swift; sourceTree = "<group>"; };
 		34813A091CE7783400417CD2 /* Rize.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rize.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		34813A0C1CE7783400417CD2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -117,6 +125,8 @@
 		34DE791D1D5E14E100803148 /* RZLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RZLoginViewController.swift; sourceTree = "<group>"; };
 		34E00F2E1E09AE2E00542A06 /* RZUploadAlertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RZUploadAlertViewController.swift; sourceTree = "<group>"; };
 		34E00F301E09C43100542A06 /* LoadingArcShape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoadingArcShape.swift; path = Rize/Components/LoadingArcShape.swift; sourceTree = SOURCE_ROOT; };
+		34EC2E791E156BD20033E827 /* RZSubmissionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RZSubmissionTableViewCell.swift; sourceTree = "<group>"; };
+		34F800AC1E120642005D11E0 /* RZFBGraphRequestHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RZFBGraphRequestHelper.swift; sourceTree = "<group>"; };
 		9565951270174C9FAB6A3EAB /* Pods-RizeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RizeUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-RizeUITests/Pods-RizeUITests.release.xcconfig"; sourceTree = "<group>"; };
 		A192DE98B4C47ED8F4322BE3 /* Pods-RizeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RizeTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RizeTests/Pods-RizeTests.debug.xcconfig"; sourceTree = "<group>"; };
 		C502535F03F4CCB9E3312FEE /* Pods-RizeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RizeTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-RizeTests/Pods-RizeTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -181,6 +191,7 @@
 				343D51E01D329B5800E8741E /* RZSettingsTableViewController.swift */,
 				34DE791D1D5E14E100803148 /* RZLoginViewController.swift */,
 				34E00F2E1E09AE2E00542A06 /* RZUploadAlertViewController.swift */,
+				345A51421E0C1F4E0051840F /* RZSubmissionDetailViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -253,6 +264,9 @@
 				344429941D28447100F44401 /* RZUser.swift */,
 				3478F03F1D61197100113EB1 /* RZDatabase.swift */,
 				348CBA4B1D80ADD7003678F7 /* RZStorage.swift */,
+				345A51461E0C4C7A0051840F /* RZGeofence.swift */,
+				34F800AC1E120642005D11E0 /* RZFBGraphRequestHelper.swift */,
+				345DFEE41E143E7D00DB216A /* RZColors.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -261,10 +275,11 @@
 			isa = PBXGroup;
 			children = (
 				34DC55AD1CFE6D5D00359C44 /* RZChallengeCollectionViewCell.swift */,
-				3447A1321D01204C00AAB490 /* RZChallengeHeaderView.swift */,
 				34E00F301E09C43100542A06 /* LoadingArcShape.swift */,
 				343910C31E0AD05E003DA86D /* ArrowBaseShape.swift */,
 				343910C51E0AD071003DA86D /* ArrowTipShape.swift */,
+				345A51441E0C219D0051840F /* RZCircularProgressView.swift */,
+				34EC2E791E156BD20033E827 /* RZSubmissionTableViewCell.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -578,18 +593,23 @@
 				343910C61E0AD071003DA86D /* ArrowTipShape.swift in Sources */,
 				34813A0D1CE7783400417CD2 /* AppDelegate.swift in Sources */,
 				3483D0DD1CF6710B00832BE4 /* RZBrowseViewController.swift in Sources */,
+				345DFEE51E143E7D00DB216A /* RZColors.swift in Sources */,
+				345A51471E0C4C7A0051840F /* RZGeofence.swift in Sources */,
+				34F800AD1E120642005D11E0 /* RZFBGraphRequestHelper.swift in Sources */,
 				34CB5F701D1A124B00B0E95B /* RZCameraViewController.swift in Sources */,
 				34E00F311E09C43100542A06 /* LoadingArcShape.swift in Sources */,
+				345A51451E0C219D0051840F /* RZCircularProgressView.swift in Sources */,
 				34E00F2F1E09AE2E00542A06 /* RZUploadAlertViewController.swift in Sources */,
 				344429931D2821EA00F44401 /* RZMeViewController.swift in Sources */,
+				345A51431E0C1F4E0051840F /* RZSubmissionDetailViewController.swift in Sources */,
 				3447A12E1D01117B00AAB490 /* RZChallengeDetailViewController.swift in Sources */,
 				345B93B91CF7D4BA00456D84 /* RZChallenge.swift in Sources */,
 				348CBA4C1D80ADD7003678F7 /* RZStorage.swift in Sources */,
 				34DE791E1D5E14E100803148 /* RZLoginViewController.swift in Sources */,
 				3478F0401D61197100113EB1 /* RZDatabase.swift in Sources */,
+				34EC2E7A1E156BD20033E827 /* RZSubmissionTableViewCell.swift in Sources */,
 				344429951D28447100F44401 /* RZUser.swift in Sources */,
 				343D51E11D329B5800E8741E /* RZSettingsTableViewController.swift in Sources */,
-				3447A1331D01204C00AAB490 /* RZChallengeHeaderView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

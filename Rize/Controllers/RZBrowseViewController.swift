@@ -64,6 +64,15 @@ class RZBrowseViewController: UIViewController, UICollectionViewDelegateFlowLayo
         locationManager.delegate = self
         
         RZDatabase.sharedInstance().delegate = self
+        
+        // apply the color scheme
+        self.view.backgroundColor = RZColors.background
+        self.navigationController?.navigationBar.backgroundColor = RZColors.navigationBar
+        self.navigationController?.navigationBar.tintColor = RZColors.primary
+        self.navigationController?.navigationBar.titleTextAttributes?[NSForegroundColorAttributeName] = RZColors.primary
+        self.tabBarController?.tabBar.barTintColor = RZColors.tabBar
+        self.tabBarController?.tabBar.backgroundColor = RZColors.tabBarUnselected
+        self.tabBarController?.tabBar.tintColor = RZColors.tabBarSelected
     }
     
     override func didReceiveMemoryWarning() {
@@ -112,19 +121,6 @@ class RZBrowseViewController: UIViewController, UICollectionViewDelegateFlowLayo
         self.navigationController?.popToRootViewController(animated: false)
     }
     
-    // MARK: - Data setup
-    func getFBGraphData(endpoint : String, complete : @escaping (_ result : [String : AnyObject?]) -> Void) {
-        let request = FBSDKGraphRequest(graphPath: endpoint, parameters: nil)
-        request?.start(completionHandler: { (connection, result, error) -> Void in
-            if (error != nil) {
-                print(error)
-            } else {
-                let resultDict = result as! [String : AnyObject]
-                complete(resultDict)
-            }
-        })
-    }
-    
     func setupData() {
         RZDatabase.sharedInstance().refresh()
     
@@ -142,7 +138,7 @@ class RZBrowseViewController: UIViewController, UICollectionViewDelegateFlowLayo
         }
         
         // get demographic info
-        getFBGraphData(endpoint: "me?fields=age_range") { (result) in
+        RZFBGraphRequestHelper.getFBGraphData(endpoint: "me?fields=age_range") { (result) in
             let ageRange = result["age_range"] as! [String : AnyObject?]
             let ageRangeString = "\(ageRange["min"]!!)-\(ageRange["max"]!!)"
             RZDatabase.sharedInstance().setDatabaseValue(value: ageRangeString, forKey: "age_range")
@@ -193,8 +189,10 @@ class RZBrowseViewController: UIViewController, UICollectionViewDelegateFlowLayo
     
         // Configure the cell
         let challenge = RZDatabase.sharedInstance().challenges()![(indexPath as NSIndexPath).row]
-        cell.setImageFromURL(challenge.imageUrl)
-        cell.setLiked(RZDatabase.sharedInstance().isLiked(challenge.id))
+        cell.setImageFromURL(challenge.bannerUrl!)
+        cell.setLiked(RZDatabase.sharedInstance().isLiked(challenge.id!))
+        cell.sponsorLabel!.text = challenge.sponsor!.uppercased()
+        cell.titleLabel!.text = challenge.title!.uppercased()
         
         return cell
     }
@@ -226,8 +224,7 @@ class RZBrowseViewController: UIViewController, UICollectionViewDelegateFlowLayo
     */
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let size = (self.view.frame.width - 60.0) / 2
-        return CGSize(width: size, height: size);
+        return CGSize(width: self.view.frame.width - 20, height: self.view.frame.width / 2);
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
@@ -257,7 +254,6 @@ class RZBrowseViewController: UIViewController, UICollectionViewDelegateFlowLayo
         
         // Push it onto the navigation stack! Let's GO!
         self.navigationController?.pushViewController(detailViewController, animated: true)
-        
     }
 
 }
