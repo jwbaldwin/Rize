@@ -12,6 +12,10 @@ import Firebase
 class RZSettingsTableViewController: UITableViewController {
 
     let SIGNOUT_INDEXPATH = IndexPath(row: 0, section: 0)
+    let TERMCON_INDEXPATH = IndexPath(row: 0, section: 1)
+    let PRIVACY_INDEXPATH = IndexPath(row: 1, section: 1)
+    let LICENSE_INDEXPATH = IndexPath(row: 2, section: 1)
+    
     @IBOutlet var profileImageView : UIImageView!
     @IBOutlet var nameLabel : UILabel!
 
@@ -114,6 +118,9 @@ class RZSettingsTableViewController: UITableViewController {
     
     // MARK: - Table view delegate
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // get rid of back button title
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil);
+        
         if (indexPath == SIGNOUT_INDEXPATH)
         {
             // Logged out. Show the login screen
@@ -124,6 +131,14 @@ class RZSettingsTableViewController: UITableViewController {
             browseNavController.popToRootViewController(animated: false)
             loginController.delegate = browseNavController.viewControllers[0] as! RZBrowseViewController
             self.present(loginController, animated: true, completion: nil)
+        } else if (indexPath == PRIVACY_INDEXPATH) {
+            // show the privacy policy
+            RZDatabase.sharedInstance().getPrivacyPolicy() { (content, date) in
+                let legalController = self.storyboard!.instantiateViewController(withIdentifier: "LegalViewController") as! RZLegalViewController
+                legalController.htmlContent = content!
+                legalController.title = "PRIVACY POLICY"
+                self.navigationController?.pushViewController(legalController, animated: true)
+            }
         }
         tableView.deselectRow(at: indexPath, animated: true)
     }

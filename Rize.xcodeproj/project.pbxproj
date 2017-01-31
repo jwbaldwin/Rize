@@ -35,6 +35,7 @@
 		34AAC6581DDE264F0087D59E /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34AAC6541DDE264F0087D59E /* FBSDKCoreKit.framework */; };
 		34AAC6591DDE264F0087D59E /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34AAC6551DDE264F0087D59E /* FBSDKLoginKit.framework */; };
 		34AAC65A1DDE264F0087D59E /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34AAC6561DDE264F0087D59E /* FBSDKShareKit.framework */; };
+		34B4EB461E33F3B800009C20 /* RZLegalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34B4EB451E33F3B800009C20 /* RZLegalViewController.swift */; };
 		34B606AE1D6003490031DA5D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 34B606AD1D6003490031DA5D /* GoogleService-Info.plist */; };
 		34BCC6431D9D6F52002F85AA /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34BCC6421D9D6F52002F85AA /* MobileCoreServices.framework */; };
 		34CB5F701D1A124B00B0E95B /* RZCameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34CB5F6F1D1A124B00B0E95B /* RZCameraViewController.swift */; };
@@ -118,6 +119,7 @@
 		34AAC6541DDE264F0087D59E /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		34AAC6551DDE264F0087D59E /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		34AAC6561DDE264F0087D59E /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
+		34B4EB451E33F3B800009C20 /* RZLegalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RZLegalViewController.swift; sourceTree = "<group>"; };
 		34B606AD1D6003490031DA5D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		34BCC6421D9D6F52002F85AA /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		34CB5F6F1D1A124B00B0E95B /* RZCameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RZCameraViewController.swift; sourceTree = "<group>"; };
@@ -192,6 +194,7 @@
 				34DE791D1D5E14E100803148 /* RZLoginViewController.swift */,
 				34E00F2E1E09AE2E00542A06 /* RZUploadAlertViewController.swift */,
 				345A51421E0C1F4E0051840F /* RZSubmissionDetailViewController.swift */,
+				34B4EB451E33F3B800009C20 /* RZLegalViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -381,6 +384,9 @@
 						LastSwiftMigration = 0800;
 						SystemCapabilities = {
 							com.apple.Keychain = {
+								enabled = 1;
+							};
+							com.apple.Push = {
 								enabled = 1;
 							};
 						};
@@ -610,6 +616,7 @@
 				34EC2E7A1E156BD20033E827 /* RZSubmissionTableViewCell.swift in Sources */,
 				344429951D28447100F44401 /* RZUser.swift in Sources */,
 				343D51E11D329B5800E8741E /* RZSettingsTableViewController.swift in Sources */,
+				34B4EB461E33F3B800009C20 /* RZLegalViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

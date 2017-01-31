@@ -10,15 +10,11 @@ import UIKit
 
 class RZFBGraphRequestHelper {
     // MARK: - Data setup
-    static func getFBGraphData(endpoint : String, complete : @escaping (_ result : [String : AnyObject?]) -> Void) {
+    static func getFBGraphData(endpoint : String, complete : @escaping (_ result : [String : AnyObject?]?, _ error : Error?) -> Void) {
         let request = FBSDKGraphRequest(graphPath: endpoint, parameters: nil)
         request?.start(completionHandler: { (connection, result, error) -> Void in
-            if (error != nil) {
-                print(error)
-            } else {
-                let resultDict = result as! [String : AnyObject]
-                complete(resultDict)
-            }
+            let resultDict = result as? [String : AnyObject]
+            complete(resultDict, error)
         })
     }
 

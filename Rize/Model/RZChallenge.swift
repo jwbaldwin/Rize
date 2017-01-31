@@ -14,6 +14,8 @@ class RZChallenge: NSObject {
     var sponsor : String?
     var iconUrl : String?
     var bannerUrl : String?
+    var videoUrl : String?
+    var videoThumbnailUrl : String?
     var endDate : Int?
     var liked : Bool = false
     var geofence : RZGeofence?
@@ -24,4 +26,5 @@ class RZChallenge: NSObject {
     var likesLimit : Int?
     var viewsLimit : Int?
     var sharesLimit: Int?
+    var active : Bool?
 }

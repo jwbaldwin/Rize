@@ -122,7 +122,7 @@ class RZBrowseViewController: UIViewController, UICollectionViewDelegateFlowLayo
     }
     
     func setupData() {
-        RZDatabase.sharedInstance().refresh()
+        RZDatabase.sharedInstance().observe()
     
         // request location data
         if CLLocationManager.authorizationStatus() == .denied {
@@ -138,8 +138,17 @@ class RZBrowseViewController: UIViewController, UICollectionViewDelegateFlowLayo
         }
         
         // get demographic info
-        RZFBGraphRequestHelper.getFBGraphData(endpoint: "me?fields=age_range") { (result) in
-            let ageRange = result["age_range"] as! [String : AnyObject?]
+        RZFBGraphRequestHelper.getFBGraphData(endpoint: "me?fields=age_range") { (result, error) in
+            // check to make sure we successfully got the age
+            guard let ageRange = result?["age_range"] as? [String : AnyObject?]
+                else { return }
+
+            guard let _ = ageRange["min"]
+                else { return }
+            
+            guard let _ = ageRange["max"]
+                else { return }
+            
             let ageRangeString = "\(ageRange["min"]!!)-\(ageRange["max"]!!)"
             RZDatabase.sharedInstance().setDatabaseValue(value: ageRangeString, forKey: "age_range")
         }
@@ -178,17 +187,22 @@ class RZBrowseViewController: UIViewController, UICollectionViewDelegateFlowLayo
 
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if RZDatabase.sharedInstance().challenges() != nil {
-            return RZDatabase.sharedInstance().challenges()!.count
-        }
-        return 0
+        guard let challenges = RZDatabase.sharedInstance().getChallenges(onlyActive: true)
+            else { return 0 }
+        
+        return challenges.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! RZChallengeCollectionViewCell
     
         // Configure the cell
-        let challenge = RZDatabase.sharedInstance().challenges()![(indexPath as NSIndexPath).row]
+        
+        // make sure we have the challenges
+        guard let challenges = RZDatabase.sharedInstance().getChallenges(onlyActive: true)
+            else { return cell }
+        
+        let challenge = challenges[(indexPath as NSIndexPath).row]
         cell.setImageFromURL(challenge.bannerUrl!)
         cell.setLiked(RZDatabase.sharedInstance().isLiked(challenge.id!))
         cell.sponsorLabel!.text = challenge.sponsor!.uppercased()
@@ -241,7 +255,7 @@ class RZBrowseViewController: UIViewController, UICollectionViewDelegateFlowLayo
         
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // Grab the correct challenge data
-        let theChallenge : RZChallenge = RZDatabase.sharedInstance().challenges()![(indexPath as NSIndexPath).row]
+        let theChallenge : RZChallenge = RZDatabase.sharedInstance().getChallenges(onlyActive: true)![(indexPath as NSIndexPath).row]
         
         // Create the detail view controller
         let detailViewController : RZChallengeDetailViewController = self.storyboard?.instantiateViewController(withIdentifier: "RZChallengeDetailViewController") as! RZChallengeDetailViewController

@@ -20,6 +20,7 @@ class RZSubmission: NSObject {
     var points : Int?
     var facebook : Bool?
     var friends : Int?
+    var active : Bool?
     
     let POINTS_LIKE : Double = 0.5
     let POINTS_SHARE : Double = 5
@@ -69,10 +70,9 @@ class RZSubmission: NSObject {
         points = 0
         if (facebook!) {
             points! += Int(POINTS_FB)
+            points! += pointsFromLikes()
+            points! += pointsFromShares()
         }
-        
-        points! += pointsFromLikes()
-        points! += pointsFromShares()
         
         if points! >= challenge.pointsRequired! {
             complete = true

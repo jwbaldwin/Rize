@@ -191,6 +191,13 @@ class RZCameraViewController: UIViewController, AVCaptureFileOutputRecordingDele
         reviewLayer?.removeFromSuperlayer()
         previewLayer?.removeFromSuperlayer()
         
+        // make sure the challenge is still active
+        if (!RZDatabase.sharedInstance().getChallenge(challenge.id!)!.active!) {
+            // not active, show alert
+            showExpiredAlert()
+            return
+        }
+        
         // upload the video to Facebook
         if (!FBSDKAccessToken.current().hasGranted("publish_actions")) {
             let loginManager = FBSDKLoginManager()
@@ -200,7 +207,7 @@ class RZCameraViewController: UIViewController, AVCaptureFileOutputRecordingDele
         let videoData = NSData(contentsOf: self.outputFileUrl!)
         var videoObject = [AnyHashable : Any]()
         videoObject["title"] = "Rize"
-        videoObject["description"] = "I just particpated in the \(challenge.title!) Rize challenge!"
+        //videoObject["description"] = "I just particpated in the \(challenge.title!) Rize challenge!"
         videoObject[self.outputFileUrl!.lastPathComponent] = videoData
         
         // TESTING
@@ -218,11 +225,7 @@ class RZCameraViewController: UIViewController, AVCaptureFileOutputRecordingDele
             {
                 // Process error
                 print("Error: \(error)")
-                let alert = UIAlertController(title: "Oops", message: "Something went wrong and we couldn't upload your video", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
-                    self.done()
-                }))
-                self.present(alert, animated: true,completion: nil)
+                self.showUploadErrorAlert()
             }
             else
             {
@@ -233,8 +236,8 @@ class RZCameraViewController: UIViewController, AVCaptureFileOutputRecordingDele
                 var submission = [String : AnyObject]()
                 submission["challenge_id"] = self.challenge.id as AnyObject
                 submission["fb_id"] = resultDict["id"]! as! AnyObject
-                submission["approved"] = "false" as AnyObject
-                submission["facebook"] = "true" as AnyObject
+                submission["approved"] = false as AnyObject
+                submission["facebook"] = true as AnyObject
                 submission["views"] = 0 as AnyObject
                 submission["likes"] = 0 as AnyObject
                 submission["shares"] = 0 as AnyObject
@@ -244,6 +247,22 @@ class RZCameraViewController: UIViewController, AVCaptureFileOutputRecordingDele
                 RZDatabase.sharedInstance().pushSubmission(self.challenge.id!, submission: submission)
             }
         })
+    }
+    
+    func showUploadErrorAlert() {
+        let alert = UIAlertController(title: "Oops", message: "Something went wrong and we couldn't upload your video", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
+            self.done()
+        }))
+        self.present(alert, animated: true,completion: nil)
+    }
+    
+    func showExpiredAlert() {
+        let alert = UIAlertController(title: "This is embarassing", message: "It looks like this challenge is now expired", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
+            self.done()
+        }))
+        self.present(alert, animated: true,completion: nil)
     }
     
     // MARK: - Upload Alert Delegate

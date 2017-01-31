@@ -72,6 +72,21 @@ class RZSubmissionDetailViewController: UIViewController {
         ImageLoader.setImageViewImage(challenge!.bannerUrl!, view: self.backgroundImageView, round: false)
         
         updateUI()
+        
+        // check for potential problems
+        if (!self.submission!.facebook! && self.submission!.fb_id != nil)
+        {
+            // not on facebook, but fb_id is given. Maybe the user deleted their video
+            let alert = UIAlertController(title: "Couldn't Find Facebook Content", message: "We can't find your video on Facebook! Should we delete your submission?", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
+            alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { (action) in
+                // delete the submission
+                RZDatabase.sharedInstance().deleteSubmission(self.submissionId!)
+                self.navigationController?.popToRootViewController(animated: true)
+            }))
+            
+            self.present(alert, animated: true,completion: nil)
+        }
     }
 
     override func didReceiveMemoryWarning() {

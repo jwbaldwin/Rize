@@ -13,6 +13,7 @@ class RZSubmissionTableViewCell: UITableViewCell {
     var progressView : UIProgressView? = nil
     var iconView : UIImageView? = nil
     var bannerView : UIImageView? = nil
+    var blurView : UIVisualEffectView? = nil
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -30,9 +31,13 @@ class RZSubmissionTableViewCell: UITableViewCell {
         bannerView = UIImageView()
         bannerView?.clipsToBounds = true
         bannerView?.contentMode = .scaleAspectFill
-        bannerView?.layer.opacity = 0.25
+        //bannerView?.layer.opacity = 0.25
         bannerView?.image = UIImage(named: "generic_profile")
         insertSubview(bannerView!, at: 0)
+        
+        blurView = UIVisualEffectView(effect: UIBlurEffect(style: .extraLight))
+        insertSubview(blurView!, at: 1)
+        
     }
     
     override func layoutSubviews() {
@@ -42,6 +47,7 @@ class RZSubmissionTableViewCell: UITableViewCell {
         textLabel?.frame = CGRect(x: textLabelX, y: self.frame.height / 2 - 20, width: self.frame.width - textLabelX - 40, height: 20)
         progressView?.frame = CGRect(x: textLabelX, y: self.frame.height / 2 + 20, width: textLabel!.frame.width, height: 5)
         bannerView?.frame = self.bounds
+        blurView?.frame = self.bounds
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

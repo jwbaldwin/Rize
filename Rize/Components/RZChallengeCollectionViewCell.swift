@@ -46,6 +46,7 @@ class RZChallengeCollectionViewCell: UICollectionViewCell {
         likeImageRect.origin.x = frame.width - likeImageRect.size.width - 5;
         likeImageRect.origin.y = 5;
         self.likeImageView = UIImageView(frame: likeImageRect)
+        self.likeImageView?.contentMode = .scaleAspectFit
         addSubview(likeImageView!)
         
         // create the title label
@@ -79,7 +80,7 @@ class RZChallengeCollectionViewCell: UICollectionViewCell {
     func setLiked(_ liked: Bool)
     {
         if (liked) {
-            self.likeImageView?.image = UIImage(named: "heart-liked")
+            self.likeImageView?.image = UIImage(named: "liked")
         } else {
             self.likeImageView?.image = nil
         }

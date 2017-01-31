@@ -28,7 +28,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>757</string>
+	<string>944</string>
 	<key>FacebookAppID</key>
 	<string>1255393701147313</string>
 	<key>FacebookDisplayName</key>
@@ -58,11 +58,13 @@
 		<true/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>This app needs access to the camera so you can record videos to upload</string>
+	<string>We need to access the camera so you can record media to upload</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>We need your location to show you challenges in your area</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>We need to use the microphone to record video audio</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>This app needs access to the photo library so you can import videos to upload.</string>
+	<string>We need to access the photo library so you can import media to upload</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

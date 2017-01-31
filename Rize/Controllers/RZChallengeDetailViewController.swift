@@ -9,6 +9,8 @@
 import UIKit
 import Firebase
 import FirebaseDatabase
+import AVKit
+import AVFoundation
 
 
 class RZChallengeDetailViewController: UIViewController, UIScrollViewDelegate, RZCameraViewControllerDelegate {
@@ -18,6 +20,9 @@ class RZChallengeDetailViewController: UIViewController, UIScrollViewDelegate, R
     @IBOutlet var timeLabel : UILabel!
     @IBOutlet var rizeButton : UIButton!
     @IBOutlet var bannerImageView : UIImageView!
+    @IBOutlet var videoThumbnailView : UIImageView!
+    @IBOutlet var giftLabel : UILabel!
+    @IBOutlet var giftContainerView : UIView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,6 +61,17 @@ class RZChallengeDetailViewController: UIViewController, UIScrollViewDelegate, R
             self.rizeButton.isHidden = false
         }
         
+        // setup the video content (async)
+        if challenge.videoUrl != nil {
+            ImageLoader.setImageViewImage(challenge.videoThumbnailUrl!, view: self.videoThumbnailView, round: false)
+        }
+        
+        // setup the gift label
+        self.giftLabel.text = challenge.reward!
+        
+        // setup the gift container
+        self.giftContainerView.layer.cornerRadius = 5
+        
         // initial clock setup
         updateClock()
 
@@ -73,8 +89,8 @@ class RZChallengeDetailViewController: UIViewController, UIScrollViewDelegate, R
     func updateClock()
     {
         let comps = Calendar.current.dateComponents([.day, .hour, .minute, .second], from: Date(), to: Date(timeIntervalSince1970: Double(self.challenge.endDate!)))
-        daysLabel.text = String(format: "%d", comps.day!)
-        timeLabel.text = String(format: "%d:%02d:%02d", comps.hour!, comps.minute!, comps.second!)
+        daysLabel.text = String(format: "%d", (comps.day! < 0 ? 0 : comps.day!))
+        timeLabel.text = String(format: "%d:%02d:%02d", (comps.hour! < 0 ? 0 : comps.hour!), (comps.minute! < 0 ? 0 : comps.minute!), (comps.second! < 0 ? 0 : comps.second!))
     }
     
     func toggleFavorite()
@@ -92,8 +108,6 @@ class RZChallengeDetailViewController: UIViewController, UIScrollViewDelegate, R
             favButton.image = UIImage(named: "heart")
         }
         self.navigationItem.rightBarButtonItems![0] = favButton;
-        
-        RZDatabase.sharedInstance().refresh()
     }
     
     @IBAction func openCamera()
@@ -104,9 +118,30 @@ class RZChallengeDetailViewController: UIViewController, UIScrollViewDelegate, R
         self.showDetailViewController(cameraViewController, sender: nil)
     }
     
+    @IBAction func challengeFriends()
+    {
+        let link = "http://rizeapp.com/\(challenge.id!)?from=\(FIRAuth.auth()!.currentUser!.uid)"
+        let message = "Will you rize to the challenge? Download Rize from the App Store today!"
+        let url = URL(string: link)!
+        let activityViewController = UIActivityViewController(activityItems: [message], applicationActivities: nil)
+        self.present(activityViewController, animated: true)
+    }
+    
+    @IBAction func showVideo()
+    {
+        let videoURL = URL(string: challenge.videoUrl!)
+        let player = AVPlayer(url: videoURL!)
+        let controller = AVPlayerViewController()
+        controller.player = player
+        self.present(controller, animated: true) {
+            player.play()
+        }
+    }
+    
     func cameraViewDidFinish(_ sender: RZCameraViewController) {
         self.dismiss(animated: true, completion: nil)
     }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
