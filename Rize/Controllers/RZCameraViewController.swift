@@ -168,11 +168,24 @@ class RZCameraViewController: UIViewController, AVCaptureFileOutputRecordingDele
     
     @IBAction func dismissReview()
     {
+        self.avPlayer?.pause()
         showRecordUI()
         self.beginSession(self.usingFrontCamera)
     }
     
-    @IBAction func upload()
+    @IBAction func beginUpload()
+    {
+        // upload process begins by ensuring we have the proper FBSDK permissions
+        if (!FBSDKAccessToken.current().hasGranted("publish_actions")) {
+            let loginManager = FBSDKLoginManager()
+            loginManager.logIn(withPublishPermissions: ["publish_actions"], from: self, handler: { (result, error) in
+                print(result, error)
+            })
+        }
+        // if everything is good, call uploadVideo
+    }
+    
+    func uploadVideo()
     {
         // hide all the ui 
         UIView.animate(withDuration: 0.5) {
@@ -186,6 +199,7 @@ class RZCameraViewController: UIViewController, AVCaptureFileOutputRecordingDele
         fadeOut.toValue = 0.0
         fadeOut.fillMode = kCAFillModeForwards
         fadeOut.isRemovedOnCompletion = false
+        self.avPlayer?.pause()
         previewLayer?.add(fadeOut, forKey: "animateOpacity")
         reviewLayer?.add(fadeOut, forKey: "animateOpacity")
         reviewLayer?.removeFromSuperlayer()
@@ -196,12 +210,6 @@ class RZCameraViewController: UIViewController, AVCaptureFileOutputRecordingDele
             // not active, show alert
             showExpiredAlert()
             return
-        }
-        
-        // upload the video to Facebook
-        if (!FBSDKAccessToken.current().hasGranted("publish_actions")) {
-            let loginManager = FBSDKLoginManager()
-            loginManager.logIn(withPublishPermissions: ["publish_actions"], from: self, handler: nil)
         }
         
         let videoData = NSData(contentsOf: self.outputFileUrl!)

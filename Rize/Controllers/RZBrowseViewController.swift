@@ -36,6 +36,9 @@ class RZBrowseViewController: UIViewController, UICollectionViewDelegateFlowLayo
 
     @IBOutlet var collectionView: UICollectionView?
     @IBOutlet var activityIndicator: UIActivityIndicatorView?
+    
+    // location storage
+    var location : CLLocation?
 
     // Declare the list of challenge data
     // This will later be loaded from an API endpoint
@@ -157,12 +160,13 @@ class RZBrowseViewController: UIViewController, UICollectionViewDelegateFlowLayo
     func databaseDidFinishLoading(_ database: RZDatabase) {
         self.activityIndicator?.stopAnimating()
         self.collectionView?.reloadData()
-        print("Reloading data")
     }
     
     // MARK: - Location Delegate
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        // location stuff
+        self.location = locations[0]
+        // reload data to include any new views
+        self.collectionView?.reloadData()
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
@@ -187,7 +191,7 @@ class RZBrowseViewController: UIViewController, UICollectionViewDelegateFlowLayo
 
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let challenges = RZDatabase.sharedInstance().getChallenges(onlyActive: true)
+        guard let challenges = RZDatabase.sharedInstance().getChallenges(onlyActive: true, forLocation: self.location)
             else { return 0 }
         
         return challenges.count
@@ -199,7 +203,7 @@ class RZBrowseViewController: UIViewController, UICollectionViewDelegateFlowLayo
         // Configure the cell
         
         // make sure we have the challenges
-        guard let challenges = RZDatabase.sharedInstance().getChallenges(onlyActive: true)
+        guard let challenges = RZDatabase.sharedInstance().getChallenges(onlyActive: true, forLocation: self.location)
             else { return cell }
         
         let challenge = challenges[(indexPath as NSIndexPath).row]
@@ -255,7 +259,7 @@ class RZBrowseViewController: UIViewController, UICollectionViewDelegateFlowLayo
         
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // Grab the correct challenge data
-        let theChallenge : RZChallenge = RZDatabase.sharedInstance().getChallenges(onlyActive: true)![(indexPath as NSIndexPath).row]
+        let theChallenge : RZChallenge = RZDatabase.sharedInstance().getChallenges(onlyActive: true, forLocation: self.location)![(indexPath as NSIndexPath).row]
         
         // Create the detail view controller
         let detailViewController : RZChallengeDetailViewController = self.storyboard?.instantiateViewController(withIdentifier: "RZChallengeDetailViewController") as! RZChallengeDetailViewController

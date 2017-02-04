@@ -7,6 +7,7 @@
 //
 import FirebaseDatabase
 import Firebase
+import CoreLocation
 
 protocol RZDatabaseDelegate: class {
     func databaseDidFinishLoading(_ database: RZDatabase)
@@ -77,9 +78,14 @@ class RZDatabase: NSObject {
                 }
                 
                 if (item["geofence"] != nil) {
-                    let geofenceData = item["geofence"] as! [String : AnyObject]
-                    let center = geofenceData["center"] as! [String : Double]
-                    challenge.geofence = RZGeofence(lat: center["lat"]!, lon: center["lon"]!, radius: geofenceData["radius"] as! Double)
+                    guard let geofenceData = item["geofence"] as? [String : AnyObject]
+                        else { break }
+                    guard let center = geofenceData["center"] as? [String : Double]
+                        else { break }
+                    guard let radius = geofenceData["radius"] as? Double
+                        else { break }
+                    
+                    challenge.geofence = RZGeofence(lat: center["lat"]!, lon: center["lon"]!, radius: radius)
                 }
                 
                 // add the challenge to the list
@@ -213,15 +219,58 @@ class RZDatabase: NSObject {
     }
     
     // MARK: - Challenges
-    func getChallenges(onlyActive: Bool) -> [RZChallenge]? {
-    
+    func getChallenges(onlyActive: Bool, forLocation location: CLLocation?) -> [RZChallenge]? {
+        var filteredChallenges : [RZChallenge] = []
+        
         // return only currently active challenges
-        if (onlyActive) {
-            return _activeChallenges
+        guard let _ = _challenges
+            else { return nil }
+        
+        for challenge in _challenges! {
+            var shouldInclude = true
+        
+            // should we check for active challenges?
+            if onlyActive {
+                // test if each challenge is active
+                
+                guard let endDate = challenge.endDate
+                    else { break }
+                
+                if Int(Date().timeIntervalSince1970) > endDate {
+                    // this challenge is inactive, don't include it
+                    shouldInclude = false
+                }
+            }
+            
+            // should we check for geofences?
+            if challenge.geofence != nil {
+                // the challenge should be geofenced (restricted)
+                
+                if location != nil {
+                    // boom. we've got a location to check
+                    guard let _ = challenge.geofence
+                        else { break }
+                    
+                    // compare to challenge geofence
+                    let dist = challenge.geofence!.center!.distance(from: location!)
+                    if dist > challenge.geofence!.radius! {
+                        // aaah. outside the geofence
+                        shouldInclude = false
+                    }
+                } else {
+                    // challenge should be restricted, but we have no location to check
+                    // exclude this challenge, just to be safe
+                    shouldInclude = false
+                }
+            }
+            
+            if shouldInclude {
+                filteredChallenges.append(challenge)
+            }
         }
         
-        // return all challenges
-        return _challenges
+        // return challenges
+        return filteredChallenges
     }
     
     func getChallenge(_ id : String) -> RZChallenge?
