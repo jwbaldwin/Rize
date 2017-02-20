@@ -26,5 +26,12 @@ class RZChallenge: NSObject {
     var likesLimit : Int?
     var viewsLimit : Int?
     var sharesLimit: Int?
-    var active : Bool?
+    
+    func isActive() -> Bool {
+        let date = Date().timeIntervalSince1970
+        guard let _ = endDate
+            else { return false }
+        
+        return (Int(date) < endDate!)
+    }
 }

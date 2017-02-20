@@ -35,6 +35,7 @@
 		34AAC6581DDE264F0087D59E /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34AAC6541DDE264F0087D59E /* FBSDKCoreKit.framework */; };
 		34AAC6591DDE264F0087D59E /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34AAC6551DDE264F0087D59E /* FBSDKLoginKit.framework */; };
 		34AAC65A1DDE264F0087D59E /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34AAC6561DDE264F0087D59E /* FBSDKShareKit.framework */; };
+		34B38FC71E4FA0CF00077A8F /* RZPostMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34B38FC61E4FA0CF00077A8F /* RZPostMessageViewController.swift */; };
 		34B4EB461E33F3B800009C20 /* RZLegalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34B4EB451E33F3B800009C20 /* RZLegalViewController.swift */; };
 		34B606AE1D6003490031DA5D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 34B606AD1D6003490031DA5D /* GoogleService-Info.plist */; };
 		34BCC6431D9D6F52002F85AA /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34BCC6421D9D6F52002F85AA /* MobileCoreServices.framework */; };
@@ -119,6 +120,7 @@
 		34AAC6541DDE264F0087D59E /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		34AAC6551DDE264F0087D59E /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		34AAC6561DDE264F0087D59E /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
+		34B38FC61E4FA0CF00077A8F /* RZPostMessageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RZPostMessageViewController.swift; sourceTree = "<group>"; };
 		34B4EB451E33F3B800009C20 /* RZLegalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RZLegalViewController.swift; sourceTree = "<group>"; };
 		34B606AD1D6003490031DA5D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		34BCC6421D9D6F52002F85AA /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -195,6 +197,7 @@
 				34E00F2E1E09AE2E00542A06 /* RZUploadAlertViewController.swift */,
 				345A51421E0C1F4E0051840F /* RZSubmissionDetailViewController.swift */,
 				34B4EB451E33F3B800009C20 /* RZLegalViewController.swift */,
+				34B38FC61E4FA0CF00077A8F /* RZPostMessageViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -604,6 +607,7 @@
 				34F800AD1E120642005D11E0 /* RZFBGraphRequestHelper.swift in Sources */,
 				34CB5F701D1A124B00B0E95B /* RZCameraViewController.swift in Sources */,
 				34E00F311E09C43100542A06 /* LoadingArcShape.swift in Sources */,
+				34B38FC71E4FA0CF00077A8F /* RZPostMessageViewController.swift in Sources */,
 				345A51451E0C219D0051840F /* RZCircularProgressView.swift in Sources */,
 				34E00F2F1E09AE2E00542A06 /* RZUploadAlertViewController.swift in Sources */,
 				344429931D2821EA00F44401 /* RZMeViewController.swift in Sources */,

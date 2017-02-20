@@ -20,7 +20,6 @@ class RZSubmission: NSObject {
     var points : Int?
     var facebook : Bool?
     var friends : Int?
-    var active : Bool?
     
     let POINTS_LIKE : Double = 0.5
     let POINTS_SHARE : Double = 5
@@ -103,5 +102,11 @@ class RZSubmission: NSObject {
             return Float(likes!) / Float(challenge.likesLimit!)
         }
         return 0.0
+    }
+    
+    func isActive() -> Bool {
+        let challenge = RZDatabase.sharedInstance().getChallenge(challenge_id!)!
+        let date = Date().timeIntervalSince1970
+        return (Int(date) < challenge.endDate!)
     }
 }

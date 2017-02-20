@@ -14,7 +14,7 @@ protocol RZCameraViewControllerDelegate: class {
   func cameraViewDidFinish(_ sender: RZCameraViewController)
 }
 
-class RZCameraViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, RZUploadAlertViewControllerDelegate {
+class RZCameraViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, RZUploadAlertViewControllerDelegate, RZPostMessageViewControllerDelegate {
     var challenge : RZChallenge! // which challenge this capture is for
     
     var captureSession : AVCaptureSession?
@@ -31,6 +31,8 @@ class RZCameraViewController: UIViewController, AVCaptureFileOutputRecordingDele
     var usingFrontCamera : Bool = true
     var videoFileOutput : AVCaptureMovieFileOutput?
     var outputFileUrl : URL?
+    
+    var postMessage : String?
     
     var hideBar : Bool = false
     
@@ -138,7 +140,7 @@ class RZCameraViewController: UIViewController, AVCaptureFileOutputRecordingDele
             previewLayer?.removeFromSuperlayer()
             reviewLayer?.removeFromSuperlayer()
             captureSession = AVCaptureSession()
-            captureSession?.sessionPreset = AVCaptureSessionPresetMedium
+            captureSession?.sessionPreset = AVCaptureSessionPresetHigh
             usingFrontCamera = useFrontCamera
             if useFrontCamera
             {
@@ -173,6 +175,26 @@ class RZCameraViewController: UIViewController, AVCaptureFileOutputRecordingDele
         self.beginSession(self.usingFrontCamera)
     }
     
+    @IBAction func writeMessage() {
+        self.avPlayer?.pause()
+        let postViewController = self.storyboard?.instantiateViewController(withIdentifier: "PostMessageViewController") as! RZPostMessageViewController
+        postViewController.delegate = self
+        self.present(postViewController, animated: true, completion: nil)
+    }
+    
+    func postMessageControllerDidDismiss(withMessage message: String?) {
+        // dismiss the controller
+        self.dismiss(animated: true, completion: nil)
+        
+        // got the message
+        if message != nil {
+            postMessage = message
+            beginUpload()
+        } else {
+            self.avPlayer?.play()
+        }
+    }
+    
     @IBAction func beginUpload()
     {
         // upload process begins by ensuring we have the proper FBSDK permissions
@@ -181,8 +203,10 @@ class RZCameraViewController: UIViewController, AVCaptureFileOutputRecordingDele
             loginManager.logIn(withPublishPermissions: ["publish_actions"], from: self, handler: { (result, error) in
                 print(result, error)
             })
+        } else {
+            // if everything is good, call uploadVideo
+            uploadVideo()
         }
-        // if everything is good, call uploadVideo
     }
     
     func uploadVideo()
@@ -200,13 +224,11 @@ class RZCameraViewController: UIViewController, AVCaptureFileOutputRecordingDele
         fadeOut.fillMode = kCAFillModeForwards
         fadeOut.isRemovedOnCompletion = false
         self.avPlayer?.pause()
-        previewLayer?.add(fadeOut, forKey: "animateOpacity")
-        reviewLayer?.add(fadeOut, forKey: "animateOpacity")
         reviewLayer?.removeFromSuperlayer()
         previewLayer?.removeFromSuperlayer()
         
         // make sure the challenge is still active
-        if (!RZDatabase.sharedInstance().getChallenge(challenge.id!)!.active!) {
+        if (!RZDatabase.sharedInstance().getChallenge(challenge.id!)!.isActive()) {
             // not active, show alert
             showExpiredAlert()
             return
@@ -214,8 +236,7 @@ class RZCameraViewController: UIViewController, AVCaptureFileOutputRecordingDele
         
         let videoData = NSData(contentsOf: self.outputFileUrl!)
         var videoObject = [AnyHashable : Any]()
-        videoObject["title"] = "Rize"
-        //videoObject["description"] = "I just particpated in the \(challenge.title!) Rize challenge!"
+        videoObject["description"] = postMessage
         videoObject[self.outputFileUrl!.lastPathComponent] = videoData
         
         // TESTING
@@ -251,7 +272,7 @@ class RZCameraViewController: UIViewController, AVCaptureFileOutputRecordingDele
                 submission["shares"] = 0 as AnyObject
                 submission["friends"] = 0 as AnyObject
                 submission["points"] = 0 as AnyObject
-                submission["redeemed"] = "false" as AnyObject
+                submission["redeemed"] = false as AnyObject
                 RZDatabase.sharedInstance().pushSubmission(self.challenge.id!, submission: submission)
             }
         })

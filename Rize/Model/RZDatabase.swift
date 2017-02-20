@@ -10,7 +10,7 @@ import Firebase
 import CoreLocation
 
 protocol RZDatabaseDelegate: class {
-    func databaseDidFinishLoading(_ database: RZDatabase)
+    func databaseDidUpdate(_ database: RZDatabase)
 }
 
 class RZDatabase: NSObject {
@@ -47,140 +47,102 @@ class RZDatabase: NSObject {
         
         // observe challenge data
         self.firebaseRef?.child("challenges").observe(.value, with: { (snapshot) in
-            let snap = snapshot
-            self._challenges = []
-            self._activeChallenges = []
-            
-            // get the current date
-            let date = Date().timeIntervalSince1970
-            
-            for child in snap.children {
-                // create the challenge object
-                let item = (child as! FIRDataSnapshot).value as! [ String : AnyObject ]
-                let challenge = RZChallenge()
-                challenge.id = (child as AnyObject).key
-                challenge.title = item["title"] as? String
-                challenge.sponsor = item["sponsor"] as? String
-                challenge.iconUrl = item["icon"] as? String
-                challenge.bannerUrl = item["banner"] as? String
-                challenge.videoUrl = item["video"] as? String
-                challenge.videoThumbnailUrl = item["video_thumbnail"] as? String
-                challenge.endDate = item["end_date"] as? Int
-                challenge.reward = item["reward"] as? String
-                challenge.pointsRequired = item["points_required"] as? Int
-                challenge.maxSubmissions = item["max_submissions"] as? Int
-                challenge.submissions = item["submissions"] as? Int
-                
-                if let limits = item["limits"] as? [String : Int] {
-                    challenge.likesLimit = limits["likes"]
-                    challenge.sharesLimit = limits["shares"]
-                    challenge.viewsLimit = limits["views"]
-                }
-                
-                if (item["geofence"] != nil) {
-                    guard let geofenceData = item["geofence"] as? [String : AnyObject]
-                        else { break }
-                    guard let center = geofenceData["center"] as? [String : Double]
-                        else { break }
-                    guard let radius = geofenceData["radius"] as? Double
-                        else { break }
-                    
-                    challenge.geofence = RZGeofence(lat: center["lat"]!, lon: center["lon"]!, radius: radius)
-                }
-                
-                // add the challenge to the list
-                self._challenges!.append(challenge)
-                
-                // add the challenge to the active list, if necessary
-                guard let _ = challenge.endDate
-                    else { continue }
-                
-                challenge.active = Int(date) < challenge.endDate!
-                if (challenge.active!) {
-                    // this challenge is not expired
-                    self._activeChallenges!.append(challenge)
-                }
-            }
-            
-            let myGroup = DispatchGroup()
-            
-            // update likes
-            myGroup.enter()
-            self.updateLikes() {
-                myGroup.leave()
-            }
-            
-            // update submissions
-            myGroup.enter()
-            self.updateSubmissions() {
-                myGroup.leave()
-            }
-            
-            myGroup.notify(queue: DispatchQueue.main) {
-                self.delegate?.databaseDidFinishLoading(self)
-            }
+            self.updateChallenges(fromSnapshot: snapshot)
+            self.delegate?.databaseDidUpdate(self)
         })
-    }
-    
-    func updateSubmissions(_ complete: (() -> Void)?) {
-        self.firebaseRef?.child("users/\(FIRAuth.auth()!.currentUser!.uid)/submissions").observeSingleEvent(of: .value, with: { (snapshot) in
-            self._submissions = []
-            self._expiredSubmissions = []
-            self._activeSubmissions = []
-            
-            let date = Date().timeIntervalSince1970
-            
-            for child in snapshot.children {
-                // create the challenge object
-                let item = (child as! FIRDataSnapshot).value as! [ String : AnyObject ]
-                let submission = RZSubmission()
-                submission.challenge_id = item["challenge_id"] as? String
-                submission.id = (child as! FIRDataSnapshot).key as? String
-                submission.facebook = item["facebook"] as? Bool
-                submission.fb_id = item["fb_id"] as? String
-                submission.approved = item["approved"] as? Bool
-                submission.redeemed = item["redeemed"] as? Bool
-                submission.likes = item["likes"] as? Int
-                submission.shares = item["shares"] as? Int
-                submission.points = item["points"] as? Int
-                submission.friends = item["friends"] as? Int
-                submission.complete = item["complete"] as? Bool
-                
-                self._submissions?.append(submission)
-
-                guard let challenge = self.getChallenge(submission.challenge_id!)
-                    else { continue }
-                
-                // set the submission active flag
-                submission.active = (Int(date) < challenge.endDate!)
-                
-                if (submission.active!) {
-                    self._activeSubmissions?.append(submission)
-                } else {
-                    self._expiredSubmissions?.append(submission)
-                }
-                
-            }
-            
-            self.updateAllSubmissionStats() {
-                complete?()
-            }
-        })
-    }
-    
-    func updateLikes(_ complete: (() -> Void)?) {
-        // get likes ref
-        let userLikesRef = self.firebaseRef?.child("users/\(FIRAuth.auth()!.currentUser!.uid)/likes")
         
-        // load user likes
-        userLikesRef?.observeSingleEvent(of: .value, with: { (snapshot) in
-            print("Retrieved likes")
+        // observe the submission data
+        self.firebaseRef?.child("users/\(FIRAuth.auth()!.currentUser!.uid)/submissions").observe(.value, with: { (snapshot) in
+            self.updateSubmissions(fromSnapshot: snapshot) {
+                self.delegate?.databaseDidUpdate(self)
+            }
+        })
+        
+        // observe the likes data
+        self.firebaseRef?.child("users/\(FIRAuth.auth()!.currentUser!.uid)/likes").observe(.value, with: { (snapshot) in
             if (snapshot.hasChildren()) {
                 self._likes = snapshot.value as! [String]
-                self.delegate?.databaseDidFinishLoading(self)
+                self.delegate?.databaseDidUpdate(self)
             }
-            complete?()
         })
+    }
+    
+    func updateChallenges(fromSnapshot snapshot : FIRDataSnapshot) {
+        self._challenges = []
+
+        for child in snapshot.children {
+            // create the challenge object
+            let item = (child as! FIRDataSnapshot).value as! [ String : AnyObject ]
+            let challenge = RZChallenge()
+            
+            // populate the challenge object
+            challenge.id = (child as AnyObject).key
+            challenge.title = item["title"] as? String
+            challenge.sponsor = item["sponsor"] as? String
+            challenge.iconUrl = item["icon"] as? String
+            challenge.bannerUrl = item["banner"] as? String
+            challenge.videoUrl = item["video"] as? String
+            challenge.videoThumbnailUrl = item["video_thumbnail"] as? String
+            challenge.endDate = item["end_date"] as? Int
+            challenge.reward = item["reward"] as? String
+            challenge.pointsRequired = item["points_required"] as? Int
+            challenge.maxSubmissions = item["max_submissions"] as? Int
+            challenge.submissions = item["submissions"] as? Int
+            
+            // make sure the limits exist and then update
+            if let limits = item["limits"] as? [String : Int] {
+                challenge.likesLimit = limits["likes"]
+                challenge.sharesLimit = limits["shares"]
+                challenge.viewsLimit = limits["views"]
+            }
+            
+            // make sure the geofence data is there
+            if (item["geofence"] != nil) {
+                guard let geofenceData = item["geofence"] as? [String : AnyObject]
+                    else { break }
+                guard let center = geofenceData["center"] as? [String : Double]
+                    else { break }
+                guard let radius = geofenceData["radius"] as? Double
+                    else { break }
+                
+                challenge.geofence = RZGeofence(lat: center["lat"]!, lon: center["lon"]!, radius: radius)
+            }
+            
+            // add the challenge to the list
+            self._challenges!.append(challenge)
+        }
+    }
+    
+    func updateSubmissions(fromSnapshot snapshot : FIRDataSnapshot, complete : (() -> Void)?) {
+        // setup submission info
+        self._submissions = []
+        
+        // loop through each submission
+        for child in snapshot.children {
+            // create the challenge object
+            let item = (child as! FIRDataSnapshot).value as! [ String : AnyObject ]
+            let submission = RZSubmission()
+            
+            // populate the submission object
+            submission.challenge_id = item["challenge_id"] as? String
+            submission.id = (child as! FIRDataSnapshot).key as? String
+            submission.facebook = item["facebook"] as? Bool
+            submission.fb_id = item["fb_id"] as? String
+            submission.approved = item["approved"] as? Bool
+            submission.redeemed = item["redeemed"] as? Bool
+            submission.likes = item["likes"] as? Int
+            submission.shares = item["shares"] as? Int
+            submission.points = item["points"] as? Int
+            submission.friends = item["friends"] as? Int
+            submission.complete = item["complete"] as? Bool
+            
+            // add the submission to the list
+            self._submissions?.append(submission)
+        }
+        
+        self.updateAllSubmissionStats() {
+            complete?()
+        }
     }
     
     func pushLikes() {
@@ -297,14 +259,36 @@ class RZDatabase: NSObject {
     }
     func getSubmissions(filter: RZSubmissionFilter) -> [RZSubmission]?
     {
-        switch filter {
+        var filteredSubmissions : [ RZSubmission ] = []
+        
+        guard let _ = _submissions
+            else { return nil }
+        
+        for submission in _submissions! {
+            var shouldInclude = true
+            
+            // check for the filters
+            switch filter {
             case .all:
-                return self._submissions
+                break
             case .active:
-                return self._activeSubmissions
+                if !submission.isActive() {
+                    shouldInclude = false
+                }
             case .expired:
-                return self._expiredSubmissions
+                if submission.isActive() {
+                    shouldInclude = false
+                }
+            }
+            
+            // add the submission to the list if it passes the filters
+            if shouldInclude {
+                filteredSubmissions.append(submission)
+            }
         }
+        
+        // return the submissions
+        return filteredSubmissions
     }
 
     func getSubmission(_ submissionId : String) -> RZSubmission?
@@ -335,6 +319,7 @@ class RZDatabase: NSObject {
     }
     
     func updateAllSubmissionStats(_ complete: (() -> Void)?) {
+        // update all statistic info for the submissions
         let myGroup = DispatchGroup()
         if (self._submissions != nil) {
             for submission in self._submissions!

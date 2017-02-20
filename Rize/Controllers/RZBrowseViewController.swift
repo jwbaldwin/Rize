@@ -157,7 +157,7 @@ class RZBrowseViewController: UIViewController, UICollectionViewDelegateFlowLayo
         }
     }
     
-    func databaseDidFinishLoading(_ database: RZDatabase) {
+    func databaseDidUpdate(_ database: RZDatabase) {
         self.activityIndicator?.stopAnimating()
         self.collectionView?.reloadData()
     }
