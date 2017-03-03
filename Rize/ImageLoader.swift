@@ -41,7 +41,7 @@ class ImageLoader {
             let data = responseData!
             if (responseData != nil) {
                 DispatchQueue.main.async(execute: { () -> Void in
-                    complete?(UIImage(data: data)!)
+                    //complete?(UIImage(data: data)!)
                 })
             }
         }) 
