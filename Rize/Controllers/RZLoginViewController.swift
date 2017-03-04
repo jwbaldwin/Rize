@@ -44,7 +44,7 @@ class RZLoginViewController: UIViewController, UIScrollViewDelegate {
                 self.logo_grey.alpha = 0.0
             })
             
-            UIView.animate(withDuration: 1, delay: 0.75, animations: {
+            UIView.animate(withDuration: 0.25, animations: {
                 // Set up the intro scroll view
                 self.scrollView.delegate = self
                 var imageNames = [ "help_1", "help_2" , "help_3" ]
@@ -61,7 +61,8 @@ class RZLoginViewController: UIViewController, UIScrollViewDelegate {
 
             })
             
-            UIView.animate(withDuration: 1.5, animations:{
+            UIView.animate(withDuration: 1.5, delay: 0.5, animations:{
+                self.scrollView.alpha = 1.0
                 self.loginButton.center.y = self.view.bounds.height - 50
             })
         }
