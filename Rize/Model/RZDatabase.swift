@@ -20,10 +20,7 @@ class RZDatabase: NSObject {
     fileprivate var firebaseRef : FIRDatabaseReference? // Firebase database reference
     fileprivate var _likes : [String]?                  // list of this user's likes
     fileprivate var _challenges : [RZChallenge]?        // challenges
-    fileprivate var _activeChallenges : [RZChallenge]?  // active challenges
     fileprivate var _submissions : [RZSubmission]?      // user submissions
-    fileprivate var _activeSubmissions : [RZSubmission]?
-    fileprivate var _expiredSubmissions : [RZSubmission]?
     var delegate : RZDatabaseDelegate?
 
     static func sharedInstance() -> RZDatabase {
@@ -84,10 +81,15 @@ class RZDatabase: NSObject {
             challenge.videoUrl = item["video"] as? String
             challenge.videoThumbnailUrl = item["video_thumbnail"] as? String
             challenge.endDate = item["end_date"] as? Int
-            challenge.reward = item["reward"] as? String
             challenge.pointsRequired = item["points_required"] as? Int
             challenge.maxSubmissions = item["max_submissions"] as? Int
             challenge.submissions = item["submissions"] as? Int
+            
+            if let reward = item["reward"] as? [String : String] {
+                challenge.rewardTitle = reward["title"]
+                challenge.rewardMessage = reward["message"]
+                challenge.rewardLink = reward["link"]
+            }
             
             // make sure the limits exist and then update
             if let limits = item["limits"] as? [String : Int] {
@@ -329,7 +331,7 @@ class RZDatabase: NSObject {
                     else { continue }
                 
                 myGroup.enter()
-                RZFBGraphRequestHelper.getFBGraphData(endpoint: "\(submission.fb_id!)?fields=likes.limit(0).summary(true),sharedposts") { (result, error) in
+                RZFBGraphRequestHelper.getFBGraphData(endpoint: "\(submission.fb_id!)?fields=likes.limit(0).summary(true),shares") { (result, error) in
                 
                     // make sure that whatever happens, we update the points
                     // and exit this dispatch group
@@ -354,6 +356,11 @@ class RZDatabase: NSObject {
                     submission.likes = likeCount
     
                     // need to add shares
+                    guard let shares = result?["shares"] as? [String : AnyObject?]
+                        else { return }
+                    
+                    let shareCount = shares["count"] as! Int
+                    submission.shares = shareCount
                     
                 }
             }

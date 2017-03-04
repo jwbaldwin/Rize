@@ -61,7 +61,7 @@ class RZSubmissionDetailViewController: UIViewController {
         self.navigationItem.setRightBarButtonItems([deleteButton], animated: true)
         
         // setup the redeem button
-        redeemButton.setTitle(challenge!.reward!.uppercased(), for: .normal)
+        redeemButton.setTitle(challenge!.rewardTitle!.uppercased(), for: .normal)
         redeemButton.layer.borderColor = RZColors.primary.cgColor
         redeemButton.layer.cornerRadius = 4.0
         redeemButton.layer.borderWidth = 1.0
@@ -122,7 +122,7 @@ class RZSubmissionDetailViewController: UIViewController {
         self.sharesPoints.text = String(format: "+%d", self.submission!.pointsFromShares())
         
         // set the redeem button up
-        if (self.submission!.complete! && !self.submission!.redeemed!) {
+        if (self.submission!.complete!) {
             self.redeemButton.isEnabled = true
             self.redeemButton.layer.opacity = 1
         } else {
@@ -146,7 +146,12 @@ class RZSubmissionDetailViewController: UIViewController {
     }
     
     @IBAction func redeem() {
-        
+        let redeemController = self.storyboard?.instantiateViewController(withIdentifier: "RedeemViewController") as! RZRedeemViewController
+        redeemController.challengeId = challenge!.id!
+        redeemController.submissionId = submissionId
+        // Get rid of the back button label
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil);
+        self.navigationController?.pushViewController(redeemController, animated: true)
     }
     
     /*

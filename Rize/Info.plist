@@ -28,11 +28,13 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>970</string>
+	<string>993</string>
 	<key>FacebookAppID</key>
 	<string>1255393701147313</string>
 	<key>FacebookDisplayName</key>
 	<string>Rize</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>fbapi</string>
