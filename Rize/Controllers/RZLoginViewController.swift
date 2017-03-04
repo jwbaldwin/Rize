@@ -9,8 +9,9 @@
 //  http://stackoverflow.com/questions/19461678/how-do-i-use-uipagecontrol-in-my-app
 
 import UIKit
+import Firebase
 
-class RZLoginViewController: UIViewController, UIScrollViewDelegate {
+class RZLoginViewController: UIViewController, UIScrollViewDelegate, FBSDKLoginButtonDelegate {
 
     @IBOutlet weak var logo_grey: UIImageView!
     @IBOutlet var pageControl   : UIPageControl!
@@ -21,7 +22,7 @@ class RZLoginViewController: UIViewController, UIScrollViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.loginButton.delegate = delegate
+        self.loginButton.delegate = self
         self.loginButton.readPermissions = ["public_profile", "user_friends", "user_videos", "email"]
         self.view.addSubview(loginButton)
 
@@ -67,6 +68,37 @@ class RZLoginViewController: UIViewController, UIScrollViewDelegate {
 
     }
     
+    func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
+        if (error == nil)
+        {
+            // Authenticate Firebase via Facebook
+            self.loginWithCurrentFacebookToken()
+        }
+        else
+        {
+            // Error: not logged in
+            // Show the login controller
+            print(error)
+        }
+    }
+    
+    public func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
+        // do nothing
+    }
+    
+    public func loginWithCurrentFacebookToken() {
+        let credential = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
+        FIRAuth.auth()?.signIn(with: credential) { (user, error) in
+            // Signed in! Awesome!
+            if (error == nil) {
+                // show the tab root controller
+                let appDelegate = UIApplication.shared.delegate
+                appDelegate?.window??.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController()
+            } else {
+                print(error)
+            }
+        }
+    }
     
 //    override func viewDidLayoutSubviews() {
 //        // Set up the intro scroll view

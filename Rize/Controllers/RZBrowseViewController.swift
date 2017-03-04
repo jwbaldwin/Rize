@@ -13,7 +13,7 @@ import CoreLocation
 
 private let reuseIdentifier = "ChallengeCell"
 
-class RZBrowseViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, CLLocationManagerDelegate, RZDatabaseDelegate, FBSDKLoginButtonDelegate {
+class RZBrowseViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, CLLocationManagerDelegate, RZDatabaseDelegate {
 
     @IBOutlet var collectionView: UICollectionView?
     @IBOutlet var activityIndicator: UIActivityIndicatorView?
@@ -38,16 +38,12 @@ class RZBrowseViewController: UIViewController, UICollectionViewDelegateFlowLayo
         // start the activity indicator
         self.activityIndicator?.startAnimating()
         
-        // Try to login the user
-        if (FBSDKAccessToken.current() == nil) {
-            showLogin()
-        } else {
-            self.loginWithCurrentFacebookToken()
-        }
-                
         locationManager.delegate = self
         
         RZDatabase.sharedInstance().delegate = self
+        
+        // user should already be logged in
+        self.setupData()
         
         // apply the color scheme
         self.view.backgroundColor = RZColors.background
@@ -65,14 +61,17 @@ class RZBrowseViewController: UIViewController, UICollectionViewDelegateFlowLayo
     }
     
     // MARK: - Show Login
+    /*
     func showLogin() {
         let loginController = self.storyboard!.instantiateViewController(withIdentifier: "LoginViewController") as! RZLoginViewController
         loginController.delegate = self
         self.present(loginController, animated: true, completion: nil)
 
     }
+    */
     
     // MARK: - FB Login Delegate
+    /*
     func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
         if (error == nil)
         {
@@ -104,6 +103,7 @@ class RZBrowseViewController: UIViewController, UICollectionViewDelegateFlowLayo
         self.tabBarController?.selectedIndex = 0
         self.navigationController?.popToRootViewController(animated: false)
     }
+    */
     
     func setupData() {
         RZDatabase.sharedInstance().observe()

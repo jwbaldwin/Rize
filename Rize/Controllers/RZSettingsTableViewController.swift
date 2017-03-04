@@ -44,11 +44,14 @@ class RZSettingsTableViewController: UITableViewController {
             self.profileImageView.clipsToBounds = true
             if (FIRAuth.auth()?.currentUser!.photoURL != nil)
             {
-                ImageLoader.downloadImageFromURL((FIRAuth.auth()?.currentUser?.photoURL?.absoluteString)!) { (image: UIImage) -> Void in
+                print(FIRAuth.auth()!.currentUser!.photoURL!.absoluteString)
+                /*
+                ImageLoader.downloadImageFromURL(FIRAuth.auth()!.currentUser!.photoURL!.absoluteString) { (image: UIImage) -> Void in
                     UIView.transition(with: self.profileImageView, duration: 0.5, options: UIViewAnimationOptions.transitionCrossDissolve, animations: {
                         self.profileImageView.image = ImageLoader.createRoundImage(image)
                     }, completion: nil)
                 }
+                */
             }
         }
     }
@@ -126,11 +129,8 @@ class RZSettingsTableViewController: UITableViewController {
             // Logged out. Show the login screen
             try! FIRAuth.auth()!.signOut()
             FBSDKLoginManager().logOut()
-            let loginController : RZLoginViewController = self.storyboard!.instantiateViewController(withIdentifier: "LoginViewController") as! RZLoginViewController
-            let browseNavController = self.tabBarController?.viewControllers![0] as! UINavigationController
-            browseNavController.popToRootViewController(animated: false)
-            loginController.delegate = browseNavController.viewControllers[0] as! RZBrowseViewController
-            self.present(loginController, animated: true, completion: nil)
+            let appDelegate = UIApplication.shared.delegate
+            appDelegate?.window??.rootViewController = self.storyboard?.instantiateViewController(withIdentifier: "LoginViewController")
         } else if (indexPath == PRIVACY_INDEXPATH) {
             // show the privacy policy
             RZDatabase.sharedInstance().getPrivacyPolicy() { (content, date) in
