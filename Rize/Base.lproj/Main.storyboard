@@ -294,7 +294,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="grey_logo" translatesAutoresizingMaskIntoConstraints="NO" id="wGW-hG-Ger">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wGW-hG-Ger">
                                 <rect key="frame" x="-4" y="0.0" width="383" height="667"/>
                             </imageView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MkM-D2-r5C">
@@ -1133,7 +1133,6 @@
         <image name="film" width="34" height="34"/>
         <image name="generic_profile" width="166" height="166"/>
         <image name="gift" width="25" height="25"/>
-        <image name="grey_logo" width="2100" height="1500"/>
         <image name="me" width="25" height="25"/>
         <image name="people" width="80" height="80"/>
         <image name="play" width="50" height="55"/>
