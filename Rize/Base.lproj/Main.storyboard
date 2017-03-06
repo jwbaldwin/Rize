@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="sO9-UK-6kz">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="15G1217" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="sO9-UK-6kz">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -677,7 +677,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zSa-QY-BbN">
-                                <rect key="frame" x="45" y="567" width="34" height="54"/>
+                                <rect key="frame" x="45" y="567" width="38" height="54"/>
                                 <state key="normal" image="film"/>
                                 <connections>
                                     <action selector="openCameraRoll" destination="JCP-Cv-Fg6" eventType="touchUpInside" id="W3s-m4-VMc"/>
@@ -695,17 +695,6 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.9137254901960784" green="0.11764705882352941" blue="0.38823529411764707" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eqr-Df-ivj">
-                                <rect key="frame" x="315" y="0.0" width="60" height="60"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="0sh-JV-sYf"/>
-                                    <constraint firstAttribute="width" constant="60" id="xPv-4I-quI"/>
-                                </constraints>
-                                <state key="normal" image="close"/>
-                                <connections>
-                                    <action selector="done" destination="JCP-Cv-Fg6" eventType="touchUpInside" id="yQW-yu-wiX"/>
-                                </connections>
-                            </button>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3kL-rY-zqD">
                                 <rect key="frame" x="148" y="554" width="80" height="80"/>
                                 <state key="normal" image="upload"/>
@@ -713,8 +702,8 @@
                                     <action selector="writeMessage" destination="JCP-Cv-Fg6" eventType="touchUpInside" id="yve-B3-yG0"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vDu-Fh-wfa">
-                                <rect key="frame" x="315" y="0.0" width="60" height="60"/>
+                            <button opaque="NO" contentMode="scaleAspectFit" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vDu-Fh-wfa">
+                                <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60" id="HXV-wQ-MnW"/>
                                     <constraint firstAttribute="height" constant="60" id="KaN-kN-TSr"/>
@@ -723,6 +712,17 @@
                                 <state key="normal" image="close"/>
                                 <connections>
                                     <action selector="dismissReview" destination="JCP-Cv-Fg6" eventType="touchUpInside" id="iZF-V1-e4Q"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eqr-Df-ivj">
+                                <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="0sh-JV-sYf"/>
+                                    <constraint firstAttribute="width" constant="60" id="xPv-4I-quI"/>
+                                </constraints>
+                                <state key="normal" image="close"/>
+                                <connections>
+                                    <action selector="done" destination="JCP-Cv-Fg6" eventType="touchUpInside" id="yQW-yu-wiX"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -828,7 +828,7 @@
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="sectionIndexBackgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="QwF-W1-KjM">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="169"/>
+                            <rect key="frame" x="0.0" y="64" width="375" height="169"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="generic_profile" translatesAutoresizingMaskIntoConstraints="NO" id="g2g-fx-ibd">
@@ -854,7 +854,7 @@
                             </constraints>
                         </view>
                         <imageView key="tableFooterView" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="Wr0-Z0-rQL">
-                            <rect key="frame" x="0.0" y="420" width="375" height="290"/>
+                            <rect key="frame" x="0.0" y="484" width="375" height="290"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="290" id="gMS-FX-nUX"/>
@@ -1129,8 +1129,8 @@
     </scenes>
     <resources>
         <image name="browse" width="25" height="25"/>
-        <image name="close" width="20" height="20"/>
-        <image name="film" width="34" height="34"/>
+        <image name="close" width="26" height="26"/>
+        <image name="film" width="38" height="38"/>
         <image name="generic_profile" width="166" height="166"/>
         <image name="gift" width="25" height="25"/>
         <image name="me" width="25" height="25"/>
