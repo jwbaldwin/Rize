@@ -6,12 +6,12 @@
     },
     {
       "idiom" : "universal",
-      "filename" : "swap@2x.png",
+      "filename" : "reverse-camera@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "swap@3x.png",
+      "filename" : "reverse-camera@3x.png",
       "scale" : "3x"
     }
   ],
