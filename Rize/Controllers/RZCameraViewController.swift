@@ -78,6 +78,8 @@ class RZCameraViewController: UIViewController, AVCaptureFileOutputRecordingDele
         
         // Show the record UI first
         showRecordUI()
+        setShadowButton(shutterButton!)
+        setShadowButton(uploadButton!)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -87,6 +89,15 @@ class RZCameraViewController: UIViewController, AVCaptureFileOutputRecordingDele
         UIView.animate(withDuration: 0.25, animations: {
             self.setNeedsStatusBarAppearanceUpdate()
         })
+    }
+    
+    //shutterButton and uploadButton shadow
+    func setShadowButton(_ shutterButton: UIButton){
+        shutterButton.layer.shadowColor = UIColor.black.cgColor
+        shutterButton.layer.shadowOffset = CGSize(width: 0.0, height: 0.0)
+        shutterButton.layer.masksToBounds = false
+        shutterButton.layer.shadowRadius = 5.0
+        shutterButton.layer.shadowOpacity = 0.15
     }
     
     override var prefersStatusBarHidden : Bool {
