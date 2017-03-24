@@ -49,6 +49,7 @@
 		34F800AD1E120642005D11E0 /* RZFBGraphRequestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F800AC1E120642005D11E0 /* RZFBGraphRequestHelper.swift */; };
 		37AEC37F429E0387E91D9FC8 /* Pods_Rize.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D10661D745FC4162B6F1E84 /* Pods_Rize.framework */; };
 		48ECB7F64AF42F69C000141E /* Pods_RizeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2214942F74CB0BBFD869C154 /* Pods_RizeTests.framework */; };
+		DA86B5C61E858FD3008FABD8 /* RZWalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA86B5C51E858FD3008FABD8 /* RZWalletViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -137,6 +138,7 @@
 		A192DE98B4C47ED8F4322BE3 /* Pods-RizeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RizeTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RizeTests/Pods-RizeTests.debug.xcconfig"; sourceTree = "<group>"; };
 		C502535F03F4CCB9E3312FEE /* Pods-RizeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RizeTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-RizeTests/Pods-RizeTests.release.xcconfig"; sourceTree = "<group>"; };
 		D5453F85682B433F5E841673 /* Pods-RizeUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RizeUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RizeUITests/Pods-RizeUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		DA86B5C51E858FD3008FABD8 /* RZWalletViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RZWalletViewController.swift; sourceTree = "<group>"; };
 		F9B769BA519B135B3790B051 /* Pods-Rize.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rize.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Rize/Pods-Rize.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -201,6 +203,7 @@
 				34B4EB451E33F3B800009C20 /* RZLegalViewController.swift */,
 				34B38FC61E4FA0CF00077A8F /* RZPostMessageViewController.swift */,
 				347755741E6371B2002FAA0A /* RZRedeemViewController.swift */,
+				DA86B5C51E858FD3008FABD8 /* RZWalletViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -613,6 +616,7 @@
 				34B38FC71E4FA0CF00077A8F /* RZPostMessageViewController.swift in Sources */,
 				345A51451E0C219D0051840F /* RZCircularProgressView.swift in Sources */,
 				34E00F2F1E09AE2E00542A06 /* RZUploadAlertViewController.swift in Sources */,
+				DA86B5C61E858FD3008FABD8 /* RZWalletViewController.swift in Sources */,
 				344429931D2821EA00F44401 /* RZMeViewController.swift in Sources */,
 				345A51431E0C1F4E0051840F /* RZSubmissionDetailViewController.swift in Sources */,
 				3447A12E1D01117B00AAB490 /* RZChallengeDetailViewController.swift in Sources */,
