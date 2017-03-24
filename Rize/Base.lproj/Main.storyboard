@@ -962,27 +962,8 @@
         <!--Wallet-->
         <scene sceneID="tkg-0X-UbL">
             <objects>
-                <tableViewController id="Uo6-ON-JzG" userLabel="Wallet" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="ug1-ln-ILv" userLabel="Wallet View Controller">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="687"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KZO-vk-kwc">
-                                <rect key="frame" x="0.0" y="28" width="414" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KZO-vk-kwc" id="r3v-9n-WaH">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="Uo6-ON-JzG" id="na7-Qh-T4M"/>
-                            <outlet property="delegate" destination="Uo6-ON-JzG" id="TK5-49-oda"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" title="Wallet" id="jLe-Yh-KD6" userLabel="Wallet View Controller"/>
+                <tableViewController id="Uo6-ON-JzG" userLabel="Wallet" customClass="RZWalletViewController" customModule="Rize" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" title="Wallet" id="jLe-Yh-KD6" userLabel="Wallet"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="S69-R6-1EJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
