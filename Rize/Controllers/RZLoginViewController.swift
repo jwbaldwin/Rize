@@ -18,6 +18,7 @@ class RZLoginViewController: UIViewController, UIScrollViewDelegate, FBSDKLoginB
     @IBOutlet var scrollView    : UIScrollView!
     @IBOutlet var loginButton   : FBSDKLoginButton!
     weak var delegate : FBSDKLoginButtonDelegate?
+    var didLoadImages : Bool = false
     
 
     override func viewDidLoad() {
@@ -35,6 +36,7 @@ class RZLoginViewController: UIViewController, UIScrollViewDelegate, FBSDKLoginB
     
     override func viewDidAppear(_ animated: Bool)
     {
+        super.viewDidAppear(animated)
         if(FBSDKAccessToken.current() != nil){
             // logged in
             UIView.animate(withDuration: 0.5, animations: {
@@ -46,18 +48,24 @@ class RZLoginViewController: UIViewController, UIScrollViewDelegate, FBSDKLoginB
             })
             
             // set up the intro scroll view
-            self.scrollView.delegate = self
-            var imageNames = [ "help_1", "help_2" , "help_3" ]
-            for i in 0..<imageNames.count
+            if (!didLoadImages)
             {
-                let image = UIImage(named: imageNames[i])
-                let imageView = UIImageView(image: image!)
-                imageView.frame = CGRect(x: CGFloat(i) * self.scrollView.frame.size.width, y: 0.0, width: self.scrollView.frame.size.width, height: self.scrollView.frame.size.height)
-                imageView.contentMode = .scaleAspectFit
-                self.scrollView.addSubview(imageView)
-            }
             
-            self.scrollView.contentSize = CGSize(width: self.scrollView.frame.size.width*CGFloat(imageNames.count), height: self.scrollView.frame.size.height);
+                self.scrollView.delegate = self
+                var imageNames = [ "help_1", "help_2" , "help_3" ]
+                for i in 0..<imageNames.count
+                {
+                    let image = UIImage(named: imageNames[i])
+                    let imageView = UIImageView(image: image!)
+                    imageView.frame = CGRect(x: CGFloat(i) * self.scrollView.frame.size.width, y: 0.0, width: self.scrollView.frame.size.width, height: self.scrollView.frame.size.height)
+                    imageView.contentMode = .scaleAspectFit
+                    self.scrollView.addSubview(imageView)
+                }
+                
+                self.scrollView.contentSize = CGSize(width: self.scrollView.frame.size.width*CGFloat(imageNames.count), height: self.scrollView.frame.size.height)
+                
+                didLoadImages = true
+            }
 
             
             UIView.animate(withDuration: 1.5, delay: 0.5, animations:{

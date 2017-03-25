@@ -45,13 +45,11 @@ class RZSettingsTableViewController: UITableViewController {
             if (FIRAuth.auth()?.currentUser!.photoURL != nil)
             {
                 print(FIRAuth.auth()!.currentUser!.photoURL!.absoluteString)
-                /*
                 ImageLoader.downloadImageFromURL(FIRAuth.auth()!.currentUser!.photoURL!.absoluteString) { (image: UIImage) -> Void in
                     UIView.transition(with: self.profileImageView, duration: 0.5, options: UIViewAnimationOptions.transitionCrossDissolve, animations: {
                         self.profileImageView.image = ImageLoader.createRoundImage(image)
                     }, completion: nil)
                 }
-                */
             }
         }
     }

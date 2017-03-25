@@ -120,7 +120,7 @@ class RZMeViewController: UIViewController, UITableViewDataSource, UITableViewDe
             let submission = RZDatabase.sharedInstance().getSubmission(challengeId!)
             let challenge = RZDatabase.sharedInstance().getChallenge(challengeId!)
             
-            cell?.textLabel?.text = "\(challenge!.title!) (\(Int(submission!.progress() * 100))%)"
+            cell?.textLabel?.text = "\(challenge!.title!)"
             cell?.progressView?.setProgress(submission!.progress(), animated: true)
             ImageLoader.setImageViewImage(challenge!.iconUrl!, view: cell!.iconView!, round: true)
             ImageLoader.setImageViewImage(challenge!.bannerUrl!, view: cell!.bannerView!, round: false)

@@ -39,8 +39,10 @@ class ImageLoader {
         let task = URLSession.shared.dataTask(with: url, completionHandler: {
             (responseData, responseUrl, error) -> Void in
             if (responseData != nil && error == nil) {
+                guard let image = UIImage(data: responseData!)
+                    else { return }
                 DispatchQueue.main.async(execute: { () -> Void in
-                    complete?(UIImage(data: responseData!)!)
+                    complete?(image)
                 })
             }
         }) 
