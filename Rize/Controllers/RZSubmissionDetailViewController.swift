@@ -146,12 +146,7 @@ class RZSubmissionDetailViewController: UIViewController {
     }
     
     @IBAction func redeem() {
-        let redeemController = self.storyboard?.instantiateViewController(withIdentifier: "RedeemViewController") as! RZRedeemViewController
-        redeemController.challengeId = challenge!.id!
-        redeemController.submissionId = submissionId
-        // Get rid of the back button label
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil);
-        self.navigationController?.pushViewController(redeemController, animated: true)
+        
     }
     
     /*
