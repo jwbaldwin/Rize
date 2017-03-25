@@ -64,9 +64,13 @@ class RZSubmission: NSObject {
     }
     
     func updatePoints() {
-        let challenge = RZDatabase.sharedInstance().getChallenge(challenge_id!)!
-        
         points = 0
+
+        guard let _ = challenge_id
+            else { return }
+        guard let challenge = RZDatabase.sharedInstance().getChallenge(challenge_id!)
+            else { return }
+        
         if (facebook!) {
             points! += Int(POINTS_FB)
             points! += pointsFromLikes()
@@ -105,7 +109,10 @@ class RZSubmission: NSObject {
     }
     
     func isActive() -> Bool {
-        let challenge = RZDatabase.sharedInstance().getChallenge(challenge_id!)!
+        guard let _ = challenge_id
+            else { return false }
+        guard let challenge = RZDatabase.sharedInstance().getChallenge(challenge_id!)
+            else { return false }
         let date = Date().timeIntervalSince1970
         return (Int(date) < challenge.endDate!)
     }

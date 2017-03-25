@@ -282,6 +282,11 @@ class RZDatabase: NSObject {
                     shouldInclude = false
                 }
             }
+
+            // only show the submission if we can still get the challenge data
+            if getChallenge(submission.challenge_id!) == nil {
+                shouldInclude = false
+            }
             
             // add the submission to the list if it passes the filters
             if shouldInclude {
