@@ -298,31 +298,32 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                             </imageView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MkM-D2-r5C">
-                                <rect key="frame" x="-4" y="20" width="383" height="526"/>
+                                <rect key="frame" x="0.0" y="28" width="418" height="587"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                             </scrollView>
-                            <pageControl opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="9ap-UX-y4E">
-                                <rect key="frame" x="168" y="554" width="39" height="37"/>
-                            </pageControl>
                             <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="onq-bE-Bi9" customClass="FBSDKLoginButton">
-                                <rect key="frame" x="118" y="599" width="138" height="48"/>
+                                <rect key="frame" x="138" y="668" width="138" height="48"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
+                            <pageControl opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="9ap-UX-y4E">
+                                <rect key="frame" x="188" y="623" width="39" height="37"/>
+                            </pageControl>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="9ap-UX-y4E" firstAttribute="centerX" secondItem="iTQ-NZ-NPL" secondAttribute="centerX" id="29Y-g5-5oF"/>
-                            <constraint firstItem="MkM-D2-r5C" firstAttribute="leading" secondItem="iTQ-NZ-NPL" secondAttribute="leadingMargin" constant="-20" id="7Iu-N5-Cur"/>
                             <constraint firstItem="wGW-hG-Ger" firstAttribute="top" secondItem="iTQ-NZ-NPL" secondAttribute="topMargin" id="9KC-LF-v6h"/>
-                            <constraint firstItem="onq-bE-Bi9" firstAttribute="top" secondItem="9ap-UX-y4E" secondAttribute="bottom" constant="8" id="M0Q-Zl-gzq"/>
+                            <constraint firstItem="onq-bE-Bi9" firstAttribute="top" secondItem="9ap-UX-y4E" secondAttribute="bottom" constant="8" id="AVJ-AW-Dgn"/>
+                            <constraint firstAttribute="trailing" secondItem="MkM-D2-r5C" secondAttribute="trailing" id="ETb-ja-p1I"/>
+                            <constraint firstItem="ga1-86-1mW" firstAttribute="top" secondItem="onq-bE-Bi9" secondAttribute="bottom" constant="20" id="LPD-JT-f5p"/>
+                            <constraint firstItem="MkM-D2-r5C" firstAttribute="top" secondItem="npN-Mf-jFQ" secondAttribute="bottom" constant="8" id="RFi-MX-olQ"/>
                             <constraint firstItem="wGW-hG-Ger" firstAttribute="leading" secondItem="iTQ-NZ-NPL" secondAttribute="leadingMargin" constant="-20" id="Rcw-qd-3Nv"/>
                             <constraint firstItem="ga1-86-1mW" firstAttribute="top" secondItem="wGW-hG-Ger" secondAttribute="bottom" id="THy-J2-nGx"/>
+                            <constraint firstItem="MkM-D2-r5C" firstAttribute="leading" secondItem="iTQ-NZ-NPL" secondAttribute="leading" id="d5t-RV-d2R"/>
                             <constraint firstItem="ga1-86-1mW" firstAttribute="top" secondItem="onq-bE-Bi9" secondAttribute="bottom" constant="20" id="eeP-5k-erS"/>
-                            <constraint firstItem="MkM-D2-r5C" firstAttribute="top" secondItem="npN-Mf-jFQ" secondAttribute="bottom" id="lte-lA-chb"/>
-                            <constraint firstItem="9ap-UX-y4E" firstAttribute="top" secondItem="MkM-D2-r5C" secondAttribute="bottom" constant="8" id="p2p-ky-mby"/>
                             <constraint firstAttribute="trailingMargin" secondItem="wGW-hG-Ger" secondAttribute="trailing" constant="-20" id="plK-o9-K7M"/>
-                            <constraint firstItem="onq-bE-Bi9" firstAttribute="centerX" secondItem="iTQ-NZ-NPL" secondAttribute="centerX" id="q9a-cx-Tb8"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="MkM-D2-r5C" secondAttribute="trailing" constant="-20" id="vKr-oA-CYi"/>
+                            <constraint firstItem="onq-bE-Bi9" firstAttribute="centerX" secondItem="iTQ-NZ-NPL" secondAttribute="centerX" id="vnM-Be-LS1"/>
+                            <constraint firstItem="9ap-UX-y4E" firstAttribute="top" secondItem="MkM-D2-r5C" secondAttribute="bottom" constant="8" id="zSt-bz-BXI"/>
                         </constraints>
                     </view>
                     <connections>
@@ -334,7 +335,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="364-OQ-bj8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1254" y="-390"/>
+            <point key="canvasLocation" x="-1255.072463768116" y="-390.48913043478262"/>
         </scene>
         <!--MainTabController-->
         <scene sceneID="oM7-fa-qfq">
