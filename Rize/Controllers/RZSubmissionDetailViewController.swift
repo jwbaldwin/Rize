@@ -11,23 +11,7 @@ import UIKit
 class RZSubmissionDetailViewController: UIViewController {
 
     @IBOutlet var progressView : RZCircularProgressView!
-    @IBOutlet var pointsLabel : UILabel!
     
-    @IBOutlet var likesLabel : UILabel!
-    @IBOutlet var likesPoints : UILabel!
-    @IBOutlet var likesProgress : UIProgressView!
-    
-    @IBOutlet var sharesLabel : UILabel!
-    @IBOutlet var sharesPoints : UILabel!
-    @IBOutlet var sharesProgress : UIProgressView!
-    
-    @IBOutlet var fbLabel : UILabel!
-    @IBOutlet var fbPoints : UILabel!
-    
-    @IBOutlet var backgroundImageView : UIImageView!
-    
-    @IBOutlet var redeemButton : UIButton!
-
     var submissionId : String?
     var submission : RZSubmission?
     var challenge : RZChallenge?
@@ -47,29 +31,15 @@ class RZSubmissionDetailViewController: UIViewController {
         submission = RZDatabase.sharedInstance().getSubmission(submissionId!)
 
         // setup the circular progress view
-        progressView.lineWidth = 10.0
+        progressView.lineWidth = 20.0
         progressView.strokeColor = RZColors.primary
         progressView.bgStrokeColor = UIColor(white: 1.0, alpha: 0.5)
         progressView.startAngle = -CGFloat(M_PI_2)
-        progressView.setProgress(0.0, animated: false)
-        progressView.layer.opacity = 0.75
-        
-        pointsLabel.text = String(format: "%d", 75)
+        progressView.setProgress(0.5, animated: false)
         
         // add delete icon
         let deleteButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deleteSubmission))
         self.navigationItem.setRightBarButtonItems([deleteButton], animated: true)
-        
-        // setup the redeem button
-        redeemButton.setTitle(challenge!.rewardTitle!.uppercased(), for: .normal)
-        redeemButton.layer.borderColor = RZColors.primary.cgColor
-        redeemButton.layer.cornerRadius = 4.0
-        redeemButton.layer.borderWidth = 1.0
-        redeemButton.layer.backgroundColor = RZColors.primary.cgColor
-        redeemButton.setTitleColor(RZColors.background, for: .normal)
-        
-        // load the background image
-        ImageLoader.setImageViewImage(challenge!.bannerUrl!, view: self.backgroundImageView, round: false)
         
         updateUI()
         
@@ -96,39 +66,7 @@ class RZSubmissionDetailViewController: UIViewController {
     
     func updateUI()
     {
-        // update the facebook labels
-        if (self.submission!.facebook!) {
-            self.fbLabel.isEnabled = true
-            self.fbPoints.isEnabled = true
-        } else {
-            self.fbLabel.isEnabled = false
-            self.fbPoints.isEnabled = false
-        }
         
-        // update the total points
-        self.pointsLabel.text = String(format: "%d", self.submission!.points!)
-        
-        // update the progress circle
-        self.progressView.setProgress(CGFloat(self.submission!.progress()), animated: true)
-        
-        // update the likes
-        self.likesLabel.text = String(format: "LIKES (%d/%d)", self.submission!.likes!, self.challenge!.likesLimit!)
-        self.likesProgress.setProgress(self.submission!.likesProgress(), animated: true)
-        self.likesPoints.text = String(format: "+%d", self.submission!.pointsFromLikes())
-        
-        // update the shares
-        self.sharesLabel.text = String(format: "SHARES (%d/%d)", self.submission!.shares!, self.challenge!.sharesLimit!)
-        self.sharesProgress.setProgress(self.submission!.sharesProgress(), animated: true)
-        self.sharesPoints.text = String(format: "+%d", self.submission!.pointsFromShares())
-        
-        // set the redeem button up
-        if (self.submission!.complete!) {
-            self.redeemButton.isEnabled = true
-            self.redeemButton.layer.opacity = 1
-        } else {
-            self.redeemButton.isEnabled = false
-            self.redeemButton.layer.opacity = 0.25
-        }
     }
     
     func deleteSubmission()

@@ -77,6 +77,13 @@ class RZCircularProgressView: UIView {
         self.bgArcShape = CAShapeLayer()
         self.bgArcShape?.fillColor = UIColor.clear.cgColor
         self.bgArcShape?.strokeColor = UIColor(white: 0.95, alpha: 1.0).cgColor
+        
+        // drop shadow
+        self.bgArcShape?.shadowColor = UIColor.black.cgColor
+        self.bgArcShape?.shadowRadius = 10.0
+        self.bgArcShape?.shadowOpacity = 0.25
+        self.bgArcShape?.shadowOffset = CGSize(width: 0, height: 0)
+        
         self.layer.addSublayer(self.bgArcShape!)
         self.layer.addSublayer(self.arcShape!)
         updateArcPath()

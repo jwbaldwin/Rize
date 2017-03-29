@@ -17,6 +17,6 @@ class RZColors {
     static var tabBarUnselected = UIColor(white: 0.8, alpha: 1.0)
     static var tabBarSelected = primary
     
-    static var background = UIColor(white: 0.98, alpha: 1.0)
+    static var background = UIColor(white: 1.0, alpha: 1.0) // was 0.98
     static var cardBackground = UIColor(white: 0.90, alpha: 1.0)
 }
