@@ -13,9 +13,9 @@ import UIKit
 class RZSubmissionProgressCircleView: UIView {
 
     fileprivate var _lineWidth : CGFloat = 0.0
-    fileprivate var _uploadStrokeColor : UIColor = UIColor(red: 0.298, green: 0.686, blue: 0.314, alpha: 1.0);
-    fileprivate var _likesStrokeColor : UIColor = UIColor(red: 0.741, green: 0.741, blue: 0.741, alpha: 1.0);
-    fileprivate var _sharesStrokeColor : UIColor = UIColor(red: 1.0, green: 0.757, blue: 0.027, alpha: 1.0);
+    fileprivate var _uploadStrokeColor : UIColor = UIColor(red: 0.298, green: 0.686, blue: 0.314, alpha: 1.0)
+    fileprivate var _likesStrokeColor : UIColor = UIColor(red: 0.741, green: 0.741, blue: 0.741, alpha: 1.0)
+    fileprivate var _sharesStrokeColor : UIColor = UIColor(red: 1.0, green: 0.757, blue: 0.027, alpha: 1.0)
 
 
     fileprivate var _bgStrokeColor : UIColor = UIColor.white
@@ -33,7 +33,7 @@ class RZSubmissionProgressCircleView: UIView {
             bgArcShape?.lineWidth = _lineWidth
             uploadArcShape?.lineWidth = _lineWidth
             likesArcShape?.lineWidth = _lineWidth
-            likesArcShape?.lineWidth = _lineWidth
+            sharesArcShape?.lineWidth = _lineWidth
             updateArcPath()
         }
         get { return _lineWidth }
@@ -84,6 +84,15 @@ class RZSubmissionProgressCircleView: UIView {
         self.bgArcShape?.fillColor = UIColor.clear.cgColor
         self.bgArcShape?.strokeColor = UIColor(white: 0.95, alpha: 1.0).cgColor
         
+        self.likesArcShape?.fillColor = UIColor.clear.cgColor
+        self.likesArcShape?.strokeColor = _likesStrokeColor.cgColor
+        
+        self.uploadArcShape?.fillColor = UIColor.clear.cgColor
+        self.uploadArcShape?.strokeColor = _uploadStrokeColor.cgColor
+
+        self.sharesArcShape?.fillColor = UIColor.clear.cgColor
+        self.sharesArcShape?.strokeColor = _sharesStrokeColor.cgColor
+        
         // drop shadow
         self.bgArcShape?.shadowColor = UIColor.black.cgColor
         self.bgArcShape?.shadowRadius = 10.0
@@ -96,7 +105,7 @@ class RZSubmissionProgressCircleView: UIView {
         self.layer.addSublayer(self.uploadArcShape!)
 
         updateArcPath()
-        setProgress(uploadProgress: 0.0, likesProgress: 0, sharesProgress: 0, animated: false)
+        setProgress(uploadProgress: 0, likesProgress: 0, sharesProgress: 0, animated: false)
     }
     
     fileprivate func updateArcPath()
@@ -134,18 +143,17 @@ class RZSubmissionProgressCircleView: UIView {
             likesAnim.duration = 1.0
             likesAnim.fillMode = kCAFillModeForwards
             likesAnim.isRemovedOnCompletion = false
-            uploadArcShape?.add(likesAnim, forKey: "progress")
+            likesArcShape?.add(likesAnim, forKey: "progress")
             
             let sharesAnim = CABasicAnimation()
             sharesAnim.keyPath = "strokeEnd"
             sharesAnim.fromValue = 0.0
-            uploadAnim.toValue = uploadProgress + likesProgress + sharesProgress
+            sharesAnim.toValue = uploadProgress + likesProgress + sharesProgress
             sharesAnim.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
             sharesAnim.duration = 1.0
             sharesAnim.fillMode = kCAFillModeForwards
             sharesAnim.isRemovedOnCompletion = false
-            uploadArcShape?.add(sharesAnim, forKey: "progress")
-            
+            sharesArcShape?.add(sharesAnim, forKey: "progress")
             
         } else {
             uploadArcShape?.removeAllAnimations()
@@ -155,6 +163,7 @@ class RZSubmissionProgressCircleView: UIView {
             uploadArcShape?.strokeEnd = uploadProgress
             likesArcShape?.strokeEnd = uploadProgress + likesProgress
             sharesArcShape?.strokeEnd = uploadProgress + likesProgress + sharesProgress
+            print("\(uploadProgress + likesProgress + sharesProgress)")
         }
         
     }

@@ -10,7 +10,7 @@ import UIKit
 
 class RZSubmissionDetailViewController: UIViewController {
 
-    @IBOutlet var progressView : RZCircularProgressView!
+    @IBOutlet var progressView : RZSubmissionProgressCircleView!
     
     var submissionId : String?
     var submission : RZSubmission?
@@ -32,10 +32,9 @@ class RZSubmissionDetailViewController: UIViewController {
 
         // setup the circular progress view
         progressView.lineWidth = 20.0
-        progressView.strokeColor = RZColors.primary
         progressView.bgStrokeColor = UIColor(white: 1.0, alpha: 0.5)
         progressView.startAngle = -CGFloat(M_PI_2)
-        progressView.setProgress(0.5, animated: false)
+        progressView.setProgress(uploadProgress: 0.2, likesProgress: 0.2, sharesProgress: 0.1, animated: true)
         
         // add delete icon
         let deleteButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deleteSubmission))
