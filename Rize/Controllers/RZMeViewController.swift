@@ -121,7 +121,6 @@ class RZMeViewController: UIViewController, UITableViewDataSource, UITableViewDe
             let challenge = RZDatabase.sharedInstance().getChallenge(challengeId!)
             
             cell?.textLabel?.text = "\(challenge!.title!)"
-            cell?.progressView?.setProgress(submission!.progress(), animated: true)
             ImageLoader.setImageViewImage(challenge!.iconUrl!, view: cell!.iconView!, round: true)
             ImageLoader.setImageViewImage(challenge!.bannerUrl!, view: cell!.bannerView!, round: false)
             cell?.accessoryType = .disclosureIndicator

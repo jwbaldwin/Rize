@@ -21,9 +21,9 @@ class RZSubmission: NSObject {
     var facebook : Bool?
     var friends : Int?
     
-    let POINTS_LIKE : Double = 0.5
-    let POINTS_SHARE : Double = 5
-    let POINTS_FB : Double = 30
+    let POINTS_LIKE : Double = 1
+    let POINTS_SHARE : Double = 10
+    let POINTS_FB : Double = 60
     
     func dictionaryValue() -> [String : AnyObject?] {
         var result = [String : AnyObject?]()
@@ -39,6 +39,15 @@ class RZSubmission: NSObject {
         result["complete"] = complete as AnyObject
         result["friends"] = friends as AnyObject
         return result
+    }
+    
+    func pointsFromUploads() -> Int {
+        guard let _ = challenge_id
+            else { return 0 }
+        guard let _ = facebook
+            else { return 0 }
+        
+        return (facebook!) ? Int(POINTS_FB) : 0
     }
     
     func pointsFromLikes() -> Int {
@@ -71,11 +80,9 @@ class RZSubmission: NSObject {
         guard let challenge = RZDatabase.sharedInstance().getChallenge(challenge_id!)
             else { return }
         
-        if (facebook!) {
-            points! += Int(POINTS_FB)
-            points! += pointsFromLikes()
-            points! += pointsFromShares()
-        }
+        points! += pointsFromUploads()
+        points! += pointsFromLikes()
+        points! += pointsFromShares()
         
         if points! >= challenge.pointsRequired! {
             complete = true
@@ -84,28 +91,8 @@ class RZSubmission: NSObject {
         }
     }
     
-    func progress() -> Float {
-        if challenge_id != nil && points != nil {
-            let challenge = RZDatabase.sharedInstance().getChallenge(challenge_id!)!
-            return Float(points!) / Float(challenge.pointsRequired!)
-        }
-        return 0.0
-    }
-    
-    func sharesProgress() -> Float {
-        if challenge_id != nil && shares != nil {
-            let challenge = RZDatabase.sharedInstance().getChallenge(challenge_id!)!
-            return Float(shares!) / Float(challenge.sharesLimit!)
-        }
-        return 0.0
-    }
-    
-    func likesProgress() -> Float {
-        if challenge_id != nil && likes != nil {
-            let challenge = RZDatabase.sharedInstance().getChallenge(challenge_id!)!
-            return Float(likes!) / Float(challenge.likesLimit!)
-        }
-        return 0.0
+    func getChallenge() -> RZChallenge? {
+        return RZDatabase.sharedInstance().getChallenge(challenge_id!)
     }
     
     func isActive() -> Bool {
