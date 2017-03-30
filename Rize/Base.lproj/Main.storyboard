@@ -132,24 +132,24 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l5v-R4-AoM" customClass="RZSubmissionProgressCircleView" customModule="Rize" customModuleProvider="target">
-                                <rect key="frame" x="83" y="84" width="248.33333333333331" height="248"/>
+                                <rect key="frame" x="83" y="94" width="248.33333333333331" height="248"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="l5v-R4-AoM" secondAttribute="height" multiplier="1:1" id="YnQ-ze-let"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D8q-De-sOW">
-                                <rect key="frame" x="170.33333333333334" y="171" width="74.333333333333314" height="74.333333333333343"/>
+                                <rect key="frame" x="170.33333333333334" y="181" width="74.333333333333314" height="74.333333333333343"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="D8q-De-sOW" secondAttribute="height" multiplier="1:1" id="esl-Yg-Y0d"/>
                                 </constraints>
                                 <state key="normal" backgroundImage="gold-gift"/>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OlM-5i-gQ6" userLabel="Spacer">
-                                <rect key="frame" x="20" y="342" width="374" height="187"/>
+                                <rect key="frame" x="20" y="352" width="374" height="177"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CHICK-FIL-A SANDWICH" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6qZ-Zn-uVK">
-                                        <rect key="frame" x="45" y="76.333333333333314" width="284.33333333333331" height="34.333333333333371"/>
+                                        <rect key="frame" x="45" y="71.333333333333314" width="284.33333333333331" height="34.333333333333371"/>
                                         <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="25"/>
                                         <color key="textColor" red="0.63529411764705879" green="0.63529411764705879" blue="0.63529411764705879" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -161,6 +161,12 @@
                                     <constraint firstItem="6qZ-Zn-uVK" firstAttribute="centerY" secondItem="OlM-5i-gQ6" secondAttribute="centerY" id="Xpo-MP-bYl"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="75/100" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rYk-9r-xIQ">
+                                <rect key="frame" x="168" y="255.33333333333331" width="79" height="34.333333333333314"/>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="25"/>
+                                <color key="textColor" white="0.75" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -176,13 +182,15 @@
                             <constraint firstItem="QX4-A4-W1r" firstAttribute="centerX" secondItem="jX3-8d-LCu" secondAttribute="centerX" id="SL4-kH-GWb"/>
                             <constraint firstItem="53N-tr-HAd" firstAttribute="top" secondItem="Rlo-3B-XdA" secondAttribute="bottom" constant="50" id="UK9-Sh-qHm"/>
                             <constraint firstItem="aue-XW-RmW" firstAttribute="trailing" secondItem="Y5I-jK-sAp" secondAttribute="trailingMargin" constant="-30" id="Xs6-11-9UG"/>
+                            <constraint firstItem="rYk-9r-xIQ" firstAttribute="centerX" secondItem="D8q-De-sOW" secondAttribute="centerX" id="Xya-Xg-UFk"/>
                             <constraint firstAttribute="trailingMargin" secondItem="OlM-5i-gQ6" secondAttribute="trailing" id="aXr-5f-rzP"/>
                             <constraint firstItem="D8q-De-sOW" firstAttribute="width" secondItem="l5v-R4-AoM" secondAttribute="width" multiplier="0.3" id="dZm-vs-JMj"/>
                             <constraint firstItem="OlM-5i-gQ6" firstAttribute="leading" secondItem="Y5I-jK-sAp" secondAttribute="leadingMargin" id="eMg-tu-0gz"/>
                             <constraint firstItem="OlM-5i-gQ6" firstAttribute="bottom" secondItem="9VF-Ov-wlp" secondAttribute="top" constant="-10" id="eOQ-YI-7U2"/>
                             <constraint firstItem="Hgf-fB-eaa" firstAttribute="centerX" secondItem="aue-XW-RmW" secondAttribute="centerX" id="eZ3-FD-79W"/>
                             <constraint firstItem="Rlo-3B-XdA" firstAttribute="top" secondItem="9VF-Ov-wlp" secondAttribute="bottom" id="flG-s3-1tU"/>
-                            <constraint firstItem="l5v-R4-AoM" firstAttribute="top" secondItem="13P-kN-QPT" secondAttribute="bottom" constant="20" id="gvp-Hm-KYe"/>
+                            <constraint firstItem="rYk-9r-xIQ" firstAttribute="top" secondItem="D8q-De-sOW" secondAttribute="bottom" id="gVP-XT-ffK"/>
+                            <constraint firstItem="l5v-R4-AoM" firstAttribute="top" secondItem="13P-kN-QPT" secondAttribute="bottom" constant="30" id="gvp-Hm-KYe"/>
                             <constraint firstItem="53N-tr-HAd" firstAttribute="top" secondItem="QX4-A4-W1r" secondAttribute="bottom" constant="50" id="hL5-vr-i7k"/>
                             <constraint firstItem="D8q-De-sOW" firstAttribute="centerX" secondItem="l5v-R4-AoM" secondAttribute="centerX" id="p16-pV-khq"/>
                             <constraint firstItem="D8q-De-sOW" firstAttribute="centerY" secondItem="l5v-R4-AoM" secondAttribute="centerY" id="vpY-OC-lWX"/>
@@ -192,6 +200,7 @@
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
                     <connections>
                         <outlet property="likesButton" destination="9VF-Ov-wlp" id="jSf-4J-yQi"/>
+                        <outlet property="progressLabel" destination="rYk-9r-xIQ" id="4Fj-zq-Qdt"/>
                         <outlet property="progressView" destination="l5v-R4-AoM" id="9Vt-Vu-lRM"/>
                         <outlet property="sharesButton" destination="aue-XW-RmW" id="8TS-tn-30b"/>
                     </connections>
@@ -295,7 +304,7 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </tabBarItem>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="5bM-Os-diX">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="5bM-Os-diX">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="0.91372549020000005" green="0.1176470588" blue="0.38823529410000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -699,7 +708,7 @@
                         </userDefinedRuntimeAttributes>
                     </tabBarItem>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Stf-Zg-xJz">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Stf-Zg-xJz">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="0.91372549020000005" green="0.1176470588" blue="0.38823529410000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -729,7 +738,7 @@
                         </userDefinedRuntimeAttributes>
                     </tabBarItem>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="76K-fR-h1v">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="76K-fR-h1v">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <textAttributes key="titleTextAttributes">
@@ -897,7 +906,7 @@
             <objects>
                 <navigationController id="lLQ-V9-kHp" userLabel="WalletNav" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="WALLET" image="wallet" id="9gX-fb-ozq"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Idq-hn-zvz">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Idq-hn-zvz">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

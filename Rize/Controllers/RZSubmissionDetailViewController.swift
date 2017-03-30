@@ -13,6 +13,7 @@ class RZSubmissionDetailViewController: UIViewController {
     @IBOutlet var progressView : RZSubmissionProgressCircleView!
     @IBOutlet var likesButton : UIButton!
     @IBOutlet var sharesButton : UIButton!
+    @IBOutlet var progressLabel : UILabel!
 
     var submissionId : String?
     var submission : RZSubmission?
@@ -66,18 +67,17 @@ class RZSubmissionDetailViewController: UIViewController {
     
     func updateUI()
     {
-        let totalPoints = CGFloat(submission!.getChallenge()!.pointsRequired!)
-        let uploads = CGFloat(submission!.pointsFromUploads())
-        let uploadsPercent = uploads / totalPoints
-        let likes = CGFloat(submission!.pointsFromLikes())
-        let likesPercent = likes / totalPoints
-        let shares = CGFloat(submission!.pointsFromShares())
-        let sharesPercent = shares / totalPoints
+        progressView.total = submission!.getChallenge()!.pointsRequired!
+        progressView.uploads = submission!.pointsFromUploads()
+        progressView.likes = submission!.pointsFromLikes()
+        progressView.shares = submission!.pointsFromShares()
         
-        likesButton.setTitle("\(Int(likes))", for: .normal)
-        sharesButton.setTitle("\(Int(shares))", for: .normal)
+        likesButton.setTitle("\(submission!.pointsFromLikes())", for: .normal)
+        sharesButton.setTitle("\(submission!.pointsFromShares())", for: .normal)
+        
+        progressLabel.text = "\(submission!.points!)/\(submission!.getChallenge()!.pointsRequired!)"
 
-        progressView.setProgress(uploadProgress: uploadsPercent, likesProgress: likesPercent, sharesProgress: sharesPercent, animated: true)
+        progressView.updateProgress(animated: true)
     }
     
     func deleteSubmission()
