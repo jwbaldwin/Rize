@@ -16,6 +16,7 @@ class RZSubmissionProgressCircleView: UIView {
     fileprivate var _uploadStrokeColor : UIColor = UIColor(red: 0.298, green: 0.686, blue: 0.314, alpha: 1.0)
     fileprivate var _likesStrokeColor : UIColor = UIColor(red: 0.741, green: 0.741, blue: 0.741, alpha: 1.0)
     fileprivate var _sharesStrokeColor : UIColor = UIColor(red: 1.0, green: 0.757, blue: 0.027, alpha: 1.0)
+    fileprivate var _textColor : UIColor = UIColor(white: 0.75, alpha: 1.0)
 
 
     fileprivate var _bgStrokeColor : UIColor = UIColor.white
@@ -25,6 +26,9 @@ class RZSubmissionProgressCircleView: UIView {
     fileprivate var likesArcShape : CAShapeLayer?
     fileprivate var sharesArcShape : CAShapeLayer?
     fileprivate var uploadsText : CATextLayer?
+    fileprivate var sharesText : CATextLayer?
+    fileprivate var likesText : CATextLayer?
+
 
     fileprivate var bgArcShape : CAShapeLayer?
     
@@ -32,7 +36,7 @@ class RZSubmissionProgressCircleView: UIView {
     var uploads : Int = 0
     var likes : Int = 0
     var total : Int = 100
-    var bubbleDistance : CGFloat = 20.0
+    var bubbleDistance : CGFloat = 10.0
     
     var lineWidth : CGFloat {
         set {
@@ -113,7 +117,19 @@ class RZSubmissionProgressCircleView: UIView {
         
         // Text bubbles
         self.uploadsText = CATextLayer()
+        self.uploadsText?.foregroundColor = _textColor.cgColor
+        self.uploadsText?.contentsScale = UIScreen.main.scale
         self.layer.addSublayer(self.uploadsText!)
+        
+        self.sharesText = CATextLayer()
+        self.sharesText?.foregroundColor = _textColor.cgColor
+        self.sharesText?.contentsScale = UIScreen.main.scale
+        self.layer.addSublayer(self.sharesText!)
+        
+        self.likesText = CATextLayer()
+        self.likesText?.foregroundColor = _textColor.cgColor
+        self.likesText?.contentsScale = UIScreen.main.scale
+        self.layer.addSublayer(self.likesText!)
 
         updateArcPath()
         setProgress(uploadProgress: 0, likesProgress: 0, sharesProgress: 0, animated: false)
@@ -122,13 +138,13 @@ class RZSubmissionProgressCircleView: UIView {
     fileprivate func updateArcPath()
     {
         // set the new arc path
-        self.uploadArcShape?.path = UIBezierPath(arcCenter: CGPoint(x: self.frame.width/2, y: self.frame.height/2), radius: self.frame.width/2 - self._lineWidth/2, startAngle: _startAngle, endAngle: _startAngle + (_clockwise ? 1 : -1) * 2 * CGFloat(M_PI), clockwise: _clockwise).cgPath
+        self.bgArcShape?.path = UIBezierPath(arcCenter: CGPoint(x: self.frame.width/2, y: self.frame.height/2), radius: self.frame.width/2 - self._lineWidth/2 - bubbleDistance*1.5, startAngle: _startAngle, endAngle: _startAngle + (_clockwise ? 1 : -1) * 2 * CGFloat(M_PI), clockwise: _clockwise).cgPath
         
-        self.likesArcShape?.path = UIBezierPath(arcCenter: CGPoint(x: self.frame.width/2, y: self.frame.height/2), radius: self.frame.width/2 - self._lineWidth/2, startAngle: _startAngle, endAngle: _startAngle + (_clockwise ? 1 : -1) * 2 * CGFloat(M_PI), clockwise: _clockwise).cgPath
+        self.uploadArcShape?.path = self.bgArcShape?.path
         
-        self.sharesArcShape?.path = UIBezierPath(arcCenter: CGPoint(x: self.frame.width/2, y: self.frame.height/2), radius: self.frame.width/2 - self._lineWidth/2, startAngle: _startAngle, endAngle: _startAngle + (_clockwise ? 1 : -1) * 2 * CGFloat(M_PI), clockwise: _clockwise).cgPath
+        self.likesArcShape?.path = self.bgArcShape?.path
         
-        self.bgArcShape?.path = UIBezierPath(arcCenter: CGPoint(x: self.frame.width/2, y: self.frame.height/2), radius: self.frame.width/2 - self._lineWidth/2, startAngle: _startAngle, endAngle: _startAngle + (_clockwise ? 1 : -1) * 2 * CGFloat(M_PI), clockwise: _clockwise).cgPath
+        self.sharesArcShape?.path = self.bgArcShape?.path
         
         setNeedsDisplay()
     }
@@ -140,19 +156,29 @@ class RZSubmissionProgressCircleView: UIView {
         sharesArcShape?.removeAllAnimations()
         
         let uploadsProgress = CGFloat(uploads) / CGFloat(total)
-        let likesProgress = CGFloat(likes) / CGFloat(total)
-        let sharesProgress = CGFloat(shares) / CGFloat(total)
+        let likesProgress = CGFloat(likes) / CGFloat(total) + uploadsProgress
+        let sharesProgress = CGFloat(shares) / CGFloat(total) + likesProgress
 
         uploadArcShape?.strokeEnd = uploadsProgress
-        likesArcShape?.strokeEnd = uploadsProgress + likesProgress
-        sharesArcShape?.strokeEnd = uploadsProgress + likesProgress + sharesProgress
+        likesArcShape?.strokeEnd = likesProgress
+        sharesArcShape?.strokeEnd = sharesProgress
         
-        /*
+        
         uploadsText?.string = "\(uploads)"
         uploadsText?.fontSize = 20.0
-        let uploadsPoint = CGPoint(x: self.frame.width/2 + (self.frame.width/2 + bubbleDistance) * cos(2*Double.pi*uploadsProgress + startAngle), y: self.frame.height/2 - (self.frame.height/2 + bubbleDistance) * sin(2*Double.pi*uploadsProgress + startAngle))
-        uploadsText?.frame = CGRect(origin: uploadsPoint, size: CGSize(width: 20, height: 20))
-        */
+        let uploadsPoint = CGPoint(x: self.frame.width/2 + (self.frame.width/2 + bubbleDistance) * cos(-CGFloat(Double.pi)*uploadsProgress + startAngle) - 12, y: self.frame.height/2 + (self.frame.height/2 + bubbleDistance) * sin(-CGFloat(Double.pi)*uploadsProgress + startAngle) - 10)
+        uploadsText?.frame = CGRect(origin: uploadsPoint, size: CGSize(width: 25, height: 20))
+        
+        sharesText?.string = "\(shares)"
+        sharesText?.fontSize = 20.0
+        let sharesPoint = CGPoint(x: self.frame.width/2 + (self.frame.width/2 + bubbleDistance) * cos(-CGFloat(Double.pi)*sharesProgress + startAngle) - 12, y: self.frame.height/2 + (self.frame.height/2 + bubbleDistance) * sin(-CGFloat(Double.pi)*sharesProgress + startAngle) - 10)
+        sharesText?.frame = CGRect(origin: sharesPoint, size: CGSize(width: 25, height: 20))
+        
+        likesText?.string = "\(likes)"
+        likesText?.fontSize = 20.0
+        let likesPoint = CGPoint(x: self.frame.width/2 + (self.frame.width/2 + bubbleDistance) * cos(-CGFloat(Double.pi)*likesProgress + startAngle) - 12, y: self.frame.height/2 + (self.frame.height/2 + bubbleDistance) * sin(-CGFloat(Double.pi)*likesProgress + startAngle) - 10)
+        likesText?.frame = CGRect(origin: likesPoint, size: CGSize(width: 25, height: 20))
+        
     }
     
     func setProgress(uploadProgress : CGFloat, likesProgress : CGFloat, sharesProgress : CGFloat, animated : Bool)
