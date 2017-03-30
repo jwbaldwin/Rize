@@ -24,7 +24,7 @@ class RZLoginViewController: UIViewController, UIScrollViewDelegate, FBSDKLoginB
     override func viewDidLoad() {
         super.viewDidLoad()
         self.loginButton.delegate = self
-        self.loginButton.readPermissions = ["public_profile", "user_friends", "user_videos", "email"]
+        self.loginButton.readPermissions = ["public_profile", "user_friends", "user_posts", "email"]
         self.view.addSubview(loginButton)
 
     }

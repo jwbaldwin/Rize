@@ -11,7 +11,9 @@ import UIKit
 class RZSubmissionDetailViewController: UIViewController {
 
     @IBOutlet var progressView : RZSubmissionProgressCircleView!
-    
+    @IBOutlet var likesButton : UIButton!
+    @IBOutlet var sharesButton : UIButton!
+
     var submissionId : String?
     var submission : RZSubmission?
     var challenge : RZChallenge?
@@ -34,7 +36,6 @@ class RZSubmissionDetailViewController: UIViewController {
         progressView.lineWidth = 20.0
         progressView.bgStrokeColor = UIColor(white: 1.0, alpha: 0.5)
         progressView.startAngle = -CGFloat(M_PI_2)
-        progressView.setProgress(uploadProgress: 0.2, likesProgress: 0.2, sharesProgress: 0.1, animated: true)
         
         // add delete icon
         let deleteButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deleteSubmission))
@@ -65,7 +66,18 @@ class RZSubmissionDetailViewController: UIViewController {
     
     func updateUI()
     {
+        let totalPoints = CGFloat(submission!.getChallenge()!.pointsRequired!)
+        let uploads = CGFloat(submission!.pointsFromUploads())
+        let uploadsPercent = uploads / totalPoints
+        let likes = CGFloat(submission!.pointsFromLikes())
+        let likesPercent = likes / totalPoints
+        let shares = CGFloat(submission!.pointsFromShares())
+        let sharesPercent = shares / totalPoints
         
+        likesButton.setTitle("\(Int(likes))", for: .normal)
+        sharesButton.setTitle("\(Int(shares))", for: .normal)
+
+        progressView.setProgress(uploadProgress: uploadsPercent, likesProgress: likesPercent, sharesProgress: sharesPercent, animated: true)
     }
     
     func deleteSubmission()

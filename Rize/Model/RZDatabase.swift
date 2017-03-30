@@ -336,7 +336,7 @@ class RZDatabase: NSObject {
                     else { continue }
                 
                 myGroup.enter()
-                RZFBGraphRequestHelper.getFBGraphData(endpoint: "\(submission.fb_id!)?fields=likes.limit(0).summary(true)") { (result, error) in
+                RZFBGraphRequestHelper.getFBGraphData(endpoint: "\(submission.fb_id!)?fields=likes.limit(0).summary(true),shares") { (result, error) in
                 
                     // make sure that whatever happens, we update the points
                     // and exit this dispatch group
@@ -348,6 +348,7 @@ class RZDatabase: NSObject {
                     if let _ = error {
                         // an error occured
                         submission.facebook = false
+                        print(error)
                         return
                     }
                     
@@ -361,15 +362,15 @@ class RZDatabase: NSObject {
                     submission.likes = likeCount
     
                     // does this work for videos?
-                    /*
+                    
                     guard let shares = result?["shares"] as? [String : AnyObject?]
                         else { return }
                     let shareCount = shares["count"] as! Int
                     submission.shares = shareCount
-                    */
+                    
                     
                 }
-                
+                /*
                 myGroup.enter()
                 RZFBGraphRequestHelper.getFBGraphData(endpoint: "\(submission.fb_id!)/sharedposts") { (result, error) in
                 
@@ -392,6 +393,7 @@ class RZDatabase: NSObject {
                     let shareCount = shares.count;
                     submission.shares = shareCount
                 }
+                */
             }
         }
         myGroup.notify(queue: DispatchQueue.main) {
