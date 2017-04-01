@@ -135,8 +135,20 @@ class RZSubmissionProgressCircleView: UIView {
         {
             progress += CGFloat(points[i]) / CGFloat(total)
             
-            _arcShapes[i].removeAllAnimations()
-            _arcShapes[i].strokeEnd = progress
+            if (animated) {
+                let anim = CABasicAnimation()
+                anim.keyPath = "strokeEnd"
+                anim.fromValue = 0.0
+                anim.toValue = progress
+                anim.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+                anim.duration = 1.0
+                anim.fillMode = kCAFillModeForwards
+                anim.isRemovedOnCompletion = false
+                _arcShapes[i].add(anim, forKey: "progress")
+            } else {
+                _arcShapes[i].removeAllAnimations()
+                _arcShapes[i].strokeEnd = progress
+            }
             
             _textLayers[i].string = "\(points[i])"
 

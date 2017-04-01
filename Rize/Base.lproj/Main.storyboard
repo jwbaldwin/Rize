@@ -139,7 +139,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D8q-De-sOW">
-                                <rect key="frame" x="151.66666666666669" y="194.66666666666663" width="111.66666666666669" height="111.33333333333337"/>
+                                <rect key="frame" x="161" y="204" width="93" height="92.666666666666686"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="D8q-De-sOW" secondAttribute="height" multiplier="1:1" id="esl-Yg-Y0d"/>
                                 </constraints>
@@ -162,7 +162,7 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="75/100" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rYk-9r-xIQ">
-                                <rect key="frame" x="168" y="306" width="79" height="34.333333333333314"/>
+                                <rect key="frame" x="168" y="296.66666666666674" width="79" height="34.333333333333314"/>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="25"/>
                                 <color key="textColor" white="0.75" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -184,7 +184,7 @@
                             <constraint firstItem="aue-XW-RmW" firstAttribute="trailing" secondItem="Y5I-jK-sAp" secondAttribute="trailingMargin" constant="-30" id="Xs6-11-9UG"/>
                             <constraint firstItem="rYk-9r-xIQ" firstAttribute="centerX" secondItem="D8q-De-sOW" secondAttribute="centerX" id="Xya-Xg-UFk"/>
                             <constraint firstAttribute="trailingMargin" secondItem="OlM-5i-gQ6" secondAttribute="trailing" id="aXr-5f-rzP"/>
-                            <constraint firstItem="D8q-De-sOW" firstAttribute="width" secondItem="l5v-R4-AoM" secondAttribute="width" multiplier="0.3" id="dZm-vs-JMj"/>
+                            <constraint firstItem="D8q-De-sOW" firstAttribute="width" secondItem="l5v-R4-AoM" secondAttribute="width" multiplier="0.25" id="dZm-vs-JMj"/>
                             <constraint firstItem="OlM-5i-gQ6" firstAttribute="leading" secondItem="Y5I-jK-sAp" secondAttribute="leadingMargin" id="eMg-tu-0gz"/>
                             <constraint firstItem="OlM-5i-gQ6" firstAttribute="bottom" secondItem="9VF-Ov-wlp" secondAttribute="top" constant="-20" id="eOQ-YI-7U2"/>
                             <constraint firstItem="Hgf-fB-eaa" firstAttribute="centerX" secondItem="aue-XW-RmW" secondAttribute="centerX" id="eZ3-FD-79W"/>
