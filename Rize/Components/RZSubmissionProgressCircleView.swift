@@ -79,6 +79,8 @@ class RZSubmissionProgressCircleView: UIView {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
+        self.backgroundColor = UIColor.clear
+        
         self.bgArcShape = CAShapeLayer()
         self.bgArcShape?.fillColor = UIColor.clear.cgColor
         self.bgArcShape?.strokeColor = UIColor(white: 0.95, alpha: 1.0).cgColor
@@ -213,7 +215,6 @@ class RZSubmissionProgressCircleView: UIView {
             print("\(uploadProgress + likesProgress + sharesProgress)")
         }
         */
-        
     }
     
     override func layoutSubviews() {

@@ -93,40 +93,40 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jX3-8d-LCu">
-                                <rect key="frame" x="50" y="539.66666666666663" width="70" height="70"/>
+                                <rect key="frame" x="50" y="569.66666666666663" width="70" height="70"/>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="25"/>
                                 <state key="normal" backgroundImage="green">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9VF-Ov-wlp">
-                                <rect key="frame" x="172" y="539" width="70" height="70"/>
+                                <rect key="frame" x="172" y="569" width="70" height="70"/>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="25"/>
                                 <state key="normal" title="0" backgroundImage="silver">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aue-XW-RmW">
-                                <rect key="frame" x="294" y="539.66666666666663" width="70" height="70"/>
+                                <rect key="frame" x="294" y="569.66666666666663" width="70" height="70"/>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="25"/>
                                 <state key="normal" title="0" backgroundImage="gold">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FACEBOOK" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QX4-A4-W1r">
-                                <rect key="frame" x="31" y="609.66666666666652" width="108" height="27.333333333333371"/>
+                                <rect key="frame" x="31" y="639.66666666666652" width="108" height="27.333333333333371"/>
                                 <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="20"/>
                                 <color key="textColor" red="0.63529411759999999" green="0.63529411759999999" blue="0.63529411759999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SHARES" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hgf-fB-eaa">
-                                <rect key="frame" x="292" y="609.66666666666652" width="74.333333333333314" height="27.333333333333371"/>
+                                <rect key="frame" x="292" y="639.66666666666652" width="74.333333333333314" height="27.333333333333371"/>
                                 <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="20"/>
                                 <color key="textColor" red="0.63529411759999999" green="0.63529411759999999" blue="0.63529411759999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LIKES" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rlo-3B-XdA">
-                                <rect key="frame" x="182.33333333333337" y="609" width="50.666666666666657" height="28"/>
+                                <rect key="frame" x="182.33333333333337" y="639" width="50.666666666666657" height="28"/>
                                 <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="20"/>
                                 <color key="textColor" red="0.63529411764705879" green="0.63529411764705879" blue="0.63529411764705879" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -146,16 +146,16 @@
                                 <state key="normal" backgroundImage="gold-gift"/>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OlM-5i-gQ6" userLabel="Spacer">
-                                <rect key="frame" x="20" y="446.66666666666674" width="374" height="72.333333333333258"/>
+                                <rect key="frame" x="20" y="436.66666666666674" width="374" height="132.33333333333326"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CHICK-FIL-A SANDWICH" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6qZ-Zn-uVK">
-                                        <rect key="frame" x="45" y="19" width="284.33333333333331" height="34.333333333333314"/>
+                                        <rect key="frame" x="45" y="49" width="284.33333333333331" height="34.333333333333314"/>
                                         <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="25"/>
                                         <color key="textColor" red="0.63529411764705879" green="0.63529411764705879" blue="0.63529411764705879" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="6qZ-Zn-uVK" firstAttribute="centerX" secondItem="OlM-5i-gQ6" secondAttribute="centerX" id="Ut8-cf-y6H"/>
                                     <constraint firstItem="6qZ-Zn-uVK" firstAttribute="centerY" secondItem="OlM-5i-gQ6" secondAttribute="centerY" id="Xpo-MP-bYl"/>
@@ -174,24 +174,24 @@
                             <constraint firstItem="Rlo-3B-XdA" firstAttribute="centerX" secondItem="9VF-Ov-wlp" secondAttribute="centerX" id="34J-Ky-9ko"/>
                             <constraint firstItem="l5v-R4-AoM" firstAttribute="centerX" secondItem="Y5I-jK-sAp" secondAttribute="centerX" id="7Tr-x4-9We"/>
                             <constraint firstItem="QX4-A4-W1r" firstAttribute="top" secondItem="jX3-8d-LCu" secondAttribute="bottom" id="BUZ-o6-eHn"/>
-                            <constraint firstItem="OlM-5i-gQ6" firstAttribute="top" secondItem="l5v-R4-AoM" secondAttribute="bottom" constant="10" id="CER-dT-8ME"/>
-                            <constraint firstItem="53N-tr-HAd" firstAttribute="top" secondItem="Hgf-fB-eaa" secondAttribute="bottom" constant="50" id="GqI-IA-HLs"/>
+                            <constraint firstItem="OlM-5i-gQ6" firstAttribute="top" secondItem="l5v-R4-AoM" secondAttribute="bottom" id="CER-dT-8ME"/>
+                            <constraint firstItem="53N-tr-HAd" firstAttribute="top" secondItem="Hgf-fB-eaa" secondAttribute="bottom" constant="20" id="GqI-IA-HLs"/>
                             <constraint firstItem="l5v-R4-AoM" firstAttribute="width" secondItem="Y5I-jK-sAp" secondAttribute="width" multiplier="0.9" id="H3U-kW-yEF"/>
                             <constraint firstItem="Hgf-fB-eaa" firstAttribute="top" secondItem="aue-XW-RmW" secondAttribute="bottom" id="QhU-Jd-JGv"/>
                             <constraint firstItem="jX3-8d-LCu" firstAttribute="leading" secondItem="Y5I-jK-sAp" secondAttribute="leadingMargin" constant="30" id="RGE-Ba-zhc"/>
                             <constraint firstItem="QX4-A4-W1r" firstAttribute="centerX" secondItem="jX3-8d-LCu" secondAttribute="centerX" id="SL4-kH-GWb"/>
-                            <constraint firstItem="53N-tr-HAd" firstAttribute="top" secondItem="Rlo-3B-XdA" secondAttribute="bottom" constant="50" id="UK9-Sh-qHm"/>
+                            <constraint firstItem="53N-tr-HAd" firstAttribute="top" secondItem="Rlo-3B-XdA" secondAttribute="bottom" constant="20" id="UK9-Sh-qHm"/>
                             <constraint firstItem="aue-XW-RmW" firstAttribute="trailing" secondItem="Y5I-jK-sAp" secondAttribute="trailingMargin" constant="-30" id="Xs6-11-9UG"/>
                             <constraint firstItem="rYk-9r-xIQ" firstAttribute="centerX" secondItem="D8q-De-sOW" secondAttribute="centerX" id="Xya-Xg-UFk"/>
                             <constraint firstAttribute="trailingMargin" secondItem="OlM-5i-gQ6" secondAttribute="trailing" id="aXr-5f-rzP"/>
                             <constraint firstItem="D8q-De-sOW" firstAttribute="width" secondItem="l5v-R4-AoM" secondAttribute="width" multiplier="0.25" id="dZm-vs-JMj"/>
                             <constraint firstItem="OlM-5i-gQ6" firstAttribute="leading" secondItem="Y5I-jK-sAp" secondAttribute="leadingMargin" id="eMg-tu-0gz"/>
-                            <constraint firstItem="OlM-5i-gQ6" firstAttribute="bottom" secondItem="9VF-Ov-wlp" secondAttribute="top" constant="-20" id="eOQ-YI-7U2"/>
+                            <constraint firstItem="OlM-5i-gQ6" firstAttribute="bottom" secondItem="9VF-Ov-wlp" secondAttribute="top" id="eOQ-YI-7U2"/>
                             <constraint firstItem="Hgf-fB-eaa" firstAttribute="centerX" secondItem="aue-XW-RmW" secondAttribute="centerX" id="eZ3-FD-79W"/>
                             <constraint firstItem="Rlo-3B-XdA" firstAttribute="top" secondItem="9VF-Ov-wlp" secondAttribute="bottom" id="flG-s3-1tU"/>
                             <constraint firstItem="rYk-9r-xIQ" firstAttribute="top" secondItem="D8q-De-sOW" secondAttribute="bottom" id="gVP-XT-ffK"/>
                             <constraint firstItem="l5v-R4-AoM" firstAttribute="top" secondItem="13P-kN-QPT" secondAttribute="bottom" id="gvp-Hm-KYe"/>
-                            <constraint firstItem="53N-tr-HAd" firstAttribute="top" secondItem="QX4-A4-W1r" secondAttribute="bottom" constant="50" id="hL5-vr-i7k"/>
+                            <constraint firstItem="53N-tr-HAd" firstAttribute="top" secondItem="QX4-A4-W1r" secondAttribute="bottom" constant="20" id="hL5-vr-i7k"/>
                             <constraint firstItem="D8q-De-sOW" firstAttribute="centerX" secondItem="l5v-R4-AoM" secondAttribute="centerX" id="p16-pV-khq"/>
                             <constraint firstItem="D8q-De-sOW" firstAttribute="centerY" secondItem="l5v-R4-AoM" secondAttribute="centerY" id="vpY-OC-lWX"/>
                         </constraints>
@@ -304,7 +304,7 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </tabBarItem>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="5bM-Os-diX">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="5bM-Os-diX">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="0.91372549020000005" green="0.1176470588" blue="0.38823529410000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -708,7 +708,7 @@
                         </userDefinedRuntimeAttributes>
                     </tabBarItem>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Stf-Zg-xJz">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Stf-Zg-xJz">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="0.91372549020000005" green="0.1176470588" blue="0.38823529410000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -738,7 +738,7 @@
                         </userDefinedRuntimeAttributes>
                     </tabBarItem>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="76K-fR-h1v">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="76K-fR-h1v">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <textAttributes key="titleTextAttributes">
@@ -906,7 +906,7 @@
             <objects>
                 <navigationController id="lLQ-V9-kHp" userLabel="WalletNav" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="WALLET" image="wallet" id="9gX-fb-ozq"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Idq-hn-zvz">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Idq-hn-zvz">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
