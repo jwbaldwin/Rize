@@ -42,8 +42,6 @@ class RZSubmissionDetailViewController: UIViewController {
         let deleteButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deleteSubmission))
         self.navigationItem.setRightBarButtonItems([deleteButton], animated: true)
         
-        updateUI()
-        
         // check for potential problems
         if (!self.submission!.facebook! && self.submission!.fb_id != nil)
         {
@@ -59,6 +57,11 @@ class RZSubmissionDetailViewController: UIViewController {
             self.present(alert, animated: true,completion: nil)
         }
     }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        updateUI()
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -68,9 +71,9 @@ class RZSubmissionDetailViewController: UIViewController {
     func updateUI()
     {
         progressView.total = submission!.getChallenge()!.pointsRequired!
-        progressView.uploads = submission!.pointsFromUploads()
-        progressView.likes = submission!.pointsFromLikes()
-        progressView.shares = submission!.pointsFromShares()
+        progressView.points[0] = submission!.pointsFromUploads()
+        progressView.points[1] = submission!.pointsFromLikes()
+        progressView.points[2] = submission!.pointsFromShares()
         
         likesButton.setTitle("\(submission!.pointsFromLikes())", for: .normal)
         sharesButton.setTitle("\(submission!.pointsFromShares())", for: .normal)
