@@ -350,6 +350,8 @@ class RZDatabase: NSObject {
                         submission.facebook = false
                         print(error)
                         return
+                    } else {
+                        submission.facebook = true
                     }
                     
                     guard let likes = result?["likes"] as? [String : AnyObject?]

@@ -275,7 +275,7 @@ class RZCameraViewController: UIViewController, AVCaptureFileOutputRecordingDele
                 // record the submission information in the database
                 var submission = [String : AnyObject]()
                 submission["challenge_id"] = self.challenge.id as AnyObject
-                submission["fb_id"] = resultDict["id"]! as! AnyObject
+                submission["fb_id"] =  String(format: "%@_%@", FBSDKAccessToken.current().userID!, resultDict["id"] as! String) as AnyObject
                 submission["approved"] = false as AnyObject
                 submission["facebook"] = true as AnyObject
                 submission["views"] = 0 as AnyObject

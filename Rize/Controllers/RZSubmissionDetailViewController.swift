@@ -14,6 +14,7 @@ class RZSubmissionDetailViewController: UIViewController {
     @IBOutlet var likesButton : UIButton!
     @IBOutlet var sharesButton : UIButton!
     @IBOutlet var progressLabel : UILabel!
+    @IBOutlet var redeemButton : UIButton!
 
     var submissionId : String?
     var submission : RZSubmission?
@@ -70,17 +71,24 @@ class RZSubmissionDetailViewController: UIViewController {
     
     func updateUI()
     {
+        // update the circular progress view
         progressView.total = submission!.getChallenge()!.pointsRequired!
         progressView.points[0] = submission!.pointsFromUploads()
         progressView.points[1] = submission!.pointsFromLikes()
         progressView.points[2] = submission!.pointsFromShares()
+        progressView.updateProgress(animated: true)
         
+        // update the buttons
         likesButton.setTitle("\(submission!.pointsFromLikes())", for: .normal)
         sharesButton.setTitle("\(submission!.pointsFromShares())", for: .normal)
         
+        // update the redeem button and progress text
         progressLabel.text = "\(submission!.points!)/\(submission!.getChallenge()!.pointsRequired!)"
-
-        progressView.updateProgress(animated: true)
+        if submission!.points! >= submission!.getChallenge()!.pointsRequired! {
+            redeemButton.isEnabled = true
+        } else {
+            redeemButton.isEnabled = false
+        }
     }
     
     func deleteSubmission()
@@ -98,7 +106,7 @@ class RZSubmissionDetailViewController: UIViewController {
     }
     
     @IBAction func redeem() {
-        
+        progressView.reset(newTotal: 200)
     }
     
     /*

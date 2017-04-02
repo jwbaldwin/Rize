@@ -10,7 +10,7 @@ import UIKit
 
 import UIKit
 
-class RZSubmissionProgressCircleView: UIView {
+class RZSubmissionProgressCircleView: UIView, CAAnimationDelegate {
 
     fileprivate var _lineWidth : CGFloat = 0.0
     
@@ -111,7 +111,6 @@ class RZSubmissionProgressCircleView: UIView {
         }
 
         updateArcPath()
-        setProgress(uploadProgress: 0, likesProgress: 0, sharesProgress: 0, animated: false)
     }
     
     fileprivate func updateArcPath()
@@ -136,7 +135,9 @@ class RZSubmissionProgressCircleView: UIView {
         for i in 0..<points.count
         {
             progress += CGFloat(points[i]) / CGFloat(total)
-            
+            _arcShapes[i].strokeStart = 0.0
+            _arcShapes[i].strokeEnd = 0.0
+
             if (animated) {
                 let anim = CABasicAnimation()
                 anim.keyPath = "strokeEnd"
@@ -144,9 +145,10 @@ class RZSubmissionProgressCircleView: UIView {
                 anim.toValue = progress
                 anim.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
                 anim.duration = 1.0
-                anim.fillMode = kCAFillModeForwards
-                anim.isRemovedOnCompletion = false
+                anim.fillMode = kCAFillModeBoth
+                anim.isRemovedOnCompletion = true
                 _arcShapes[i].add(anim, forKey: "progress")
+                _arcShapes[i].strokeEnd = progress
             } else {
                 _arcShapes[i].removeAllAnimations()
                 _arcShapes[i].strokeEnd = progress
@@ -162,59 +164,57 @@ class RZSubmissionProgressCircleView: UIView {
             angle -= CGFloat(Double.pi)*CGFloat(points[i]) / CGFloat(total)
             
             let textOrigin = CGPoint(x: self.frame.width/2 + textRadius * cos(angle) - textSize.width/2, y: self.frame.height/2 + textRadius * sin(angle) - textSize.height/2)
-            print(textOrigin)
             
             _textLayers[i].frame = CGRect(origin: textOrigin, size: textSize)
 
         }
     }
     
-    func setProgress(uploadProgress : CGFloat, likesProgress : CGFloat, sharesProgress : CGFloat, animated : Bool)
+    func reset(newTotal : Int)
     {
-        /*
-        if (animated) {
+        total = newTotal
+        
+        for i in 0..<points.count
+        {
             
-            let uploadAnim = CABasicAnimation()
-            uploadAnim.keyPath = "strokeEnd"
-            uploadAnim.fromValue = 0.0
-            uploadAnim.toValue = uploadProgress
-            uploadAnim.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
-            uploadAnim.duration = 1.0
-            uploadAnim.fillMode = kCAFillModeForwards
-            uploadAnim.isRemovedOnCompletion = false
-            uploadArcShape?.add(uploadAnim, forKey: "progress")
+            let startAnim = CABasicAnimation()
+            startAnim.keyPath = "strokeStart"
+            startAnim.fromValue = 0.0
+            startAnim.toValue = 1.0
+            _arcShapes[i].strokeStart = 1.0
             
-            let likesAnim = CABasicAnimation()
-            likesAnim.keyPath = "strokeEnd"
-            likesAnim.fromValue = 0.0
-            likesAnim.toValue = uploadProgress + likesProgress
-            likesAnim.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
-            likesAnim.duration = 1.0
-            likesAnim.fillMode = kCAFillModeForwards
-            likesAnim.isRemovedOnCompletion = false
-            likesArcShape?.add(likesAnim, forKey: "progress")
+            let endAnim = CABasicAnimation()
+            endAnim.keyPath = "strokeEnd"
+            endAnim.fromValue = _arcShapes[i].strokeEnd
+            endAnim.toValue = 1.0
+            _arcShapes[i].strokeEnd = 1.0
             
-            let sharesAnim = CABasicAnimation()
-            sharesAnim.keyPath = "strokeEnd"
-            sharesAnim.fromValue = 0.0
-            sharesAnim.toValue = uploadProgress + likesProgress + sharesProgress
-            sharesAnim.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
-            sharesAnim.duration = 1.0
-            sharesAnim.fillMode = kCAFillModeForwards
-            sharesAnim.isRemovedOnCompletion = false
-            sharesArcShape?.add(sharesAnim, forKey: "progress")
+            let group = CAAnimationGroup()
+            group.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
+            group.duration = 1.0
+            group.fillMode = kCAFillModeBoth
+            group.isRemovedOnCompletion = true
+            group.animations = [startAnim, endAnim]
+            group.delegate = self
             
-        } else {
-            uploadArcShape?.removeAllAnimations()
-            likesArcShape?.removeAllAnimations()
-            sharesArcShape?.removeAllAnimations()
-
-            uploadArcShape?.strokeEnd = uploadProgress
-            likesArcShape?.strokeEnd = uploadProgress + likesProgress
-            sharesArcShape?.strokeEnd = uploadProgress + likesProgress + sharesProgress
-            print("\(uploadProgress + likesProgress + sharesProgress)")
+            if i == points.count - 1 {
+                group.setValue("reset", forKey: "id")
+            }
+            
+            _arcShapes[i].add(group, forKey: "reset")
         }
-        */
+        
+    }
+    
+    // MARK - Animation Delegate
+    func animationDidStop(_ anim: CAAnimation, finished flag: Bool)
+    {
+        guard let id = anim.value(forKey: "id") as? String
+            else { return }
+        print(id, flag)
+        if flag && id == "reset" {
+            self.updateProgress(animated: true)
+        }
     }
     
     override func layoutSubviews() {
