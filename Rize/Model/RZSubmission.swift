@@ -20,6 +20,7 @@ class RZSubmission: NSObject {
     var points : Int?
     var facebook : Bool?
     var friends : Int?
+    var tiers : [RZChallengeTier] = []
     
     let POINTS_LIKE : Double = 1
     let POINTS_SHARE : Double = 10
