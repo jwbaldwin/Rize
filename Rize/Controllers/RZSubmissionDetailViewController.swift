@@ -79,8 +79,8 @@ class RZSubmissionDetailViewController: UIViewController {
         progressView.updateProgress(animated: true)
         
         // update the buttons
-        likesButton.setTitle("\(submission!.pointsFromLikes())", for: .normal)
-        sharesButton.setTitle("\(submission!.pointsFromShares())", for: .normal)
+        likesButton.setTitle("\(submission!.likes!)", for: .normal)
+        sharesButton.setTitle("\(submission!.shares!)", for: .normal)
         
         // update the redeem button and progress text
         progressLabel.text = "\(submission!.points!)/\(submission!.getChallenge()!.pointsRequired!)"
