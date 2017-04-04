@@ -7,21 +7,36 @@
 //
 
 import UIKit
+import Firebase
+//import FirebaseDatabase //Unsure if necessary
 
 private let reuseIdentifier = "Cell"
 
-class RZWalletCollectionViewController: UICollectionViewController {
+class RZWalletCollectionViewController: UICollectionViewController, RZDatabaseDelegate{
 
+    @IBOutlet var activityIndicator: UIActivityIndicatorView?
+    
+    var challenges : [RZChallenge] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
-        // Register cell classes
-        //self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        // Register cell classes TODO: Uncomment when ready
+        //self.collectionView!.register(RZWalletCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
         // Do any additional setup after loading the view.
+        self.activityIndicator?.startAnimating()
+        
+        //RZDatabase.sharedInstance().delegate = self
+        
+        // apply the color scheme
+        self.view.backgroundColor = RZColors.background
+        self.navigationController?.navigationBar.backgroundColor = RZColors.navigationBar
+        self.navigationController?.navigationBar.tintColor = RZColors.primary
+        self.navigationController?.navigationBar.titleTextAttributes?[NSForegroundColorAttributeName] = RZColors.primary
     }
 
     override func didReceiveMemoryWarning() {
@@ -59,6 +74,11 @@ class RZWalletCollectionViewController: UICollectionViewController {
         // Configure the cell
     
         return cell
+    }
+    
+    func databaseDidUpdate(_ database: RZDatabase) {
+        //self.activityIndicator?.stopAnimating()
+        //self.collectionView?.reloadData()
     }
 
     // MARK: UICollectionViewDelegate
