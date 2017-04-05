@@ -271,12 +271,12 @@ class RZDatabase: NSObject {
         return nil
     }
     
-    func redeemCodeForChallenge(challengeId: String, tier: Int,  complete: @escaping (String) -> Void)
+    func redeemCodeForChallenge(challengeId: String, tier: Int,  complete: @escaping (String?) -> Void)
     {
         // pull a redeem code for the challenge and update the database
         self.firebaseRef?.child("challenges/\(challengeId)/tiers/\(tier)/codes").observeSingleEvent(of: .value, with: { (snapshot) in
             guard var codes = snapshot.value as? [String]
-                else { return }
+                else { complete(nil); return }
             
             complete(codes.removeLast())
             

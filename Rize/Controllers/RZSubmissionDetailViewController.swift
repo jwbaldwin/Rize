@@ -55,7 +55,6 @@ class RZSubmissionDetailViewController: UIViewController {
                 RZDatabase.sharedInstance().deleteSubmission(self.submissionId!)
                 self.navigationController?.popToRootViewController(animated: true)
             }))
-            
             self.present(alert, animated: true,completion: nil)
         }
     }
@@ -118,9 +117,19 @@ class RZSubmissionDetailViewController: UIViewController {
     }
     
     @IBAction func redeem() {
+        // show alert so user knows what happens
         let thisTier = self.submission!.currentTier!
         RZDatabase.sharedInstance().redeemCodeForChallenge(challengeId: challenge!.id!, tier: submission!.currentTier!) { (code) in
-            RZDatabase.sharedInstance().addCodeToWallet(challengeId: self.challenge!.id!, tier: thisTier, title: self.challenge!.tiers[thisTier].title, code: code)
+            if code != nil
+            {
+                let alert = UIAlertController(title: "Nice job!", message: "We've added this reward to your wallet!", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Cool!", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+                RZDatabase.sharedInstance().addCodeToWallet(challengeId: self.challenge!.id!, tier: thisTier, title: self.challenge!.tiers[thisTier].title, code: code!)
+            } else {
+                let problemAlert = UIAlertController(title: "This is embarassing", message: "Looks like we've run out of rewards to give out", preferredStyle: .alert)
+                problemAlert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
+            }
         }
         submission!.currentTier! += 1
         RZDatabase.sharedInstance().syncSubmission(submissionId!)
