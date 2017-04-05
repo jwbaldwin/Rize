@@ -45,14 +45,11 @@ class RZDatabase: NSObject {
             // check to make sure we successfully got the age
             if let ageRange = result?["age_range"]
             {
-                guard let _ = ageRange!["min"]
-                    else { return }
-                
-                guard let _ = ageRange!["max"]
-                    else { return }
-                
-                let ageRangeString = "\(ageRange!["min"]!!)-\(ageRange!["max"]!!)"
-                RZDatabase.sharedInstance().setDatabaseValue(value: ageRangeString, forKey: "age_range")
+                if ageRange!["min"] != nil && ageRange!["max"] != nil
+                {
+                    let ageRangeString = "\(ageRange!["min"]!!)-\(ageRange!["max"]!!)"
+                    RZDatabase.sharedInstance().setDatabaseValue(value: ageRangeString, forKey: "age_range")
+                }
             }
             
             // check for email
