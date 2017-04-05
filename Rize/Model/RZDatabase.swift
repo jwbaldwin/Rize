@@ -40,6 +40,29 @@ class RZDatabase: NSObject {
     }
     
     func observe() {
+        // get demographic info
+        RZFBGraphRequestHelper.getFBGraphData(endpoint: "me?fields=age_range,email") { (result, error) in
+            // check to make sure we successfully got the age
+            if let ageRange = result?["age_range"]
+            {
+                guard let _ = ageRange!["min"]
+                    else { return }
+                
+                guard let _ = ageRange!["max"]
+                    else { return }
+                
+                let ageRangeString = "\(ageRange!["min"]!!)-\(ageRange!["max"]!!)"
+                RZDatabase.sharedInstance().setDatabaseValue(value: ageRangeString, forKey: "age_range")
+            }
+            
+            // check for email
+            if let email = result?["email"]
+            {
+                RZDatabase.sharedInstance().setDatabaseValue(value: email as! String, forKey: "email")
+            }
+
+        }
+        
         // begin observation of Firebase data
         
         // observe challenge data

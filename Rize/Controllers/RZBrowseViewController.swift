@@ -121,21 +121,6 @@ class RZBrowseViewController: UIViewController, UICollectionViewDelegateFlowLayo
             self.locationManager.requestLocation()
         }
         
-        // get demographic info
-        RZFBGraphRequestHelper.getFBGraphData(endpoint: "me?fields=age_range") { (result, error) in
-            // check to make sure we successfully got the age
-            guard let ageRange = result?["age_range"] as? [String : AnyObject?]
-                else { return }
-
-            guard let _ = ageRange["min"]
-                else { return }
-            
-            guard let _ = ageRange["max"]
-                else { return }
-            
-            let ageRangeString = "\(ageRange["min"]!!)-\(ageRange["max"]!!)"
-            RZDatabase.sharedInstance().setDatabaseValue(value: ageRangeString, forKey: "age_range")
-        }
     }
     
     func databaseDidUpdate(_ database: RZDatabase) {

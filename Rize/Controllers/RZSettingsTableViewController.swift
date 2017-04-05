@@ -44,8 +44,7 @@ class RZSettingsTableViewController: UITableViewController {
             self.profileImageView.clipsToBounds = true
             if (FIRAuth.auth()?.currentUser!.photoURL != nil)
             {
-                print(FIRAuth.auth()!.currentUser!.photoURL!.absoluteString)
-                ImageLoader.downloadImageFromURL(FIRAuth.auth()!.currentUser!.photoURL!.absoluteString) { (image: UIImage) -> Void in
+                ImageLoader.downloadImageFromURL(String(format: "http://graph.facebook.com/%@/picture?type=large", FBSDKAccessToken.current().userID)) { (image: UIImage) -> Void in
                     UIView.transition(with: self.profileImageView, duration: 0.5, options: UIViewAnimationOptions.transitionCrossDissolve, animations: {
                         self.profileImageView.image = ImageLoader.createRoundImage(image)
                     }, completion: nil)
