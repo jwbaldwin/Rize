@@ -67,7 +67,8 @@ class RZChallengeDetailViewController: UIViewController, UIScrollViewDelegate, R
         }
         
         // setup the gift label
-        self.giftLabel.text = challenge.rewardTitle!
+        // NEEDS UPDATING
+        self.giftLabel.text = challenge!.tiers[0].title
         
         // setup the gift container
         self.giftContainerView.layer.cornerRadius = 5

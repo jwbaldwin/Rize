@@ -19,15 +19,9 @@ class RZChallenge: NSObject {
     var endDate : Int?
     var liked : Bool = false
     var geofence : RZGeofence?
-    var pointsRequired : Int?
     var maxSubmissions : Int?
     var submissions : Int?
-    var likesLimit : Int?
-    var viewsLimit : Int?
-    var sharesLimit: Int?
-    var rewardTitle: String?
-    var rewardLink: String?
-    var rewardMessage: String?
+    var tiers : [RZChallengeTier] = []
     
     func isActive() -> Bool {
         let date = Date().timeIntervalSince1970

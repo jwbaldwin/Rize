@@ -20,7 +20,7 @@ class RZSubmission: NSObject {
     var points : Int?
     var facebook : Bool?
     var friends : Int?
-    var tiers : [RZChallengeTier] = []
+    var currentTier : Int?
     
     let POINTS_LIKE : Double = 1
     let POINTS_SHARE : Double = 10
@@ -39,6 +39,7 @@ class RZSubmission: NSObject {
         result["points"] = points as AnyObject
         result["complete"] = complete as AnyObject
         result["friends"] = friends as AnyObject
+        result["tier"] = currentTier as AnyObject
         return result
     }
     
@@ -52,25 +53,11 @@ class RZSubmission: NSObject {
     }
     
     func pointsFromLikes() -> Int {
-        if challenge_id != nil && likes != nil {
-            let challenge = RZDatabase.sharedInstance().getChallenge(challenge_id!)!
-            if (likes! <= challenge.likesLimit!) {
-                return Int(floor(Double(likes!) * POINTS_LIKE))
-            }
-            return Int(floor(Double(challenge.likesLimit!) * POINTS_LIKE))
-        }
-        return 0
+        return Int(floor(Double(likes!) * POINTS_LIKE))
     }
     
     func pointsFromShares() -> Int {
-        if challenge_id != nil && shares != nil {
-            let challenge = RZDatabase.sharedInstance().getChallenge(challenge_id!)!
-            if (shares! <= challenge.sharesLimit!) {
-                return Int(floor(Double(shares!) * POINTS_SHARE))
-            }
-            return Int(floor(Double(challenge.sharesLimit!) * POINTS_SHARE))
-        }
-        return 0
+        return Int(floor(Double(shares!) * POINTS_SHARE))
     }
     
     func updatePoints() {
@@ -84,12 +71,6 @@ class RZSubmission: NSObject {
         points! += pointsFromUploads()
         points! += pointsFromLikes()
         points! += pointsFromShares()
-        
-        if points! >= challenge.pointsRequired! {
-            complete = true
-        } else {
-            complete = false
-        }
     }
     
     func getChallenge() -> RZChallenge? {

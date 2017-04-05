@@ -284,6 +284,7 @@ class RZCameraViewController: UIViewController, AVCaptureFileOutputRecordingDele
                 submission["friends"] = 0 as AnyObject
                 submission["points"] = 0 as AnyObject
                 submission["redeemed"] = false as AnyObject
+                submission["tier"] = 0 as AnyObject
                 RZDatabase.sharedInstance().pushSubmission(self.challenge.id!, submission: submission)
             }
         })

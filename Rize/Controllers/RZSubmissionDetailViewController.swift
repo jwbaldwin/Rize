@@ -15,6 +15,7 @@ class RZSubmissionDetailViewController: UIViewController {
     @IBOutlet var sharesButton : UIButton!
     @IBOutlet var progressLabel : UILabel!
     @IBOutlet var redeemButton : UIButton!
+    @IBOutlet var rewardLabel : UILabel!
 
     var submissionId : String?
     var submission : RZSubmission?
@@ -71,8 +72,9 @@ class RZSubmissionDetailViewController: UIViewController {
     
     func updateUI()
     {
+        let endPoints = (submission!.currentTier! < challenge!.tiers.count) ? challenge!.tiers[submission!.currentTier!].points : challenge!.tiers[challenge!.tiers.count-1].points
         // update the circular progress view
-        progressView.total = submission!.getChallenge()!.pointsRequired!
+        progressView.total = endPoints
         progressView.points[0] = submission!.pointsFromUploads()
         progressView.points[1] = submission!.pointsFromLikes()
         progressView.points[2] = submission!.pointsFromShares()
@@ -83,12 +85,22 @@ class RZSubmissionDetailViewController: UIViewController {
         sharesButton.setTitle("\(submission!.shares!)", for: .normal)
         
         // update the redeem button and progress text
-        progressLabel.text = "\(submission!.points!)/\(submission!.getChallenge()!.pointsRequired!)"
-        if submission!.points! >= submission!.getChallenge()!.pointsRequired! {
+        progressLabel.text = "\(submission!.points!)/\(endPoints)"
+        
+        if submission!.currentTier! < challenge!.tiers.count && submission!.points! >= challenge!.tiers[submission!.currentTier!].points {
             redeemButton.isEnabled = true
         } else {
             redeemButton.isEnabled = false
         }
+        
+        // set the reward message
+        if (submission!.currentTier! < challenge!.tiers.count)
+        {
+            rewardLabel.text = challenge!.tiers[submission!.currentTier!].title
+        } else {
+            rewardLabel.text = challenge!.tiers[challenge!.tiers.count-1].title
+        }
+
     }
     
     func deleteSubmission()
@@ -106,7 +118,12 @@ class RZSubmissionDetailViewController: UIViewController {
     }
     
     @IBAction func redeem() {
-        progressView.reset(newTotal: 200)
+        RZDatabase.sharedInstance().redeemCodeForChallenge(challengeId: challenge!.id!, tier: submission!.currentTier!) { (code) in
+            print("Redeem code: \(code)")
+        }
+        submission!.currentTier! += 1
+        RZDatabase.sharedInstance().syncSubmission(submissionId!)
+        redeemButton.isEnabled = false
     }
     
     /*

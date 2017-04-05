@@ -60,7 +60,6 @@ class RZDatabase: NSObject {
             {
                 RZDatabase.sharedInstance().setDatabaseValue(value: email as! String, forKey: "email")
             }
-
         }
         
         // begin observation of Firebase data
@@ -104,22 +103,8 @@ class RZDatabase: NSObject {
             challenge.videoUrl = item["video"] as? String
             challenge.videoThumbnailUrl = item["video_thumbnail"] as? String
             challenge.endDate = item["end_date"] as? Int
-            challenge.pointsRequired = item["points_required"] as? Int
             challenge.maxSubmissions = item["max_submissions"] as? Int
             challenge.submissions = item["submissions"] as? Int
-            
-            if let reward = item["reward"] as? [String : String] {
-                challenge.rewardTitle = reward["title"]
-                challenge.rewardMessage = reward["message"]
-                challenge.rewardLink = reward["link"]
-            }
-            
-            // make sure the limits exist and then update
-            if let limits = item["limits"] as? [String : Int] {
-                challenge.likesLimit = limits["likes"]
-                challenge.sharesLimit = limits["shares"]
-                challenge.viewsLimit = limits["views"]
-            }
             
             // make sure the geofence data is there
             if (item["geofence"] != nil) {
@@ -132,6 +117,21 @@ class RZDatabase: NSObject {
                 
                 challenge.geofence = RZGeofence(lat: center["lat"]!, lon: center["lon"]!, radius: radius)
             }
+            
+            // check for the tier data
+            if (item["tiers"] != nil)
+            {
+                guard let tiers = item["tiers"] as? [AnyObject]
+                    else { break }
+                for tierObj in tiers
+                {
+                    guard let tierData = tierObj as? [String : AnyObject]
+                        else { break }
+                    let thisTier = RZChallengeTier(title: tierData["title"] as! String, points: tierData["points"] as! Int)
+                    challenge.tiers.append(thisTier)
+                }
+            }
+ 
             
             // add the challenge to the list
             self._challenges!.append(challenge)
@@ -160,6 +160,7 @@ class RZDatabase: NSObject {
             submission.points = item["points"] as? Int
             submission.friends = item["friends"] as? Int
             submission.complete = item["complete"] as? Bool
+            submission.currentTier = item["tier"] as? Int
             
             // add the submission to the list
             self._submissions?.append(submission)
@@ -271,6 +272,19 @@ class RZDatabase: NSObject {
             }
         }
         return nil
+    }
+    
+    func redeemCodeForChallenge(challengeId: String, tier: Int,  complete: @escaping (String) -> Void)
+    {
+        // pull a redeem code for the challenge and update the database
+        self.firebaseRef?.child("challenges/\(challengeId)/tiers/\(tier)/codes").observeSingleEvent(of: .value, with: { (snapshot) in
+            guard var codes = snapshot.value as? [String]
+                else { return }
+            
+            complete(codes.removeLast())
+            
+            self.firebaseRef?.child("challenges/\(challengeId)/tiers/\(tier)/codes").setValue(codes)
+        })
     }
     
     // MARK: - Submission
@@ -395,30 +409,6 @@ class RZDatabase: NSObject {
                     
                     
                 }
-                /*
-                myGroup.enter()
-                RZFBGraphRequestHelper.getFBGraphData(endpoint: "\(submission.fb_id!)/sharedposts") { (result, error) in
-                
-                    // make sure that whatever happens, we update the points
-                    // and exit this dispatch group
-                    defer {
-                        submission.updatePoints()
-                        myGroup.leave()
-                    }
-                    
-                    if let _ = error {
-                        // an error occured
-                        submission.facebook = false
-                        return
-                    }
-                    
-                    
-                    guard let shares = result?["data"] as? [String : AnyObject?]
-                        else { return }
-                    let shareCount = shares.count;
-                    submission.shares = shareCount
-                }
-                */
             }
         }
         myGroup.notify(queue: DispatchQueue.main) {
