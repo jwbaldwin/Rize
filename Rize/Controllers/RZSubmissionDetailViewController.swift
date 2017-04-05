@@ -118,8 +118,9 @@ class RZSubmissionDetailViewController: UIViewController {
     }
     
     @IBAction func redeem() {
+        let thisTier = self.submission!.currentTier!
         RZDatabase.sharedInstance().redeemCodeForChallenge(challengeId: challenge!.id!, tier: submission!.currentTier!) { (code) in
-            print("Redeem code: \(code)")
+            RZDatabase.sharedInstance().addCodeToWallet(challengeId: self.challenge!.id!, tier: thisTier, title: self.challenge!.tiers[thisTier].title, code: code)
         }
         submission!.currentTier! += 1
         RZDatabase.sharedInstance().syncSubmission(submissionId!)

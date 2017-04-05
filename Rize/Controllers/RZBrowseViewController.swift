@@ -60,51 +60,6 @@ class RZBrowseViewController: UIViewController, UICollectionViewDelegateFlowLayo
         // Dispose of any resources that can be recreated.
     }
     
-    // MARK: - Show Login
-    /*
-    func showLogin() {
-        let loginController = self.storyboard!.instantiateViewController(withIdentifier: "LoginViewController") as! RZLoginViewController
-        loginController.delegate = self
-        self.present(loginController, animated: true, completion: nil)
-
-    }
-    */
-    
-    // MARK: - FB Login Delegate
-    /*
-    func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
-        if (error == nil)
-        {
-            // Authenticate Firebase via Facebook
-            self.loginWithCurrentFacebookToken()
-        }
-        else
-        {
-            // Error: not logged in
-            // Show the login controller
-            print(error)
-        }
-    }
-    
-    public func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
-        // do nothing
-    }
-    
-    public func loginWithCurrentFacebookToken() {
-        let credential = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
-        FIRAuth.auth()?.signIn(with: credential) { (user, error) in
-            // Signed in! Awesome!
-            if (error == nil) {
-                // Dismiss the modal view if we sign in with the other view controller
-                self.dismiss(animated: true, completion: nil)
-                self.setupData()
-            }
-        }
-        self.tabBarController?.selectedIndex = 0
-        self.navigationController?.popToRootViewController(animated: false)
-    }
-    */
-    
     func setupData() {
         RZDatabase.sharedInstance().observe()
     

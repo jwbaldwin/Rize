@@ -284,6 +284,13 @@ class RZDatabase: NSObject {
         })
     }
     
+    func addCodeToWallet(challengeId: String, tier: Int, title: String, code: String)
+    {
+        // add a new entry to the user's wallet
+        let entry = [ "challenge_id" : challengeId, "title" : title, "code" : code ]
+        self.firebaseRef!.child("users/\(FIRAuth.auth()!.currentUser!.uid)/wallet/\(challengeId)-\(tier)").setValue(entry)
+    }
+    
     // MARK: - Submission
     func pushSubmission(_ submissionId: String, submission: [String : AnyObject])
     {
