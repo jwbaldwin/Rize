@@ -45,7 +45,7 @@ class RZDatabase: NSObject {
             // check to make sure we successfully got the age
             if let ageRange = result?["age_range"]
             {
-                if ageRange!["min"] != nil && ageRange!["max"] != nil
+                if ageRange!["min"]! != nil && ageRange!["max"]! != nil
                 {
                     let ageRangeString = "\(ageRange!["min"]!!)-\(ageRange!["max"]!!)"
                     RZDatabase.sharedInstance().setDatabaseValue(value: ageRangeString, forKey: "age_range")
