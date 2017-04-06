@@ -37,6 +37,8 @@ class RZWalletCollectionViewController: UICollectionViewController, RZDatabaseDe
         self.navigationController?.navigationBar.backgroundColor = RZColors.navigationBar
         self.navigationController?.navigationBar.tintColor = RZColors.primary
         self.navigationController?.navigationBar.titleTextAttributes?[NSForegroundColorAttributeName] = RZColors.primary
+        
+        loadUserWallet()
     }
 
     override func didReceiveMemoryWarning() {
@@ -55,6 +57,12 @@ class RZWalletCollectionViewController: UICollectionViewController, RZDatabaseDe
     */
 
     // MARK: UICollectionViewDataSource
+    
+    func loadUserWallet()
+    {
+        //TODO call funciton in RZDatabase that pulls all codes for given USERID form DB
+        RZDatabase.sharedInstance().getWallet()
+    }
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections

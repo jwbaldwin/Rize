@@ -291,6 +291,35 @@ class RZDatabase: NSObject {
         self.firebaseRef!.child("users/\(FIRAuth.auth()!.currentUser!.uid)/wallet/\(challengeId)-\(tier)").setValue(entry)
     }
     
+    //MARK: - Wallet
+    func getWallet(){
+        //(FIRAuth.auth()!.currentUser!.uid) replace matthews ID
+        firebaseRef?.child("users/Ye7SPHvVvvczYE80SiMSM48avIC3/wallet").observeSingleEvent(of: .value, with: { snapshot in
+            
+            if !snapshot.exists() { return }
+            
+            print("----------------------------")
+            print(snapshot)
+            
+            
+            for child in snapshot.children {
+                print(child)
+                
+                //snapshots are each node
+                let snap = child as! FIRDataSnapshot
+                
+                //get each nodes data as a Dictionary
+                let data = snap.value as! [String: AnyObject]
+                let challenge_id = data["challenge_id"] as? String ?? ""
+                let code = data["code"] as? String ?? ""
+                let title = data["title"] as? String ?? ""
+                
+                print(challenge_id, "---", code, "---", title)
+            }
+
+        })
+    }
+    
     // MARK: - Submission
     func pushSubmission(_ submissionId: String, submission: [String : AnyObject])
     {
