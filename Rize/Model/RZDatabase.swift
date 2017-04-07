@@ -21,6 +21,7 @@ class RZDatabase: NSObject {
     fileprivate var _likes : [String]?                  // list of this user's likes
     fileprivate var _challenges : [RZChallenge]?        // challenges
     fileprivate var _submissions : [RZSubmission]?      // user submissions
+    fileprivate var _rewards : [RZReward]?               // user's rewards
     var delegate : RZDatabaseDelegate?
 
     static func sharedInstance() -> RZDatabase {
@@ -81,6 +82,14 @@ class RZDatabase: NSObject {
                 self.delegate?.databaseDidUpdate(self)
             }
         })
+        
+        // observe the wallet data
+        //\(FIRAuth.auth()!.currentUser!.uid) replace matthews ID
+        self.firebaseRef?.child("users/Ye7SPHvVvvczYE80SiMSM48avIC3/wallet").observe(.value, with: { (snapshot) in
+            self.updateWallet(fromSnapshot: snapshot)
+            self.delegate?.databaseDidUpdate(self)
+        })
+        
     }
     
     func updateChallenges(fromSnapshot snapshot : FIRDataSnapshot) {
@@ -292,33 +301,35 @@ class RZDatabase: NSObject {
     }
     
     //MARK: - Wallet
-    func getWallet(){
-        //(FIRAuth.auth()!.currentUser!.uid) replace matthews ID
-        firebaseRef?.child("users/Ye7SPHvVvvczYE80SiMSM48avIC3/wallet").observeSingleEvent(of: .value, with: { snapshot in
+    func updateWallet(fromSnapshot snapshot : FIRDataSnapshot) {
+        self._rewards = []
+        
+        for child in snapshot.children {
+            //create wallet object
+            let snap = child as! FIRDataSnapshot
             
-            if !snapshot.exists() { return }
+            //get each nodes data as a Dictionary
+            let item = snap.value as! [String: AnyObject]
             
-            print("----------------------------")
-            print(snapshot)
+            let reward = RZReward()
             
-            
-            for child in snapshot.children {
-                print(child)
-                
-                //snapshots are each node
-                let snap = child as! FIRDataSnapshot
-                
-                //get each nodes data as a Dictionary
-                let data = snap.value as! [String: AnyObject]
-                let challenge_id = data["challenge_id"] as? String ?? ""
-                let code = data["code"] as? String ?? ""
-                let title = data["title"] as? String ?? ""
-                
-                print(challenge_id, "---", code, "---", title)
-            }
+            //fill in wallet data
+            reward.challenge_id = item["challenge_id"] as? String
+            reward.code = item["code"] as? String
+            reward.title = item["title"] as? String
 
-        })
+            self._rewards!.append(reward)
+        }
     }
+    
+    func getWallet() -> [RZReward]?
+    {
+        if (self._rewards != nil) {
+            return _rewards
+        }
+        return nil
+    }
+
     
     // MARK: - Submission
     func pushSubmission(_ submissionId: String, submission: [String : AnyObject])

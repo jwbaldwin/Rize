@@ -52,6 +52,7 @@
 		48ECB7F64AF42F69C000141E /* Pods_RizeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2214942F74CB0BBFD869C154 /* Pods_RizeTests.framework */; };
 		DA263A2E1E92D09C0047FE8C /* RZWalletCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA263A2D1E92D09C0047FE8C /* RZWalletCollectionViewController.swift */; };
 		DA263A301E92D1A90047FE8C /* RZWalletCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA263A2F1E92D1A90047FE8C /* RZWalletCollectionViewCell.swift */; };
+		DA94F00A1E981FF300C0A32D /* RZReward.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA94F0091E981FF300C0A32D /* RZReward.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -143,6 +144,7 @@
 		D5453F85682B433F5E841673 /* Pods-RizeUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RizeUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RizeUITests/Pods-RizeUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		DA263A2D1E92D09C0047FE8C /* RZWalletCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RZWalletCollectionViewController.swift; sourceTree = "<group>"; };
 		DA263A2F1E92D1A90047FE8C /* RZWalletCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RZWalletCollectionViewCell.swift; path = ../Controllers/RZWalletCollectionViewCell.swift; sourceTree = "<group>"; };
+		DA94F0091E981FF300C0A32D /* RZReward.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RZReward.swift; sourceTree = "<group>"; };
 		F9B769BA519B135B3790B051 /* Pods-Rize.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rize.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Rize/Pods-Rize.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -283,6 +285,7 @@
 				34F800AC1E120642005D11E0 /* RZFBGraphRequestHelper.swift */,
 				345DFEE41E143E7D00DB216A /* RZColors.swift */,
 				344BF1571E9180EA003009A2 /* RZChallengeTier.swift */,
+				DA94F0091E981FF300C0A32D /* RZReward.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -614,6 +617,7 @@
 				DA263A2E1E92D09C0047FE8C /* RZWalletCollectionViewController.swift in Sources */,
 				343910C61E0AD071003DA86D /* ArrowTipShape.swift in Sources */,
 				34813A0D1CE7783400417CD2 /* AppDelegate.swift in Sources */,
+				DA94F00A1E981FF300C0A32D /* RZReward.swift in Sources */,
 				3483D0DD1CF6710B00832BE4 /* RZBrowseViewController.swift in Sources */,
 				345DFEE51E143E7D00DB216A /* RZColors.swift in Sources */,
 				345A51471E0C4C7A0051840F /* RZGeofence.swift in Sources */,

@@ -16,7 +16,7 @@ class RZWalletCollectionViewController: UICollectionViewController, RZDatabaseDe
 
     @IBOutlet var activityIndicator: UIActivityIndicatorView?
     
-    var challenges : [RZChallenge] = []
+    var rewards : [RZReward]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,13 +38,17 @@ class RZWalletCollectionViewController: UICollectionViewController, RZDatabaseDe
         self.navigationController?.navigationBar.tintColor = RZColors.primary
         self.navigationController?.navigationBar.titleTextAttributes?[NSForegroundColorAttributeName] = RZColors.primary
         
-        loadUserWallet()
+        rewards = RZDatabase.sharedInstance().getWallet()
+        print("----------")
+        print(rewards?.count)
+        print(rewards?[0].title)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
 
     /*
     // MARK: - Navigation
@@ -57,12 +61,6 @@ class RZWalletCollectionViewController: UICollectionViewController, RZDatabaseDe
     */
 
     // MARK: UICollectionViewDataSource
-    
-    func loadUserWallet()
-    {
-        //TODO call funciton in RZDatabase that pulls all codes for given USERID form DB
-        RZDatabase.sharedInstance().getWallet()
-    }
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
@@ -73,13 +71,21 @@ class RZWalletCollectionViewController: UICollectionViewController, RZDatabaseDe
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
         //Count num of codes in coredata/db
-        return 10
+        return rewards!.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! RZWalletCollectionViewCell
+        
+        for index in 0...rewards!.count-1{
+            print(index)
+            cell.rewardName.text = rewards?[index].title
+            cell.expDate.text = "Endless"
+            //cell.redeemBtn.title = rewards?[index].code
+            //cell.companyLoc.text = rewards?[index].challenge_id!.uppercased()
+            
+        }
     
-        // Configure the cell
     
         return cell
     }

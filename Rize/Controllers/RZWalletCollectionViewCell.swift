@@ -9,10 +9,10 @@
 import UIKit
 
 class RZWalletCollectionViewCell: UICollectionViewCell {
+    @IBOutlet weak var rewardName: UILabel!
     @IBOutlet weak var expDate: UILabel!
     @IBOutlet weak var companyLoc: UILabel!
     @IBOutlet weak var redeemBtn: UIButton!
     @IBOutlet weak var infoBtn: UIButton!
-    @IBOutlet weak var companyName: UILabel!
     @IBOutlet weak var companyLogo: UIImageView!
 }
