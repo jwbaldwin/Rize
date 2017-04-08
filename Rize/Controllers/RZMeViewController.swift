@@ -119,10 +119,10 @@ class RZMeViewController: UIViewController, UITableViewDataSource, UITableViewDe
             let challengeId = submissions![indexPath.row].challenge_id
             let submission = RZDatabase.sharedInstance().getSubmission(challengeId!)
             let challenge = RZDatabase.sharedInstance().getChallenge(challengeId!)
-            
             cell?.textLabel?.text = "\(challenge!.title!)"
+            let tier = (submission!.currentTier! > challenge!.tiers.count-1) ? challenge!.tiers.count-1 : submission!.currentTier!
+            cell?.progressView?.setProgress(Float(submission!.points!) / Float(challenge!.tiers[tier].points), animated: true)
             ImageLoader.setImageViewImage(challenge!.iconUrl!, view: cell!.iconView!, round: true)
-            ImageLoader.setImageViewImage(challenge!.bannerUrl!, view: cell!.bannerView!, round: false)
             cell?.accessoryType = .disclosureIndicator
             return cell!
         } else {

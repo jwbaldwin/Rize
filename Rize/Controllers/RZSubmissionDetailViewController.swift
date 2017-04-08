@@ -86,6 +86,9 @@ class RZSubmissionDetailViewController: UIViewController {
         // update the redeem button and progress text
         progressLabel.text = "\(submission!.points!)/\(endPoints)"
         
+        // update the reward label
+        rewardLabel.text = challenge!.tiers[0].title
+        
         if submission!.currentTier! < challenge!.tiers.count && submission!.points! >= challenge!.tiers[submission!.currentTier!].points {
             redeemButton.isEnabled = true
         } else {
@@ -127,8 +130,9 @@ class RZSubmissionDetailViewController: UIViewController {
                 self.present(alert, animated: true, completion: nil)
                 RZDatabase.sharedInstance().addCodeToWallet(challengeId: self.challenge!.id!, tier: thisTier, title: self.challenge!.tiers[thisTier].title, code: code!)
             } else {
-                let problemAlert = UIAlertController(title: "This is embarassing", message: "Looks like we've run out of rewards to give out", preferredStyle: .alert)
+                let problemAlert = UIAlertController(title: "Out of Rewards", message: "Looks like we've run out of rewards to give out. Try out another challenge!", preferredStyle: .alert)
                 problemAlert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
+                self.present(problemAlert, animated: true, completion: nil)
             }
         }
         submission!.currentTier! += 1
