@@ -86,9 +86,6 @@ class RZSubmissionDetailViewController: UIViewController {
         // update the redeem button and progress text
         progressLabel.text = "\(submission!.points!)/\(endPoints)"
         
-        // update the reward label
-        rewardLabel.text = challenge!.tiers[0].title
-        
         if submission!.currentTier! < challenge!.tiers.count && submission!.points! >= challenge!.tiers[submission!.currentTier!].points {
             redeemButton.isEnabled = true
         } else {
@@ -98,9 +95,9 @@ class RZSubmissionDetailViewController: UIViewController {
         // set the reward message
         if (submission!.currentTier! < challenge!.tiers.count)
         {
-            rewardLabel.text = challenge!.tiers[submission!.currentTier!].title
+            rewardLabel.text = challenge!.tiers[submission!.currentTier!].title.uppercased()
         } else {
-            rewardLabel.text = challenge!.tiers[challenge!.tiers.count-1].title
+            rewardLabel.text = challenge!.tiers[challenge!.tiers.count-1].title.uppercased()
         }
 
     }
@@ -121,6 +118,15 @@ class RZSubmissionDetailViewController: UIViewController {
     
     @IBAction func redeem() {
         // show alert so user knows what happens
+        if (!challenge!.isActive())
+        {
+            // challenge has expired
+            let expiredAlert = UIAlertController(title: "Challenge Has Ended", message: "This challenge is no longer active", preferredStyle: .alert)
+            expiredAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(expiredAlert, animated: true, completion: nil)
+            return
+        }
+        
         let thisTier = self.submission!.currentTier!
         RZDatabase.sharedInstance().redeemCodeForChallenge(challengeId: challenge!.id!, tier: submission!.currentTier!) { (code) in
             if code != nil
@@ -131,7 +137,7 @@ class RZSubmissionDetailViewController: UIViewController {
                 RZDatabase.sharedInstance().addCodeToWallet(challengeId: self.challenge!.id!, tier: thisTier, title: self.challenge!.tiers[thisTier].title, code: code!)
             } else {
                 let problemAlert = UIAlertController(title: "Out of Rewards", message: "Looks like we've run out of rewards to give out. Try out another challenge!", preferredStyle: .alert)
-                problemAlert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
+                problemAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 self.present(problemAlert, animated: true, completion: nil)
             }
         }

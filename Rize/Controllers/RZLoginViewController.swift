@@ -34,15 +34,12 @@ class RZLoginViewController: UIViewController, UIScrollViewDelegate, FBSDKLoginB
         self.loginButton.center.x += view.bounds.height
     }
     
-    override func viewDidAppear(_ animated: Bool)
-    {
-        super.viewDidAppear(animated)
-        if(FBSDKAccessToken.current() != nil){
-            // logged in
-            UIView.animate(withDuration: 0.5, animations: {
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        UIView.animate(withDuration: 0.5, animations: {
                 self.logo_grey.alpha = 0.0
             })
-        } else {
+        if(FBSDKAccessToken.current() == nil){
             UIView.animate(withDuration: 0.5, animations: {
                 self.logo_grey.alpha = 0.0
             })
@@ -50,7 +47,7 @@ class RZLoginViewController: UIViewController, UIScrollViewDelegate, FBSDKLoginB
             // set up the intro scroll view
             if (!didLoadImages)
             {
-            
+                print(scrollView.frame.width)
                 self.scrollView.delegate = self
                 var imageNames = [ "help_1", "help_2" , "help_3" ]
                 for i in 0..<imageNames.count
