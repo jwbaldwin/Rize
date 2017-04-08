@@ -26,12 +26,16 @@ class RZLoginViewController: UIViewController, UIScrollViewDelegate, FBSDKLoginB
         self.loginButton.delegate = self
         self.loginButton.readPermissions = ["public_profile", "user_friends", "user_posts", "email"]
         self.view.addSubview(loginButton)
+        self.loginButton.center.x += view.bounds.height
 
+        UIView.animate(withDuration: 1, delay: 0, animations:{
+            self.scrollView.alpha = 1.0
+            self.loginButton.center.y = self.view.bounds.height - 50
+        })
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.loginButton.center.x += view.bounds.height
     }
     
     override func viewDidLayoutSubviews() {
@@ -63,12 +67,6 @@ class RZLoginViewController: UIViewController, UIScrollViewDelegate, FBSDKLoginB
                 
                 didLoadImages = true
             }
-
-            
-            UIView.animate(withDuration: 1.5, delay: 0.5, animations:{
-                self.scrollView.alpha = 1.0
-                self.loginButton.center.y = self.view.bounds.height - 50
-            })
         }
 
     }
