@@ -15,6 +15,7 @@ class RZSettingsTableViewController: UITableViewController {
     let TERMCON_INDEXPATH = IndexPath(row: 0, section: 1)
     let PRIVACY_INDEXPATH = IndexPath(row: 1, section: 1)
     let LICENSE_INDEXPATH = IndexPath(row: 2, section: 1)
+    let EMAIL_INDEXPATH   = IndexPath(row: 0, section: 2)
     
     @IBOutlet var profileImageView : UIImageView!
     @IBOutlet var nameLabel : UILabel!
@@ -135,6 +136,12 @@ class RZSettingsTableViewController: UITableViewController {
                 legalController.htmlContent = content!
                 legalController.title = "PRIVACY POLICY"
                 self.navigationController?.pushViewController(legalController, animated: true)
+            }
+        } else if (indexPath == EMAIL_INDEXPATH) {
+            // launch email feedback
+            let email = "rizemobileapp@gmail.com"
+            if let url = URL(string: "mailto:\(email)") {
+                UIApplication.shared.openURL(url)
             }
         }
         tableView.deselectRow(at: indexPath, animated: true)
