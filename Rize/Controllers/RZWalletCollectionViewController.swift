@@ -38,8 +38,13 @@ class RZWalletCollectionViewController: UICollectionViewController, RZDatabaseDe
         self.navigationController?.navigationBar.tintColor = RZColors.primary
         self.navigationController?.navigationBar.titleTextAttributes?[NSForegroundColorAttributeName] = RZColors.primary
  
-        rewards = RZDatabase.sharedInstance().getWallet()
+        loadWalletInfo()
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        loadWalletInfo()
     }
 
     override func didReceiveMemoryWarning() {
@@ -47,6 +52,10 @@ class RZWalletCollectionViewController: UICollectionViewController, RZDatabaseDe
         // Dispose of any resources that can be recreated.
     }
     
+    func loadWalletInfo(){
+        rewards = RZDatabase.sharedInstance().getWallet()
+        self.collectionView?.reloadData()
+    }
 
     /*
     // MARK: - Navigation
@@ -71,20 +80,23 @@ class RZWalletCollectionViewController: UICollectionViewController, RZDatabaseDe
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! RZWalletCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? RZWalletCollectionViewCell
         
-        for index in 0...rewards!.count-1{
-            print(index)
-            cell.rewardName.text = rewards?[index].title
-            cell.expDate.text = "Endless"
-            cell.companyLoc.text = rewards?[index].challenge_title
-            cell.setImageFromURL((rewards?[index].icon)!)
-            cell.redeemCode.text = rewards?[index].code
-            cell.redeemCode.alpha = 0.0
-            
+        print(rewards!)
+        
+        if rewards!.count > 0{
+            print(indexPath.row)
+            cell!.rewardName.text = rewards![indexPath.row].title
+            cell!.expDate.text = "Endless"
+            cell!.companyLoc.text = rewards![indexPath.row].challenge_title
+            cell!.setImageFromURL((rewards![indexPath.row].icon)!)
+            cell!.redeemCode.text = rewards![indexPath.row].code
+            cell!.redeemCode.alpha = 0.0
+            return cell!
+        }else{
+            let noRewardsCell = collectionView.dequeueReusableCell(withReuseIdentifier: "NoRewardsCell", for: indexPath)
+            return noRewardsCell
         }
-        
-        return cell
     }
     
     
