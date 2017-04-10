@@ -37,11 +37,9 @@ class RZWalletCollectionViewController: UICollectionViewController, RZDatabaseDe
         self.navigationController?.navigationBar.backgroundColor = RZColors.navigationBar
         self.navigationController?.navigationBar.tintColor = RZColors.primary
         self.navigationController?.navigationBar.titleTextAttributes?[NSForegroundColorAttributeName] = RZColors.primary
-        
+ 
         rewards = RZDatabase.sharedInstance().getWallet()
-        print("----------")
-        print(rewards?.count)
-        print(rewards?[0].title)
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -63,13 +61,11 @@ class RZWalletCollectionViewController: UICollectionViewController, RZDatabaseDe
     // MARK: UICollectionViewDataSource
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
         //Count num of codes in coredata/db
         return rewards!.count
     }
@@ -81,14 +77,17 @@ class RZWalletCollectionViewController: UICollectionViewController, RZDatabaseDe
             print(index)
             cell.rewardName.text = rewards?[index].title
             cell.expDate.text = "Endless"
-            //cell.redeemBtn.title = rewards?[index].code
-            //cell.companyLoc.text = rewards?[index].challenge_id!.uppercased()
+            cell.companyLoc.text = rewards?[index].challenge_title
+            cell.setImageFromURL((rewards?[index].icon)!)
+            cell.redeemCode.text = rewards?[index].code
+            cell.redeemCode.alpha = 0.0
             
         }
-    
-    
+        
         return cell
     }
+    
+    
     
     func databaseDidUpdate(_ database: RZDatabase) {
         //self.activityIndicator?.stopAnimating()

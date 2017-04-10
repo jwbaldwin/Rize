@@ -9,7 +9,9 @@
 import UIKit
 
 class RZReward: NSObject {
+    var challenge_title : String?
     var challenge_id : String?
     var title : String?
+    var icon : String?
     var code : String?
 }

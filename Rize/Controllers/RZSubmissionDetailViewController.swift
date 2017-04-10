@@ -134,7 +134,7 @@ class RZSubmissionDetailViewController: UIViewController {
                 let alert = UIAlertController(title: "Nice job!", message: "We've added this reward to your wallet!", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Cool!", style: .default, handler: nil))
                 self.present(alert, animated: true, completion: nil)
-                RZDatabase.sharedInstance().addCodeToWallet(challengeId: self.challenge!.id!, tier: thisTier, title: self.challenge!.tiers[thisTier].title, code: code!)
+                RZDatabase.sharedInstance().addCodeToWallet(challengeId: self.challenge!.id!, tier: thisTier, title: self.challenge!.tiers[thisTier].title, code: code!, icon: self.challenge!.iconUrl!, challengeTitle: self.challenge!.title!)
             } else {
                 let problemAlert = UIAlertController(title: "Out of Rewards", message: "Looks like we've run out of rewards to give out. Try out another challenge!", preferredStyle: .alert)
                 problemAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))

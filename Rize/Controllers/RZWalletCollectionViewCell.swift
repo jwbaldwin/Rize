@@ -15,4 +15,32 @@ class RZWalletCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var redeemBtn: UIButton!
     @IBOutlet weak var infoBtn: UIButton!
     @IBOutlet weak var companyLogo: UIImageView!
+    @IBOutlet weak var redeemCode: UILabel!
+    @IBOutlet weak var arrows: UIImageView!
+    @IBAction func showCode(_ sender: Any) {
+        animateCode()
+    }
+    
+    func animateCode(){
+        if redeemCode.alpha == 0.0
+        {
+            UIView.animate(withDuration: 1.0, animations: {
+                self.redeemCode.alpha = 1.0
+                self.arrows.alpha = 1.0
+            })
+        }
+        else
+        {
+            UIView.animate(withDuration: 1.0, animations: {
+                self.redeemCode.alpha = 0.0
+                self.arrows.alpha = 0.0
+            })
+        }
+    }
+    // Public function to set the image via URL
+    func setImageFromURL(_ url: String) {
+        // Load the image
+        ImageLoader.setImageViewImage(url, view: companyLogo!, round: false) {
+        }
+    }
 }

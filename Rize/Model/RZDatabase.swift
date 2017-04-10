@@ -84,8 +84,7 @@ class RZDatabase: NSObject {
         })
         
         // observe the wallet data
-        //\(FIRAuth.auth()!.currentUser!.uid) replace matthews ID
-        self.firebaseRef?.child("users/Ye7SPHvVvvczYE80SiMSM48avIC3/wallet").observe(.value, with: { (snapshot) in
+        self.firebaseRef?.child("users/\(FIRAuth.auth()!.currentUser!.uid)/wallet").observe(.value, with: { (snapshot) in
             self.updateWallet(fromSnapshot: snapshot)
             self.delegate?.databaseDidUpdate(self)
         })
@@ -293,10 +292,10 @@ class RZDatabase: NSObject {
         })
     }
     
-    func addCodeToWallet(challengeId: String, tier: Int, title: String, code: String)
+    func addCodeToWallet(challengeId: String, tier: Int, title: String, code: String, icon: String, challengeTitle: String)
     {
         // add a new entry to the user's wallet
-        let entry = [ "challenge_id" : challengeId, "title" : title, "code" : code ]
+        let entry = [ "challenge_id" : challengeId, "title" : title, "code" : code , "icon" : icon, "challenge_title" : challengeTitle]
         self.firebaseRef!.child("users/\(FIRAuth.auth()!.currentUser!.uid)/wallet/\(challengeId)-\(tier)").setValue(entry)
     }
     
@@ -317,9 +316,12 @@ class RZDatabase: NSObject {
             reward.challenge_id = item["challenge_id"] as? String
             reward.code = item["code"] as? String
             reward.title = item["title"] as? String
+            reward.challenge_title = item["challenge_title"] as? String
+            reward.icon = item["icon"] as? String
 
             self._rewards!.append(reward)
         }
+        
     }
     
     func getWallet() -> [RZReward]?
