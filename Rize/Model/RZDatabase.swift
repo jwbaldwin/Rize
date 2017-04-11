@@ -327,6 +327,7 @@ class RZDatabase: NSObject {
     func getWallet() -> [RZReward]?
     {
         if (self._rewards != nil) {
+            print("***HERE***")
             return _rewards
         }
         return nil

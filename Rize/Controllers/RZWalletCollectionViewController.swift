@@ -76,18 +76,18 @@ class RZWalletCollectionViewController: UICollectionViewController, RZDatabaseDe
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         //Count num of codes in coredata/db
+        if rewards!.count == 0{
+            return 1
+        }
         return rewards!.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? RZWalletCollectionViewCell
         
-        print(rewards!)
-        
-        if rewards!.count > 0{
-            print(indexPath.row)
+        if rewards!.count != 0{
             cell!.rewardName.text = rewards![indexPath.row].title
-            cell!.expDate.text = "Endless"
+            cell!.expDate.text = "No Expiration"
             cell!.companyLoc.text = rewards![indexPath.row].challenge_title
             cell!.setImageFromURL((rewards![indexPath.row].icon)!)
             cell!.redeemCode.text = rewards![indexPath.row].code
@@ -104,6 +104,17 @@ class RZWalletCollectionViewController: UICollectionViewController, RZDatabaseDe
     func databaseDidUpdate(_ database: RZDatabase) {
         //self.activityIndicator?.stopAnimating()
         //self.collectionView?.reloadData()
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        // Compute the dimension of a cell for an NxN layout with space S between
+        // cells.  Take the collection view's width, subtract (N-1)*S points for
+        // the spaces between the cells, and then divide by N to find the final
+        // dimension for the cell's width and height.
+        if self.collectionView!.bounds.width > 320 {
+            return CGSize(width: self.collectionView!.bounds.width - 40, height: 156)
+        } else {
+            return CGSize(width: self.collectionView!.bounds.width, height: 156)
+        }
     }
 
     // MARK: UICollectionViewDelegate
