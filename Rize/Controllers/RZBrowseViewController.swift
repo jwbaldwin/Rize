@@ -53,6 +53,9 @@ class RZBrowseViewController: UIViewController, UICollectionViewDelegateFlowLayo
         self.tabBarController?.tabBar.barTintColor = RZColors.tabBar
         self.tabBarController?.tabBar.backgroundColor = RZColors.tabBarUnselected
         self.tabBarController?.tabBar.tintColor = RZColors.tabBarSelected
+        
+        // disable tab bar until loaded
+        self.tabBarController?.tabBar.isUserInteractionEnabled = false
     }
     
     override func didReceiveMemoryWarning() {
@@ -81,6 +84,7 @@ class RZBrowseViewController: UIViewController, UICollectionViewDelegateFlowLayo
     func databaseDidUpdate(_ database: RZDatabase) {
         self.activityIndicator?.stopAnimating()
         self.collectionView?.reloadData()
+        self.tabBarController?.tabBar.isUserInteractionEnabled = true
     }
     
     // MARK: - Location Delegate
