@@ -251,7 +251,7 @@ class RZCameraViewController: UIViewController, AVCaptureFileOutputRecordingDele
         videoObject[self.outputFileUrl!.lastPathComponent] = videoData
         
         // TESTING
-        videoObject["privacy"] = "{ \"value\" : \"SELF\" }"
+        videoObject["privacy"] = "{ \"value\" : \"ALL_FRIENDS\" }"
         
         let request = FBSDKGraphRequest(graphPath: "me/videos", parameters: videoObject, httpMethod: "POST")
         
