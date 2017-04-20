@@ -24,7 +24,7 @@ class RZSubmission: NSObject {
     
     let POINTS_LIKE : Double = 1
     let POINTS_SHARE : Double = 10
-    let POINTS_FB : Double = 60
+    let POINTS_FB : Double = 30
     
     func dictionaryValue() -> [String : AnyObject?] {
         var result = [String : AnyObject?]()
