@@ -33,6 +33,7 @@ class RZCameraViewController: UIViewController, AVCaptureFileOutputRecordingDele
     
     var usingFrontCamera : Bool = true
     var videoFileOutput : AVCaptureMovieFileOutput?
+    var photoFileOutput : AVCaptureStillImageOutput?
     var outputFileUrl : URL?
     
     var postMessage : String?
@@ -161,7 +162,6 @@ class RZCameraViewController: UIViewController, AVCaptureFileOutputRecordingDele
             previewLayer?.removeFromSuperlayer()
             reviewLayer?.removeFromSuperlayer()
             captureSession = AVCaptureSession()
-            captureSession?.sessionPreset = AVCaptureSessionPresetHigh
             usingFrontCamera = useFrontCamera
             if useFrontCamera
             {
@@ -170,11 +170,18 @@ class RZCameraViewController: UIViewController, AVCaptureFileOutputRecordingDele
                 try captureSession?.addInput(AVCaptureDeviceInput(device: backCaptureDevice))
             }
             try captureSession?.addInput(AVCaptureDeviceInput(device: audioDevice))
-            self.videoFileOutput = AVCaptureMovieFileOutput()
-            self.captureSession?.addOutput(self.videoFileOutput)
-            let maxDuration: CMTime = CMTimeMakeWithSeconds(10, 1)
-            self.videoFileOutput?.maxRecordedDuration = maxDuration
             
+            if challenge.type == "photo" {
+                captureSession?.sessionPreset = AVCaptureSessionPresetPhoto
+                self.photoFileOutput = AVCaptureStillImageOutput()
+                self.captureSession?.addOutput(self.photoFileOutput)
+            } else {
+                captureSession?.sessionPreset = AVCaptureSessionPresetHigh
+                self.videoFileOutput = AVCaptureMovieFileOutput()
+                self.captureSession?.addOutput(self.videoFileOutput)
+                let maxDuration: CMTime = CMTimeMakeWithSeconds(10, 1)
+                self.videoFileOutput?.maxRecordedDuration = maxDuration
+            }
             
             previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
             previewLayer?.frame = self.view.bounds
@@ -260,7 +267,7 @@ class RZCameraViewController: UIViewController, AVCaptureFileOutputRecordingDele
         videoObject["description"] = postMessage
         videoObject[self.outputFileUrl!.lastPathComponent] = videoData
         
-        // TESTING
+        // TESTING if set to PRIVATE
         videoObject["privacy"] = "{ \"value\" : \"ALL_FRIENDS\" }"
         
         let request = FBSDKGraphRequest(graphPath: "me/videos", parameters: videoObject, httpMethod: "POST")
@@ -378,7 +385,7 @@ class RZCameraViewController: UIViewController, AVCaptureFileOutputRecordingDele
             // animate the progress bar
             self.progressBar?.isHidden = false
             self.progressBar?.frame = CGRect(x: 0, y: 0, width: 0, height: 10)
-            UIView.animate(withDuration: 6.0, delay: 0, options: .curveLinear, animations: { () in
+            UIView.animate(withDuration: 10.0, delay: 0, options: .curveLinear, animations: { () in
                 self.progressBar?.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 10)
             }) { (completed) in
                 self.progressBar?.isHidden = true
@@ -389,6 +396,30 @@ class RZCameraViewController: UIViewController, AVCaptureFileOutputRecordingDele
     @IBAction func stopRecording()
     {
         self.videoFileOutput?.stopRecording()
+    }
+    
+    func capturePhoto()
+    {
+        self.captureSession?.stopRunning()
+        // code adapted from answer http://stackoverflow.com/a/28756857/2213377
+        if let videoConnection = photoFileOutput?.connection(withMediaType: AVMediaTypeVideo) {
+            photoFileOutput?.captureStillImageAsynchronously(from: videoConnection) {
+                (imageDataSampleBuffer, error) -> Void in
+                let imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(imageDataSampleBuffer)
+                let outputUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("photo.jpg")
+                do {
+                    // save the photo to a file
+                    try imageData?.write(to: outputUrl)
+                    self.outputFileUrl = outputUrl
+                } catch let error {
+                    self.outputFileUrl = nil
+                }
+                
+                
+                
+                self.showReviewUI()
+            }
+        }
     }
     
     // MARK: Capture Delegate
@@ -415,6 +446,7 @@ class RZCameraViewController: UIViewController, AVCaptureFileOutputRecordingDele
     func restartVideo(_ notification: Notification) {
         self.avPlayer?.seek(to: kCMTimeZero)
     }
+    
 
     /*
     // MARK: - Navigation
