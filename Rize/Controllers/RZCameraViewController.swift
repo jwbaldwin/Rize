@@ -172,7 +172,7 @@ class RZCameraViewController: UIViewController, AVCaptureFileOutputRecordingDele
             try captureSession?.addInput(AVCaptureDeviceInput(device: audioDevice))
             self.videoFileOutput = AVCaptureMovieFileOutput()
             self.captureSession?.addOutput(self.videoFileOutput)
-            let maxDuration: CMTime = CMTimeMakeWithSeconds(6, 1)
+            let maxDuration: CMTime = CMTimeMakeWithSeconds(10, 1)
             self.videoFileOutput?.maxRecordedDuration = maxDuration
             
             
