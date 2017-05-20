@@ -15,8 +15,11 @@ protocol RZDatabaseDelegate: class {
 
 class RZDatabase: NSObject {
 
+    // use "challenges" for release, "challenges-debug" for testing
+    // NEVER commit with "challenges-debug"
+    static let CHALLENGE_PATH = "challenges";
+
     fileprivate static var instance : RZDatabase?       // shared instance
-    
     fileprivate var firebaseRef : FIRDatabaseReference? // Firebase database reference
     fileprivate var _likes : [String]?                  // list of this user's likes
     fileprivate var _challenges : [RZChallenge]?        // challenges
@@ -63,7 +66,7 @@ class RZDatabase: NSObject {
         // begin observation of Firebase data
         
         // observe challenge data
-        self.firebaseRef?.child("challenges").observe(.value, with: { (snapshot) in
+        self.firebaseRef?.child(RZDatabase.CHALLENGE_PATH).observe(.value, with: { (snapshot) in
             self.updateChallenges(fromSnapshot: snapshot)
             self.delegate?.databaseDidUpdate(self)
         })
@@ -110,6 +113,7 @@ class RZDatabase: NSObject {
             challenge.endDate = item["end_date"] as? Int
             challenge.maxSubmissions = item["max_submissions"] as? Int
             challenge.submissions = item["submissions"] as? Int
+            challenge.type = item["type"] as! String
             
             // make sure the geofence data is there
             if (item["geofence"] != nil) {
@@ -119,7 +123,6 @@ class RZDatabase: NSObject {
                     else { break }
                 guard let radius = geofenceData["radius"] as? Double
                     else { break }
-                
                 challenge.geofence = RZGeofence(lat: center["lat"]!, lon: center["lon"]!, radius: radius)
             }
             

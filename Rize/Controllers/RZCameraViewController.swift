@@ -15,7 +15,10 @@ protocol RZCameraViewControllerDelegate: class {
 }
 
 class RZCameraViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, RZUploadAlertViewControllerDelegate, RZPostMessageViewControllerDelegate {
-    var challenge : RZChallenge! // which challenge this capture is for
+
+    // which challenge this capture is for
+    // we assume this has been set from the presenting controller
+    var challenge : RZChallenge!
     
     var captureSession : AVCaptureSession?
     
@@ -48,6 +51,13 @@ class RZCameraViewController: UIViewController, AVCaptureFileOutputRecordingDele
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // set the shutter button image based on the challenge type
+        if self.challenge.type == "photo" {
+            shutterButton?.setImage(UIImage(named: "rize"), for: .normal)
+        } else {
+            shutterButton?.setImage(UIImage(named: "record"), for: .normal)
+        }
         
         let devices = AVCaptureDevice.devices()
         

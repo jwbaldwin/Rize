@@ -22,6 +22,7 @@ class RZChallenge: NSObject {
     var maxSubmissions : Int?
     var submissions : Int?
     var tiers : [RZChallengeTier] = []
+    var type : String = "video" // default to video challenge
     
     func isActive() -> Bool {
         let date = Date().timeIntervalSince1970
