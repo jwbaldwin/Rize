@@ -113,7 +113,9 @@ class RZDatabase: NSObject {
             challenge.endDate = item["end_date"] as? Int
             challenge.maxSubmissions = item["max_submissions"] as? Int
             challenge.submissions = item["submissions"] as? Int
-            challenge.media = item["media"] as! String
+            if let media = item["media"] as? String {
+                challenge.media = media
+            }
             
             // make sure the geofence data is there
             if (item["geofence"] != nil) {
