@@ -104,7 +104,7 @@ class RZSubmissionDetailViewController: UIViewController {
     
     func deleteSubmission()
     {
-        let actionSheet = UIAlertController(title: "Delete Submission", message: "This action cannot be undone", preferredStyle: .actionSheet)
+        let actionSheet = UIAlertController(title: "Delete Submission", message: "This action cannot be undone. Content is not removed from social media platforms", preferredStyle: .actionSheet)
         let cancelButton = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         let deleteButton = UIAlertAction(title: "Delete", style: .destructive) { action in
             // delete the submission

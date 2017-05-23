@@ -54,7 +54,7 @@ class RZCameraViewController: UIViewController, AVCaptureFileOutputRecordingDele
         super.viewDidLoad()
         
         // set the shutter button image based on the challenge type
-        if self.challenge.type == "photo" {
+        if self.challenge.media == "photo" {
             shutterButton?.setImage(UIImage(named: "rize"), for: .normal)
         } else {
             shutterButton?.setImage(UIImage(named: "record"), for: .normal)
@@ -171,7 +171,7 @@ class RZCameraViewController: UIViewController, AVCaptureFileOutputRecordingDele
             }
             try captureSession?.addInput(AVCaptureDeviceInput(device: audioDevice))
             
-            if challenge.type == "photo" {
+            if challenge.media == "photo" {
                 captureSession?.sessionPreset = AVCaptureSessionPresetPhoto
                 self.photoFileOutput = AVCaptureStillImageOutput()
                 self.captureSession?.addOutput(self.photoFileOutput)
@@ -233,11 +233,11 @@ class RZCameraViewController: UIViewController, AVCaptureFileOutputRecordingDele
             })
         } else {
             // if everything is good, call uploadVideo
-            uploadVideo()
+            uploadMedia()
         }
     }
     
-    func uploadVideo()
+    func uploadMedia()
     {
         // hide all the ui 
         UIView.animate(withDuration: 0.5) {
@@ -262,15 +262,24 @@ class RZCameraViewController: UIViewController, AVCaptureFileOutputRecordingDele
             return
         }
         
-        let videoData = NSData(contentsOf: self.outputFileUrl!)
-        var videoObject = [AnyHashable : Any]()
-        videoObject["description"] = postMessage
-        videoObject[self.outputFileUrl!.lastPathComponent] = videoData
         
-        // TESTING if set to PRIVATE
-        videoObject["privacy"] = "{ \"value\" : \"ALL_FRIENDS\" }"
+        let mediaData = NSData(contentsOf: self.outputFileUrl!)
+        var mediaObject = [AnyHashable : Any]()
+        mediaObject["description"] = postMessage
+        mediaObject["caption"] = postMessage
+        mediaObject[self.outputFileUrl!.lastPathComponent] = mediaData
         
-        let request = FBSDKGraphRequest(graphPath: "me/videos", parameters: videoObject, httpMethod: "POST")
+        // TESTING if set to SELF
+        // For release, use ALL_FRIENDS
+        mediaObject["privacy"] = "{ \"value\" : \"SELF\" }"
+        
+        // set the right graph endpoint for photos/videos. default to videos
+        var graphPath = "me/videos"
+        if challenge.media == "photo" {
+            graphPath = "me/photos"
+        }
+        
+        let request = FBSDKGraphRequest(graphPath: graphPath, parameters: mediaObject, httpMethod: "POST")
         
         let uploadAlert = RZUploadAlertViewController()
         uploadAlert.modalPresentationStyle = UIModalPresentationStyle.overFullScreen
@@ -308,7 +317,7 @@ class RZCameraViewController: UIViewController, AVCaptureFileOutputRecordingDele
     }
     
     func showUploadErrorAlert() {
-        let alert = UIAlertController(title: "Oops", message: "Something went wrong and we couldn't upload your video", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Oops", message: "Something went wrong and we couldn't upload your submission", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
             self.done()
         }))
@@ -372,7 +381,16 @@ class RZCameraViewController: UIViewController, AVCaptureFileOutputRecordingDele
         beginSession(usingFrontCamera)
     }
     
-    @IBAction func startRecording()
+    @IBAction func shutter()
+    {
+        if challenge.media == "photo" {
+            capturePhoto()
+        } else {
+            startRecording()
+        }
+    }
+    
+    func startRecording()
     {
         if self.captureSession!.isRunning {
             let outputUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("video.mp4")
@@ -395,18 +413,28 @@ class RZCameraViewController: UIViewController, AVCaptureFileOutputRecordingDele
     
     @IBAction func stopRecording()
     {
-        self.videoFileOutput?.stopRecording()
+        if challenge.media == "video" {
+            self.videoFileOutput?.stopRecording()
+        }
     }
     
     func capturePhoto()
     {
-        self.captureSession?.stopRunning()
         // code adapted from answer http://stackoverflow.com/a/28756857/2213377
         if let videoConnection = photoFileOutput?.connection(withMediaType: AVMediaTypeVideo) {
             photoFileOutput?.captureStillImageAsynchronously(from: videoConnection) {
                 (imageDataSampleBuffer, error) -> Void in
-                let imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(imageDataSampleBuffer)
+                print(error)
+                var imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(imageDataSampleBuffer)
                 let outputUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("photo.jpg")
+                let rawImage = UIImage(data: imageData!)!
+                    
+                // flip the image if using the front facing camera
+                if self.usingFrontCamera {
+                    let flippedImage = UIImage(cgImage: rawImage.cgImage!, scale: rawImage.scale, orientation: .leftMirrored)
+                    imageData = UIImageJPEGRepresentation(flippedImage, 0.9)
+                }
+                
                 do {
                     // save the photo to a file
                     try imageData?.write(to: outputUrl)
@@ -414,12 +442,10 @@ class RZCameraViewController: UIViewController, AVCaptureFileOutputRecordingDele
                 } catch let error {
                     self.outputFileUrl = nil
                 }
-                
-                
-                
                 self.showReviewUI()
             }
         }
+        self.captureSession?.stopRunning()
     }
     
     // MARK: Capture Delegate
