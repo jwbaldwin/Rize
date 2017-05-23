@@ -271,7 +271,7 @@ class RZCameraViewController: UIViewController, AVCaptureFileOutputRecordingDele
         
         // TESTING if set to SELF
         // For release, use ALL_FRIENDS
-        mediaObject["privacy"] = "{ \"value\" : \"SELF\" }"
+        mediaObject["privacy"] = "{ \"value\" : \"ALL_FRIENDS\" }"
         
         // set the right graph endpoint for photos/videos. default to videos
         var graphPath = "me/videos"
