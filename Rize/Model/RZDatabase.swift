@@ -9,7 +9,8 @@ import FirebaseDatabase
 import Firebase
 import CoreLocation
 
-protocol RZDatabaseDelegate: class {
+@objc protocol RZDatabaseDelegate: class {
+    @objc optional func legalDocumentDidChange(_ database: RZDatabase, whichDocument : String)
     func databaseDidUpdate(_ database: RZDatabase)
 }
 
@@ -17,7 +18,10 @@ class RZDatabase: NSObject {
 
     // use "challenges" for release, "challenges-debug" for testing
     // NEVER commit with "challenges-debug"
-    static let CHALLENGE_PATH = "challenges";
+    static let CHALLENGE_PATH = "challenges"
+    
+    static let PRIVACY_UPDATED = "privacy-updated"
+    static let TERMS_UPDATED = "terms-updated"
 
     fileprivate static var instance : RZDatabase?       // shared instance
     fileprivate var firebaseRef : FIRDatabaseReference? // Firebase database reference
@@ -27,9 +31,10 @@ class RZDatabase: NSObject {
     fileprivate var _rewards : [RZReward]?               // user's rewards
     var delegate : RZDatabaseDelegate?
     
-    fileprivate var _privacyPolicy : [String : String]?
-    fileprivate var _termsConditions : [String : String]?
-    fileprivate var _licenses : [String : String]?
+    fileprivate var _privacyPolicy : RZLegalDocument
+    fileprivate var _termsConditions : RZLegalDocument
+    fileprivate var _licenses : RZLegalDocument
+
 
     static func sharedInstance() -> RZDatabase {
         // check if the instance needs to be created
@@ -45,6 +50,14 @@ class RZDatabase: NSObject {
         // setup the shared instance
         // grab the database reference
         firebaseRef = FIRDatabase.database().reference()
+        
+        // load the legal document dates from the shared preferences
+        // we don't care to update users about the licenses thought
+        _privacyPolicy = RZLegalDocument()
+        _termsConditions = RZLegalDocument()
+        _licenses = RZLegalDocument()
+        _privacyPolicy.updated = UserDefaults.standard.string(forKey: RZDatabase.PRIVACY_UPDATED)
+        _termsConditions.updated = UserDefaults.standard.string(forKey: RZDatabase.TERMS_UPDATED)
     }
     
     func observe() {
@@ -494,36 +507,48 @@ class RZDatabase: NSObject {
         firebaseRef!.child("legal/terms-conditions").observe(.value, with: { (snapshot) in
             guard let terms = snapshot.value as? [ String : AnyObject? ]
                 else { return }
-            self._termsConditions = [:]
-            self._termsConditions!["content"] = terms["content"] as! String
-            self._termsConditions!["date"] = terms["date"] as! String
+            self._termsConditions.content = terms["content"] as? String
+            let currentDate = terms["date"] as? String
+            if (currentDate != self._termsConditions.updated) {
+                // must be a new document
+                // notify the user and update the stored date
+                UserDefaults.standard.set(currentDate, forKey: RZDatabase.TERMS_UPDATED)
+                // let the delegate know what's up
+                self.delegate?.legalDocumentDidChange?(self, whichDocument: RZDatabase.TERMS_UPDATED)
+            }
+            
         })
         firebaseRef!.child("legal/privacy-policy").observe(.value, with: { (snapshot) in
             guard let privacy = snapshot.value as? [ String : AnyObject? ]
                 else { return }
-            self._privacyPolicy = [:]
-            self._privacyPolicy!["content"] = privacy["content"] as! String
-            self._privacyPolicy!["date"] = privacy["date"] as! String
+            self._privacyPolicy.content = privacy["content"] as? String
+            let currentDate = privacy["date"] as? String
+            if (currentDate != self._privacyPolicy.updated) {
+                // must be a new document
+                // notify the user and update the stored date
+                UserDefaults.standard.set(currentDate, forKey: RZDatabase.PRIVACY_UPDATED)
+                // let the delegate know what's up
+                self.delegate?.legalDocumentDidChange?(self, whichDocument: RZDatabase.PRIVACY_UPDATED)
+            }
         })
         firebaseRef!.child("legal/licenses").observe(.value, with: { (snapshot) in
             guard let licenses = snapshot.value as? [ String : AnyObject? ]
                 else { return }
-            self._licenses = [:]
-            self._licenses!["content"] = licenses["content"] as! String
-            self._licenses!["date"] = licenses["date"] as! String
+            self._licenses.content = licenses["content"] as? String
+            // don't care about licenses date
         })
     }
     
     func getPrivacyPolicy() -> String? {
-        return self._privacyPolicy?["content"]
+        return self._privacyPolicy.content
     }
     
     func getTermsConditions() -> String? {
-        return self._termsConditions?["content"]
+        return self._termsConditions.content
     }
     
     func getLicenses() -> String? {
-        return self._licenses?["content"]
+        return self._licenses.content
     }
     
     

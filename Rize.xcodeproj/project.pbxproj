@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1CBA6AAF4F762A9C1B871EC3 /* Pods_RizeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1332FA95016A53F6ADCB355B /* Pods_RizeUITests.framework */; };
+		3417EB091EFF1E36001B059A /* RZLegalDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3417EB081EFF1E36001B059A /* RZLegalDocument.swift */; };
 		34360ACE1E8C07D30022D1CB /* RZSubmissionProgressCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34360ACD1E8C07D30022D1CB /* RZSubmissionProgressCircleView.swift */; };
 		343910C41E0AD05E003DA86D /* ArrowBaseShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343910C31E0AD05E003DA86D /* ArrowBaseShape.swift */; };
 		343910C61E0AD071003DA86D /* ArrowTipShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343910C51E0AD071003DA86D /* ArrowTipShape.swift */; };
@@ -90,6 +91,7 @@
 		0D10661D745FC4162B6F1E84 /* Pods_Rize.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Rize.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1332FA95016A53F6ADCB355B /* Pods_RizeUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RizeUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2214942F74CB0BBFD869C154 /* Pods_RizeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RizeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3417EB081EFF1E36001B059A /* RZLegalDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RZLegalDocument.swift; sourceTree = "<group>"; };
 		34360ACD1E8C07D30022D1CB /* RZSubmissionProgressCircleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RZSubmissionProgressCircleView.swift; sourceTree = "<group>"; };
 		343910C31E0AD05E003DA86D /* ArrowBaseShape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrowBaseShape.swift; sourceTree = "<group>"; };
 		343910C51E0AD071003DA86D /* ArrowTipShape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrowTipShape.swift; sourceTree = "<group>"; };
@@ -286,6 +288,7 @@
 				345DFEE41E143E7D00DB216A /* RZColors.swift */,
 				344BF1571E9180EA003009A2 /* RZChallengeTier.swift */,
 				DA94F0091E981FF300C0A32D /* RZReward.swift */,
+				3417EB081EFF1E36001B059A /* RZLegalDocument.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -610,6 +613,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3417EB091EFF1E36001B059A /* RZLegalDocument.swift in Sources */,
 				3447A1351D01227800AAB490 /* ImageLoader.swift in Sources */,
 				343910C81E0B0E97003DA86D /* RZSubmission.swift in Sources */,
 				343910C41E0AD05E003DA86D /* ArrowBaseShape.swift in Sources */,

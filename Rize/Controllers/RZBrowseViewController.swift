@@ -87,6 +87,21 @@ class RZBrowseViewController: UIViewController, UICollectionViewDelegateFlowLayo
         self.tabBarController?.tabBar.isUserInteractionEnabled = true
     }
     
+    func legalDocumentDidChange(_ database: RZDatabase, whichDocument: String) {
+        var title = ""
+        var message = ""
+        if (whichDocument == RZDatabase.TERMS_UPDATED) {
+            title = "Terms & Conditions Updated"
+            message = "By using this app you agree to our updated terms and conditions. Check them out in the Settings page!"
+        } else if (whichDocument == RZDatabase.PRIVACY_UPDATED) {
+            title = "Privacy Policy Update"
+            message = "By using this app you agree to our updated privacy policy. Check it out in the Settings page!"
+        }
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     // MARK: - Location Delegate
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         self.location = locations[0]
