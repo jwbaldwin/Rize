@@ -26,6 +26,10 @@ class RZDatabase: NSObject {
     fileprivate var _submissions : [RZSubmission]?      // user submissions
     fileprivate var _rewards : [RZReward]?               // user's rewards
     var delegate : RZDatabaseDelegate?
+    
+    fileprivate var _privacyPolicy : [String : String]?
+    fileprivate var _termsConditions : [String : String]?
+    fileprivate var _licenses : [String : String]?
 
     static func sharedInstance() -> RZDatabase {
         // check if the instance needs to be created
@@ -91,6 +95,9 @@ class RZDatabase: NSObject {
             self.updateWallet(fromSnapshot: snapshot)
             self.delegate?.databaseDidUpdate(self)
         })
+        
+        // observe legal
+        self.setupLegal()
         
     }
     
@@ -482,13 +489,41 @@ class RZDatabase: NSObject {
     }
     
     // MARK: - Legal
-    func getPrivacyPolicy(complete: @escaping ((_ content: String?, _ date: String?) -> Void)) {
-        firebaseRef!.child("legal/privacy-policy").observeSingleEvent(of: .value, with: { (snapshot) in
+    func setupLegal()
+    {
+        firebaseRef!.child("legal/terms-conditions").observe(.value, with: { (snapshot) in
+            guard let terms = snapshot.value as? [ String : AnyObject? ]
+                else { return }
+            self._termsConditions = [:]
+            self._termsConditions!["content"] = terms["content"] as! String
+            self._termsConditions!["date"] = terms["date"] as! String
+        })
+        firebaseRef!.child("legal/privacy-policy").observe(.value, with: { (snapshot) in
             guard let privacy = snapshot.value as? [ String : AnyObject? ]
                 else { return }
-                    
-            complete(privacy["content"] as? String, privacy["date"] as? String)
+            self._privacyPolicy = [:]
+            self._privacyPolicy!["content"] = privacy["content"] as! String
+            self._privacyPolicy!["date"] = privacy["date"] as! String
         })
+        firebaseRef!.child("legal/licenses").observe(.value, with: { (snapshot) in
+            guard let licenses = snapshot.value as? [ String : AnyObject? ]
+                else { return }
+            self._licenses = [:]
+            self._licenses!["content"] = licenses["content"] as! String
+            self._licenses!["date"] = licenses["date"] as! String
+        })
+    }
+    
+    func getPrivacyPolicy() -> String? {
+        return self._privacyPolicy?["content"]
+    }
+    
+    func getTermsConditions() -> String? {
+        return self._termsConditions?["content"]
+    }
+    
+    func getLicenses() -> String? {
+        return self._licenses?["content"]
     }
     
     

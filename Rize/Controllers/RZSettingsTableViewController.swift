@@ -131,12 +131,22 @@ class RZSettingsTableViewController: UITableViewController {
             appDelegate?.window??.rootViewController = self.storyboard?.instantiateViewController(withIdentifier: "LoginViewController")
         } else if (indexPath == PRIVACY_INDEXPATH) {
             // show the privacy policy
-            RZDatabase.sharedInstance().getPrivacyPolicy() { (content, date) in
-                let legalController = self.storyboard!.instantiateViewController(withIdentifier: "LegalViewController") as! RZLegalViewController
-                legalController.htmlContent = content!
-                legalController.title = "PRIVACY POLICY"
-                self.navigationController?.pushViewController(legalController, animated: true)
-            }
+            let legalController = self.storyboard!.instantiateViewController(withIdentifier: "LegalViewController") as! RZLegalViewController
+            legalController.htmlContent = RZDatabase.sharedInstance().getPrivacyPolicy()
+            legalController.title = "PRIVACY POLICY"
+            self.navigationController?.pushViewController(legalController, animated: true)
+        } else if (indexPath == TERMCON_INDEXPATH) {
+            // show the terms & conditions
+            let legalController = self.storyboard!.instantiateViewController(withIdentifier: "LegalViewController") as! RZLegalViewController
+            legalController.htmlContent = RZDatabase.sharedInstance().getTermsConditions()
+            legalController.title = "TERMS AND CONDITIONS"
+            self.navigationController?.pushViewController(legalController, animated: true)
+        } else if (indexPath == LICENSE_INDEXPATH) {
+            // show the licenses
+            let legalController = self.storyboard!.instantiateViewController(withIdentifier: "LegalViewController") as! RZLegalViewController
+            legalController.htmlContent = RZDatabase.sharedInstance().getLicenses()
+            legalController.title = "LICENSES"
+            self.navigationController?.pushViewController(legalController, animated: true)
         } else if (indexPath == EMAIL_INDEXPATH) {
             // launch email feedback
             let email = "rizemobileapp@gmail.com"
