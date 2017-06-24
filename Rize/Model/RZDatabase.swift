@@ -32,7 +32,7 @@ class RZDatabase: NSObject {
     var delegate : RZDatabaseDelegate?
     
     fileprivate var _privacyPolicy : RZLegalDocument
-    fileprivate var _termsConditions : RZLegalDocument
+    fileprivate var _terms : RZLegalDocument
     fileprivate var _licenses : RZLegalDocument
 
 
@@ -54,10 +54,10 @@ class RZDatabase: NSObject {
         // load the legal document dates from the shared preferences
         // we don't care to update users about the licenses thought
         _privacyPolicy = RZLegalDocument()
-        _termsConditions = RZLegalDocument()
+        _terms = RZLegalDocument()
         _licenses = RZLegalDocument()
         _privacyPolicy.updated = UserDefaults.standard.string(forKey: RZDatabase.PRIVACY_UPDATED)
-        _termsConditions.updated = UserDefaults.standard.string(forKey: RZDatabase.TERMS_UPDATED)
+        _terms.updated = UserDefaults.standard.string(forKey: RZDatabase.TERMS_UPDATED)
     }
     
     func observe() {
@@ -504,12 +504,12 @@ class RZDatabase: NSObject {
     // MARK: - Legal
     func setupLegal()
     {
-        firebaseRef!.child("legal/terms-conditions").observe(.value, with: { (snapshot) in
+        firebaseRef!.child("legal/terms").observe(.value, with: { (snapshot) in
             guard let terms = snapshot.value as? [ String : AnyObject? ]
                 else { return }
-            self._termsConditions.content = terms["content"] as? String
+            self._terms.content = terms["content"] as? String
             let currentDate = terms["date"] as? String
-            if (currentDate != self._termsConditions.updated) {
+            if (currentDate != self._terms.updated) {
                 // must be a new document
                 // notify the user and update the stored date
                 UserDefaults.standard.set(currentDate, forKey: RZDatabase.TERMS_UPDATED)
@@ -544,7 +544,7 @@ class RZDatabase: NSObject {
     }
     
     func getTermsConditions() -> String? {
-        return self._termsConditions.content
+        return self._terms.content
     }
     
     func getLicenses() -> String? {

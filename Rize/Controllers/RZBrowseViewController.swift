@@ -91,8 +91,8 @@ class RZBrowseViewController: UIViewController, UICollectionViewDelegateFlowLayo
         var title = ""
         var message = ""
         if (whichDocument == RZDatabase.TERMS_UPDATED) {
-            title = "Terms & Conditions Updated"
-            message = "By using this app you agree to our updated terms and conditions. Check them out in the Settings page!"
+            title = "Terms of Service Updated"
+            message = "By using this app you agree to our updated terms of service. Check them out in the Settings page!"
         } else if (whichDocument == RZDatabase.PRIVACY_UPDATED) {
             title = "Privacy Policy Update"
             message = "By using this app you agree to our updated privacy policy. Check it out in the Settings page!"

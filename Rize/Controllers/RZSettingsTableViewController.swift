@@ -12,7 +12,7 @@ import Firebase
 class RZSettingsTableViewController: UITableViewController {
 
     let SIGNOUT_INDEXPATH = IndexPath(row: 0, section: 0)
-    let TERMCON_INDEXPATH = IndexPath(row: 0, section: 1)
+    let TERMS_INDEXPATH   = IndexPath(row: 0, section: 1)
     let PRIVACY_INDEXPATH = IndexPath(row: 1, section: 1)
     let LICENSE_INDEXPATH = IndexPath(row: 2, section: 1)
     let EMAIL_INDEXPATH   = IndexPath(row: 0, section: 2)
@@ -135,11 +135,11 @@ class RZSettingsTableViewController: UITableViewController {
             legalController.htmlContent = RZDatabase.sharedInstance().getPrivacyPolicy()
             legalController.title = "PRIVACY POLICY"
             self.navigationController?.pushViewController(legalController, animated: true)
-        } else if (indexPath == TERMCON_INDEXPATH) {
+        } else if (indexPath == TERMS_INDEXPATH) {
             // show the terms & conditions
             let legalController = self.storyboard!.instantiateViewController(withIdentifier: "LegalViewController") as! RZLegalViewController
             legalController.htmlContent = RZDatabase.sharedInstance().getTermsConditions()
-            legalController.title = "TERMS AND CONDITIONS"
+            legalController.title = "TERMS OF SERVICE"
             self.navigationController?.pushViewController(legalController, animated: true)
         } else if (indexPath == LICENSE_INDEXPATH) {
             // show the licenses
