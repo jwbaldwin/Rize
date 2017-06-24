@@ -511,6 +511,7 @@ class RZDatabase: NSObject {
             let currentDate = terms["date"] as? String
             if (currentDate != self._terms.updated) {
                 // must be a new document
+                self._terms.updated = currentDate
                 // notify the user and update the stored date
                 UserDefaults.standard.set(currentDate, forKey: RZDatabase.TERMS_UPDATED)
                 // let the delegate know what's up
@@ -525,6 +526,7 @@ class RZDatabase: NSObject {
             let currentDate = privacy["date"] as? String
             if (currentDate != self._privacyPolicy.updated) {
                 // must be a new document
+                self._privacyPolicy.updated = currentDate
                 // notify the user and update the stored date
                 UserDefaults.standard.set(currentDate, forKey: RZDatabase.PRIVACY_UPDATED)
                 // let the delegate know what's up
