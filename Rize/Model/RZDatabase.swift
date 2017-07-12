@@ -304,6 +304,11 @@ class RZDatabase: NSObject {
         self.firebaseRef!.child("users/\(FIRAuth.auth()!.currentUser!.uid)/wallet/\(challengeId)-\(tier)").setValue(entry)
     }
     
+    func shareReward(recieverId: String){
+        print("**SEND**")
+        //self.firebaseRef!.child("users/\(FIRAuth.auth()!.currentUser!.uid)/wallet/\(recieverId)-\(0)").setValue(entry)
+    }
+    
     //MARK: - Wallet
     func updateWallet(fromSnapshot snapshot : FIRDataSnapshot) {
         self._rewards = []
