@@ -50,7 +50,8 @@ class RZWalletTableViewController: UITableViewController, RZDatabaseDelegate, Ce
                     if let results = snapshot.value as? [String: Any]
                     {
                         for user in results {
-                            self.handleSendReward(queryResult: user)
+                            let reward = self.rewards![self.shareReward.tag]
+                            self.handleSendReward(user: user, reward: reward)
                         }
                     } else {
                         print("USER NOT FOUND")
@@ -146,6 +147,7 @@ class RZWalletTableViewController: UITableViewController, RZDatabaseDelegate, Ce
             
             //to get the code later
             cell!.tag = indexPath.row
+            self.shareReward.tag = indexPath.row
             
             return cell!
         }else{
@@ -189,19 +191,18 @@ class RZWalletTableViewController: UITableViewController, RZDatabaseDelegate, Ce
     }
     
     //SEND
-    func handleSendReward(queryResult : (key: String, Any)){
-        print(queryResult.key)
+    func handleSendReward(user : (key: String, Any), reward: RZReward){
+        let receiverId = user.key
+        let challengeId = reward.challenge_id!
+        //let tier = "0"    //Find way to make this value not nil?? check RZ DB
+        let title = reward.title!
+        let code = reward.code!
+        let icon = reward.icon!
+        let challengeTitle = reward.challenge_title!
         
-//        challengeId: String, tier: Int, title: String, code: String, icon: String, challengeTitle: String,
-        
-//        let entry = [ "challenge_id" : challengeId, "title" : title, "code" : code , "icon" : icon, "challenge_title" : challengeTitle]
-//        
-//        RZDatabase.sharedInstance().shareReward()
+        RZDatabase.sharedInstance().shareReward(recieverId: receiverId, challengeId: challengeId, tier: tier, title: title, code: code, icon: icon, challengeTitle: challengeTitle)
         
     }
-    
-    //GET REWARD
-//    func getReward(){}
     
     //ERROR
     func displayAlertMessage(messageToDisplay: String)
