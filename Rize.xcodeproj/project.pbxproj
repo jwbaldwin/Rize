@@ -52,8 +52,6 @@
 		48ECB7F64AF42F69C000141E /* Pods_RizeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2214942F74CB0BBFD869C154 /* Pods_RizeTests.framework */; };
 		DA263A2E1E92D09C0047FE8C /* RZWalletCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA263A2D1E92D09C0047FE8C /* RZWalletCollectionViewController.swift */; };
 		DA263A301E92D1A90047FE8C /* RZWalletCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA263A2F1E92D1A90047FE8C /* RZWalletCollectionViewCell.swift */; };
-		DA8714F21F046AB700527A7C /* RZWalletTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8714F11F046AB700527A7C /* RZWalletTableViewCell.swift */; };
-		DA8714F41F046AF000527A7C /* RZWalletTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8714F31F046AF000527A7C /* RZWalletTableViewController.swift */; };
 		DA94F00A1E981FF300C0A32D /* RZReward.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA94F0091E981FF300C0A32D /* RZReward.swift */; };
 /* End PBXBuildFile section */
 
@@ -146,8 +144,6 @@
 		D5453F85682B433F5E841673 /* Pods-RizeUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RizeUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RizeUITests/Pods-RizeUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		DA263A2D1E92D09C0047FE8C /* RZWalletCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RZWalletCollectionViewController.swift; sourceTree = "<group>"; };
 		DA263A2F1E92D1A90047FE8C /* RZWalletCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RZWalletCollectionViewCell.swift; path = ../Controllers/RZWalletCollectionViewCell.swift; sourceTree = "<group>"; };
-		DA8714F11F046AB700527A7C /* RZWalletTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RZWalletTableViewCell.swift; sourceTree = "<group>"; };
-		DA8714F31F046AF000527A7C /* RZWalletTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RZWalletTableViewController.swift; sourceTree = "<group>"; };
 		DA94F0091E981FF300C0A32D /* RZReward.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RZReward.swift; sourceTree = "<group>"; };
 		F9B769BA519B135B3790B051 /* Pods-Rize.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rize.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Rize/Pods-Rize.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -213,7 +209,6 @@
 				34B4EB451E33F3B800009C20 /* RZLegalViewController.swift */,
 				34B38FC61E4FA0CF00077A8F /* RZPostMessageViewController.swift */,
 				DA263A2D1E92D09C0047FE8C /* RZWalletCollectionViewController.swift */,
-				DA8714F31F046AF000527A7C /* RZWalletTableViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -306,7 +301,6 @@
 				34360ACD1E8C07D30022D1CB /* RZSubmissionProgressCircleView.swift */,
 				34EC2E791E156BD20033E827 /* RZSubmissionTableViewCell.swift */,
 				DA263A2F1E92D1A90047FE8C /* RZWalletCollectionViewCell.swift */,
-				DA8714F11F046AB700527A7C /* RZWalletTableViewCell.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -627,11 +621,9 @@
 				3483D0DD1CF6710B00832BE4 /* RZBrowseViewController.swift in Sources */,
 				345DFEE51E143E7D00DB216A /* RZColors.swift in Sources */,
 				345A51471E0C4C7A0051840F /* RZGeofence.swift in Sources */,
-				DA8714F41F046AF000527A7C /* RZWalletTableViewController.swift in Sources */,
 				34F800AD1E120642005D11E0 /* RZFBGraphRequestHelper.swift in Sources */,
 				34CB5F701D1A124B00B0E95B /* RZCameraViewController.swift in Sources */,
 				34E00F311E09C43100542A06 /* LoadingArcShape.swift in Sources */,
-				DA8714F21F046AB700527A7C /* RZWalletTableViewCell.swift in Sources */,
 				34B38FC71E4FA0CF00077A8F /* RZPostMessageViewController.swift in Sources */,
 				345A51451E0C219D0051840F /* RZCircularProgressView.swift in Sources */,
 				34E00F2F1E09AE2E00542A06 /* RZUploadAlertViewController.swift in Sources */,

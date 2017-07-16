@@ -305,11 +305,17 @@ class RZDatabase: NSObject {
     }
     
     func shareReward(recieverId: String, challengeId: String, tier: String, title: String, code: String, icon: String, challengeTitle: String){
-        let entry = [ "challenge_id" : challengeId, "title" : title, "code" : code , "icon" : icon, "challenge_title" : challengeTitle, "tier" : String(tier)]
         
-        print("* SEND TO: ", recieverId)
-        print("* REWARD DETAILS: ", challengeId)
-        self.firebaseRef!.child("users/\(recieverId)/wallet/\(challengeId)-\(tier)").setValue(entry)
+        let walletEntry = [ "challenge_id" : challengeId, "title" : title, "code" : code , "icon" : icon, "challenge_title" : challengeTitle, "tier" : String(tier)]
+        
+        print("🔥 FROM: ", FIRAuth.auth()!.currentUser!.uid)
+        print("🔥 SEND TO: ", recieverId)
+        print("🔥 REWARD TITLE: ", title)
+        
+        //Add reward
+        self.firebaseRef!.child("users/\(recieverId)/wallet/\(challengeId)-\(tier)").setValue(walletEntry)
+        //Remove sent reward
+        self.firebaseRef!.child("users/\(FIRAuth.auth()!.currentUser!.uid)/wallet/\(challengeId)-\(tier)").setValue(nil)
     }
     
     //MARK: - Wallet
@@ -341,7 +347,6 @@ class RZDatabase: NSObject {
     func getWallet() -> [RZReward]?
     {
         if (self._rewards != nil) {
-            print("***HERE***")
             return _rewards
         }
         return nil
