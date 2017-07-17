@@ -9,10 +9,11 @@
 import UIKit
 import Firebase
 import FirebaseDatabase
+import SCLAlertView
 
 private let reuseIdentifier = "Cell"
 
-class RZWalletCollectionViewController: UICollectionViewController, RZDatabaseDelegate, CellInfoDelegate{
+class RZWalletCollectionViewController: UICollectionViewController, RZDatabaseDelegate, CellInfoDelegate {
 
     @IBOutlet var activityIndicator: UIActivityIndicatorView?
     @IBOutlet var rewardCodeView: UIView!
@@ -58,13 +59,13 @@ class RZWalletCollectionViewController: UICollectionViewController, RZDatabaseDe
                         }
                     } else {
                         print("USER NOT FOUND")
-                        self.displayAlertMessage(messageToDisplay: "User was not found :(")
+                        self.displayErrorAlertMessage(messageToDisplay: "User was not found :(")
                     }
                 })
             
         } else {
             print("Email address is not valid: ", self.emailInput.text!)
-            displayAlertMessage(messageToDisplay: "Email address is not valid :(")
+            displayErrorAlertMessage(messageToDisplay: "Email address is not valid :(")
         }
     }
     
@@ -144,20 +145,36 @@ class RZWalletCollectionViewController: UICollectionViewController, RZDatabaseDe
             
             cell!.rewardName.text = rewards![indexPath.row].title
             cell!.companyLocation.text = rewards![indexPath.row].challenge_title
-            cell!.expDate.text = "None"
+            cell!.expDate.text = "No Expiration"
+            cell!.tier.text = rewards![indexPath.row].tier
             cell!.topView.backgroundColor = RZColors.cardColorArray[indexPath.row]
+            cell!.setImageFromURL(rewards![indexPath.row].icon!)
+            cell!.shareBtn.layer.opacity = 0
+            cell!.showReward.layer.opacity = 0
             
-            cell!.layer.borderWidth = 1
-            cell?.layer.cornerRadius = 5
-            cell!.layer.borderColor = RZColors.cardColorArray[indexPath.row].cgColor
+            //Configure cell's appearance
+            cell!.layer.cornerRadius = 3
+            cell!.layer.masksToBounds = false
+            cell!.layer.shadowOffset = CGSize(width: -1, height: -1)
+            cell!.layer.shadowRadius = 3
+            cell!.layer.shadowOpacity = 0.5
+            
             cell!.tag = indexPath.row
-            
             return cell!
         } else {
             //no rewards
             let noRewardsCell = collectionView.dequeueReusableCell(withReuseIdentifier: "NoRewardsCell", for: indexPath)
             return noRewardsCell
         }
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = self.collectionView?.cellForItem(at: indexPath) as! RZWalletCollectionViewCell
+        
+        UIView.animate(withDuration: 0.4, animations: {
+            cell.shareBtn.layer.opacity = 1
+            cell.showReward.layer.opacity = 1
+        })
     }
     
     func getCodeForCell(_ cell : UICollectionViewCell) {
@@ -209,25 +226,29 @@ class RZWalletCollectionViewController: UICollectionViewController, RZDatabaseDe
             
             
             RZDatabase.sharedInstance().shareReward(recieverId: receiverId, challengeId: challengeId, tier: tier, title: title, code: code, icon: icon, challengeTitle: challengeTitle)
+            displaySuccessAlertMessage(messageToDisplay: "Congratulations! Your reward has been sent!")
+            loadWalletInfo()
         } else {
-            self.displayAlertMessage(messageToDisplay: "Sharing is caring! Try sending it to someone who is not yourself.")
+            self.displayErrorAlertMessage(messageToDisplay: "Sharing is caring! Try sending it to someone who is not yourself.")
         }
         
     }
     
     //ERROR
-    func displayAlertMessage(messageToDisplay: String)
+    func displayErrorAlertMessage(messageToDisplay: String)
     {
-        let alertController = UIAlertController(title: "Alert", message: messageToDisplay, preferredStyle: .alert)
-        
-        let OKAction = UIAlertAction(title: "OK", style: .default) { (action:UIAlertAction!) in
-            
-            // Code in this block will trigger when OK button tapped.
-            print("Ok button tapped");
+        SCLAlertView().showError("Ooops", subTitle: messageToDisplay)
+        self.emailInput.text = ""
+    }
+    
+    //SUCCESS
+    func displaySuccessAlertMessage(messageToDisplay: String)
+    {
+        let alert = SCLAlertView().showSuccess("Success!", subTitle: messageToDisplay)
+        alert.setDismissBlock {
+            self.animateOut()
         }
-        
-        alertController.addAction(OKAction)
-        self.present(alertController, animated: true, completion:nil)
+        self.emailInput.text = ""
     }
     
     
@@ -242,10 +263,10 @@ class RZWalletCollectionViewController: UICollectionViewController, RZDatabaseDe
         showRedeemElements()
         
         UIView.animate(withDuration: 0.4, animations: {
-            self.visualEffectView.alpha = 1
             self.visualEffectView.transform = CGAffineTransform.identity
-            self.rewardCodeView.alpha = 1
             self.rewardCodeView.transform = CGAffineTransform.identity
+            self.visualEffectView.alpha = 1
+            self.rewardCodeView.alpha = 1
         })
     }
     
@@ -275,10 +296,10 @@ class RZWalletCollectionViewController: UICollectionViewController, RZDatabaseDe
         self.shareReward.tag = cellSender.tag
         
         UIView.animate(withDuration: 0.4, animations: {
-            self.visualEffectView.alpha = 1
             self.visualEffectView.transform = CGAffineTransform.identity
-            self.rewardCodeView.alpha = 1
             self.rewardCodeView.transform = CGAffineTransform.identity
+            self.visualEffectView.alpha = 1
+            self.rewardCodeView.alpha = 1
         })
         
     }
@@ -289,6 +310,9 @@ class RZWalletCollectionViewController: UICollectionViewController, RZDatabaseDe
         self.emailInput.isHidden = true
         self.emailLabel.isHidden = true
         self.rewardCode.isHidden = false
+        
+        rewardCodeView.frame.size.height = 145
+        dismissReward.center.y = rewardCode.frame.size.height + 40
     }
     
     func showShareElements(){
@@ -297,6 +321,10 @@ class RZWalletCollectionViewController: UICollectionViewController, RZDatabaseDe
         self.emailInput.isHidden = false
         self.emailLabel.isHidden = false
         self.rewardCode.isHidden = true
+        
+        rewardCodeView.frame.size.height = 230
+        shareReward.center.y = rewardCode.frame.size.height + 70
+        dismissReward.center.y = rewardCode.frame.size.height + 105
     }
     
     // Setup animation for reward
@@ -308,7 +336,14 @@ class RZWalletCollectionViewController: UICollectionViewController, RZDatabaseDe
         rewardCodeView.alpha = 0
         visualEffectView.alpha = 0
         
+        self.shareReward.layer.cornerRadius = 3
+        self.dismissReward.layer.cornerRadius = 3
+        
         rewardCodeView.layer.cornerRadius = 5
+        rewardCodeView.layer.masksToBounds = false
+        rewardCodeView.layer.shadowOffset = CGSize(width: -1, height: 1)
+        rewardCodeView.layer.shadowRadius = 5
+        rewardCodeView.layer.shadowOpacity = 0.5
         visualEffectView.bounds = self.view.bounds
     }
     

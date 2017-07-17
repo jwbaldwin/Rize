@@ -27,7 +27,6 @@
 		3478F0401D61197100113EB1 /* RZDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3478F03F1D61197100113EB1 /* RZDatabase.swift */; };
 		34813A0D1CE7783400417CD2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34813A0C1CE7783400417CD2 /* AppDelegate.swift */; };
 		34813A121CE7783400417CD2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34813A101CE7783400417CD2 /* Main.storyboard */; };
-		34813A141CE7783400417CD2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 34813A131CE7783400417CD2 /* Assets.xcassets */; };
 		34813A171CE7783400417CD2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34813A151CE7783400417CD2 /* LaunchScreen.storyboard */; };
 		34813A221CE7783400417CD2 /* RizeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34813A211CE7783400417CD2 /* RizeTests.swift */; };
 		34813A2D1CE7783500417CD2 /* RizeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34813A2C1CE7783500417CD2 /* RizeUITests.swift */; };
@@ -53,6 +52,7 @@
 		DA263A2E1E92D09C0047FE8C /* RZWalletCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA263A2D1E92D09C0047FE8C /* RZWalletCollectionViewController.swift */; };
 		DA263A301E92D1A90047FE8C /* RZWalletCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA263A2F1E92D1A90047FE8C /* RZWalletCollectionViewCell.swift */; };
 		DA94F00A1E981FF300C0A32D /* RZReward.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA94F0091E981FF300C0A32D /* RZReward.swift */; };
+		DABF76A41F1C5E3000CE2E2F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DABF76A31F1C5E3000CE2E2F /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -111,7 +111,6 @@
 		34813A091CE7783400417CD2 /* Rize.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rize.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		34813A0C1CE7783400417CD2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		34813A111CE7783400417CD2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		34813A131CE7783400417CD2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		34813A161CE7783400417CD2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		34813A181CE7783400417CD2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		34813A1D1CE7783400417CD2 /* RizeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RizeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -145,6 +144,7 @@
 		DA263A2D1E92D09C0047FE8C /* RZWalletCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RZWalletCollectionViewController.swift; sourceTree = "<group>"; };
 		DA263A2F1E92D1A90047FE8C /* RZWalletCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RZWalletCollectionViewCell.swift; path = ../Controllers/RZWalletCollectionViewCell.swift; sourceTree = "<group>"; };
 		DA94F0091E981FF300C0A32D /* RZReward.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RZReward.swift; sourceTree = "<group>"; };
+		DABF76A31F1C5E3000CE2E2F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F9B769BA519B135B3790B051 /* Pods-Rize.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rize.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Rize/Pods-Rize.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -243,9 +243,9 @@
 				34DC55AC1CFE6D0500359C44 /* Components */,
 				34813A0C1CE7783400417CD2 /* AppDelegate.swift */,
 				34813A101CE7783400417CD2 /* Main.storyboard */,
+				DABF76A31F1C5E3000CE2E2F /* Assets.xcassets */,
 				3447A12F1D01119000AAB490 /* Controllers */,
 				34DC55AA1CFE6CCA00359C44 /* Model */,
-				34813A131CE7783400417CD2 /* Assets.xcassets */,
 				34813A151CE7783400417CD2 /* LaunchScreen.storyboard */,
 				34813A181CE7783400417CD2 /* Info.plist */,
 				3447A1341D01227800AAB490 /* ImageLoader.swift */,
@@ -375,6 +375,7 @@
 				34813A251CE7783500417CD2 /* Frameworks */,
 				34813A261CE7783500417CD2 /* Resources */,
 				837A78F7B63074470B5B5516 /* [CP] Copy Pods Resources */,
+				9B36986534CA77FFF10A0483 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -448,7 +449,7 @@
 			files = (
 				34813A171CE7783400417CD2 /* LaunchScreen.storyboard in Resources */,
 				34B606AE1D6003490031DA5D /* GoogleService-Info.plist in Resources */,
-				34813A141CE7783400417CD2 /* Assets.xcassets in Resources */,
+				DABF76A41F1C5E3000CE2E2F /* Assets.xcassets in Resources */,
 				34813A121CE7783400417CD2 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -510,7 +511,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		7E5F6B62736580860989BFD8 /* [CP] Embed Pods Frameworks */ = {
@@ -570,7 +571,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		9B36986534CA77FFF10A0483 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RizeUITests/Pods-RizeUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		A5022804DA3AF481366404CF /* [CP] Check Pods Manifest.lock */ = {
@@ -585,7 +601,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		E671C89AF1289B5899B540A5 /* [CP] Embed Pods Frameworks */ = {

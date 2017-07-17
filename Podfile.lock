@@ -50,6 +50,7 @@ PODS:
   - GoogleSymbolUtilities (1.1.1)
   - GoogleUtilities (1.3.1):
     - GoogleSymbolUtilities (~> 1.0)
+  - SCLAlertView (0.7.0)
 
 DEPENDENCIES:
   - Firebase
@@ -57,6 +58,7 @@ DEPENDENCIES:
   - Firebase/Database
   - Firebase/Storage
   - GoogleSignIn
+  - SCLAlertView
 
 SPEC CHECKSUMS:
   Firebase: 754562547af419cc2f4b15247fee419081924bc2
@@ -73,7 +75,8 @@ SPEC CHECKSUMS:
   GoogleSignIn: 09036ed61f8e75f1424100d63f7719480b2428c3
   GoogleSymbolUtilities: 33117db1b5f290c6fbf259585e4885b4c84b98d7
   GoogleUtilities: 56c5ac05b7aa5dc417a1bb85221a9516e04d7032
+  SCLAlertView: 8a14ffc40590c619e183eed2298b854385f30be1
 
-PODFILE CHECKSUM: 2c6180e92aefe79854e5e17990e0c16c91bb0d89
+PODFILE CHECKSUM: 726d4019a76466dee61c08aa6cf99d60146f22b2
 
-COCOAPODS: 1.0.1
+COCOAPODS: 1.1.1

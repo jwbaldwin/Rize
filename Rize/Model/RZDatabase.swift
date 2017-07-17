@@ -313,9 +313,9 @@ class RZDatabase: NSObject {
         print("🔥 REWARD TITLE: ", title)
         
         //Add reward
-        self.firebaseRef!.child("users/\(recieverId)/wallet/\(challengeId)-\(tier)").setValue(walletEntry)
+        //self.firebaseRef!.child("users/\(recieverId)/wallet/\(challengeId)-\(tier)").setValue(walletEntry)
         //Remove sent reward
-        self.firebaseRef!.child("users/\(FIRAuth.auth()!.currentUser!.uid)/wallet/\(challengeId)-\(tier)").setValue(nil)
+        //self.firebaseRef!.child("users/\(FIRAuth.auth()!.currentUser!.uid)/wallet/\(challengeId)-\(tier)").setValue(nil)
     }
     
     //MARK: - Wallet
