@@ -13,7 +13,7 @@ import SCLAlertView
 
 private let reuseIdentifier = "Cell"
 
-class RZWalletCollectionViewController: UICollectionViewController, RZDatabaseDelegate, CellInfoDelegate {
+class RZWalletCollectionViewController: UICollectionViewController, RZDatabaseDelegate, CellInfoDelegate, UICollectionViewDelegateFlowLayout {
 
     @IBOutlet var activityIndicator: UIActivityIndicatorView?
     @IBOutlet var rewardCodeView: UIView!
@@ -73,11 +73,6 @@ class RZWalletCollectionViewController: UICollectionViewController, RZDatabaseDe
     override func viewDidLoad() {
         super.viewDidLoad()
         self.db = FIRDatabase.database().reference().child("users")
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-        
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
         // Do any additional setup after loading the view.
         self.activityIndicator?.startAnimating()
@@ -88,7 +83,7 @@ class RZWalletCollectionViewController: UICollectionViewController, RZDatabaseDe
         self.navigationController?.navigationBar.tintColor = RZColors.primary
         self.navigationController?.navigationBar.titleTextAttributes?[NSForegroundColorAttributeName] = RZColors.primary
         
-        //Set up databse
+        //Set up
         RZDatabase.sharedInstance().delegate = self
         
         loadWalletInfo()
@@ -120,7 +115,6 @@ class RZWalletCollectionViewController: UICollectionViewController, RZDatabaseDe
     */
 
     // MARK: UICollectionViewDataSource
-
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -142,9 +136,9 @@ class RZWalletCollectionViewController: UICollectionViewController, RZDatabaseDe
         
         
         if rewards!.count != 0 {
-            
+            //Configure cell's attributes
             cell!.rewardName.text = rewards![indexPath.row].title
-            cell!.companyLocation.text = rewards![indexPath.row].challenge_title
+            cell!.companyLocation.text = rewards![indexPath.row].challenge_title!.lowercased()
             cell!.expDate.text = "No Expiration"
             cell!.tier.text = rewards![indexPath.row].tier
             cell!.topView.backgroundColor = RZColors.cardColorArray[indexPath.row]
@@ -171,9 +165,14 @@ class RZWalletCollectionViewController: UICollectionViewController, RZDatabaseDe
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = self.collectionView?.cellForItem(at: indexPath) as! RZWalletCollectionViewCell
         
-        UIView.animate(withDuration: 0.4, animations: {
-            cell.shareBtn.layer.opacity = 1
-            cell.showReward.layer.opacity = 1
+        UIView.animate(withDuration: 0.6, animations: {
+            if cell.shareBtn.layer.opacity == 0 {
+                cell.shareBtn.layer.opacity = 1
+                cell.showReward.layer.opacity = 1
+            } else {
+                cell.shareBtn.layer.opacity = 0
+                cell.showReward.layer.opacity = 0
+            }
         })
     }
     
@@ -313,6 +312,7 @@ class RZWalletCollectionViewController: UICollectionViewController, RZDatabaseDe
         
         rewardCodeView.frame.size.height = 145
         dismissReward.center.y = rewardCode.frame.size.height + 40
+        rewardCodeView.center = CGPoint(x: self.view.center.x, y: self.view.center.y)
     }
     
     func showShareElements(){
@@ -325,11 +325,11 @@ class RZWalletCollectionViewController: UICollectionViewController, RZDatabaseDe
         rewardCodeView.frame.size.height = 230
         shareReward.center.y = rewardCode.frame.size.height + 70
         dismissReward.center.y = rewardCode.frame.size.height + 105
+        rewardCodeView.center = CGPoint(x: self.view.center.x, y: self.view.center.y)
     }
     
     // Setup animation for reward
     func setUpRewardView(_ cell: UICollectionViewCell) {
-        rewardCodeView.center = CGPoint(x: self.view.center.x, y: self.view.center.y)
         visualEffectView.center = CGPoint(x: self.view.center.x, y: self.view.center.y)
         rewardCodeView.transform = CGAffineTransform.init(scaleX:1.3, y: 1.3)
         visualEffectView.transform = CGAffineTransform.init(scaleX:1.3, y: 1.3)
@@ -346,14 +346,15 @@ class RZWalletCollectionViewController: UICollectionViewController, RZDatabaseDe
         rewardCodeView.layer.shadowOpacity = 0.5
         visualEffectView.bounds = self.view.bounds
     }
-    
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        let width = (self.view.frame.size.width)
-        let height = width * 1.5 //ratio
-        return CGSize(width: width, height: height);
-    }
 
     // MARK: UICollectionViewDelegate
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt: IndexPath) -> CGSize {
+        
+        let width  = self.view.frame.size.width;
+        let height = CGFloat(175);
+        // in case you you want the cell to be 40% of your controllers view
+        return CGSize(width: width*0.95, height: height)
+    }
 
     /*
     // Uncomment this method to specify if the specified item should be highlighted during tracking
