@@ -29,6 +29,7 @@ class RZWalletCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var iconUrl: UIImageView!
     @IBOutlet weak var showReward: UIButton!
     @IBOutlet weak var tier: UILabel!
+    @IBOutlet weak var backgroundUrl: UIImageView!
     
     @IBAction func shareBtn(_ sender: Any) {
         if let delegate = self.delegate {
@@ -53,6 +54,15 @@ class RZWalletCollectionViewCell: UICollectionViewCell {
         iconUrl.layer.borderWidth = 3
         iconUrl.layer.borderColor = UIColor.white.cgColor
         iconUrl.layer.cornerRadius = 30
+    }
+    
+    func setBackgroundImageFromURL(_ url: String) {
+        // Load the image
+        ImageLoader.setImageViewImage(url, view: backgroundUrl!, round: false) {
+        }
+        
+        backgroundUrl.layer.cornerRadius = 5
+        backgroundUrl.clipsToBounds = true
     }
     
 }

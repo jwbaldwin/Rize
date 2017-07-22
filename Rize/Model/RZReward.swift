@@ -15,4 +15,5 @@ class RZReward: NSObject {
     var icon : String?
     var code : String?
     var tier : String?
+    var banner : String?
 }

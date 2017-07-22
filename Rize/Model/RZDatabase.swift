@@ -297,25 +297,25 @@ class RZDatabase: NSObject {
         })
     }
     
-    func addCodeToWallet(challengeId: String, tier: Int, title: String, code: String, icon: String, challengeTitle: String)
+    func addCodeToWallet(challengeId: String, tier: Int, title: String, code: String, icon: String, challengeTitle: String, banner: String)
     {
         // add a new entry to the user's wallet
-        let entry = [ "challenge_id" : challengeId, "title" : title, "code" : code , "icon" : icon, "challenge_title" : challengeTitle, "tier" : String(tier)]
+        let entry = [ "challenge_id" : challengeId, "title" : title, "code" : code , "icon" : icon, "challenge_title" : challengeTitle, "banner": banner, "tier" : String(tier)]
         self.firebaseRef!.child("users/\(FIRAuth.auth()!.currentUser!.uid)/wallet/\(challengeId)-\(tier)").setValue(entry)
     }
     
-    func shareReward(recieverId: String, challengeId: String, tier: String, title: String, code: String, icon: String, challengeTitle: String){
+    func shareReward(recieverId: String, challengeId: String, tier: String, title: String, code: String, icon: String, challengeTitle: String, banner: String){
         
-        let walletEntry = [ "challenge_id" : challengeId, "title" : title, "code" : code , "icon" : icon, "challenge_title" : challengeTitle, "tier" : String(tier)]
+        let walletEntry = [ "challenge_id" : challengeId, "title" : title, "code" : code , "icon" : icon, "challenge_title" : challengeTitle, "banner": banner, "tier" : String(tier)]
         
         print("🔥 FROM: ", FIRAuth.auth()!.currentUser!.uid)
         print("🔥 SEND TO: ", recieverId)
         print("🔥 REWARD TITLE: ", title)
         
         //Add reward
-        //self.firebaseRef!.child("users/\(recieverId)/wallet/\(challengeId)-\(tier)").setValue(walletEntry)
+        self.firebaseRef!.child("users/\(recieverId)/wallet/\(challengeId)-\(tier)").setValue(walletEntry)
         //Remove sent reward
-        //self.firebaseRef!.child("users/\(FIRAuth.auth()!.currentUser!.uid)/wallet/\(challengeId)-\(tier)").setValue(nil)
+        self.firebaseRef!.child("users/\(FIRAuth.auth()!.currentUser!.uid)/wallet/\(challengeId)-\(tier)").setValue(nil)
     }
     
     //MARK: - Wallet
@@ -338,6 +338,7 @@ class RZDatabase: NSObject {
             reward.challenge_title = item["challenge_title"] as? String
             reward.icon = item["icon"] as? String
             reward.tier = item["tier"] as? String
+            reward.banner = item["banner"] as? String
 
             self._rewards!.append(reward)
         }
