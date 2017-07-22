@@ -17,8 +17,12 @@ import CoreLocation
 class RZDatabase: NSObject {
 
     // use "challenges" for release, "challenges-debug" for testing
+#if DEBUG
     // NEVER commit with "challenges-debug"
+    static let CHALLENGE_PATH = "challenges-debug"
+#else
     static let CHALLENGE_PATH = "challenges"
+#endif
     
     static let PRIVACY_UPDATED = "privacy-updated"
     static let TERMS_UPDATED = "terms-updated"
@@ -83,6 +87,7 @@ class RZDatabase: NSObject {
         // begin observation of Firebase data
         
         // observe challenge data
+        print(RZDatabase.CHALLENGE_PATH)
         self.firebaseRef?.child(RZDatabase.CHALLENGE_PATH).observe(.value, with: { (snapshot) in
             self.updateChallenges(fromSnapshot: snapshot)
             self.delegate?.databaseDidUpdate(self)

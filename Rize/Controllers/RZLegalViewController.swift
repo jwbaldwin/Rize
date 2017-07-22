@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RZLegalViewController: UIViewController {
+class RZLegalViewController: UIViewController, UIWebViewDelegate {
 
     @IBOutlet var webView : UIWebView!
     var htmlContent : String?
@@ -18,6 +18,8 @@ class RZLegalViewController: UIViewController {
         if let _ = htmlContent {
             self.webView.loadHTMLString("<style>body { font-family: sans-serif; }</style><body>\(self.htmlContent!)</body>", baseURL: nil)
         }
+        // set the delegate
+        self.webView.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -35,5 +37,15 @@ class RZLegalViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    // Handle link taps in the webview
+    // Adapted from https://stackoverflow.com/questions/2899699/uiwebview-open-links-in-safari
+    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+        if navigationType == .linkClicked {
+            UIApplication.shared.openURL(request.url!)
+            return false
+        }
+        return true
+    }
 
 }

@@ -9,6 +9,7 @@
 import UIKit
 import AVFoundation
 import MobileCoreServices
+import AMPopTip
 
 protocol RZCameraViewControllerDelegate: class {
   func cameraViewDidFinish(_ sender: RZCameraViewController)
@@ -50,6 +51,9 @@ class RZCameraViewController: UIViewController, AVCaptureFileOutputRecordingDele
     @IBOutlet var shutterButton: UIButton?
     @IBOutlet var uploadButton: UIButton?
     
+    // use a pop tip!
+    var popTip : AMPopTip?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -87,6 +91,9 @@ class RZCameraViewController: UIViewController, AVCaptureFileOutputRecordingDele
             beginSession(usingFrontCamera)
         }
         
+        // setup the pop tip
+        setupPopTip()
+        
         // Show the record UI first
         showRecordUI()
         setShadowButton(shutterButton!)
@@ -100,9 +107,12 @@ class RZCameraViewController: UIViewController, AVCaptureFileOutputRecordingDele
         UIView.animate(withDuration: 0.25, animations: {
             self.setNeedsStatusBarAppearanceUpdate()
         })
+        
+        // show the pop tip
+        showShutterButtonPopTip()
     }
     
-    //shutterButton and uploadButton shadow
+    // shutterButton and uploadButton shadow
     func setShadowButton(_ shutterButton: UIButton){
         shutterButton.layer.shadowColor = UIColor.black.cgColor
         shutterButton.layer.shadowOffset = CGSize(width: 0.0, height: 0.0)
@@ -122,6 +132,28 @@ class RZCameraViewController: UIViewController, AVCaptureFileOutputRecordingDele
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    // MARK: - Tooltip Functions
+    func setupPopTip()
+    {
+        self.popTip = AMPopTip()
+        self.popTip?.edgeMargin = 5.0;
+        self.popTip?.edgeInsets = UIEdgeInsetsMake(0, 10, 0, 10);
+        self.popTip?.offset = 10.0;
+        self.popTip?.popoverColor = RZColors.primary
+    }
+    
+    func showShutterButtonPopTip()
+    {
+        // show a tooltip describing whether the user should record a video or take a photo
+        var message = ""
+        if challenge.media == "photo" {
+            message = "Tap to take a photo!"
+        } else {
+            message = "Tap and hold to record a video!"
+        }
+        self.popTip?.showText(message, direction: .up, maxWidth: 200.0, in: self.view, fromFrame: self.shutterButton!.frame)
     }
     
     // MARK: - Visibility setup
@@ -271,8 +303,11 @@ class RZCameraViewController: UIViewController, AVCaptureFileOutputRecordingDele
         
         // TESTING if set to SELF
         // For release, use ALL_FRIENDS
+#if DEBUG
+        mediaObject["privacy"] = "{ \"value\" : \"SELF\" }"
+#else
         mediaObject["privacy"] = "{ \"value\" : \"ALL_FRIENDS\" }"
-        
+#endif
         // set the right graph endpoint for photos/videos. default to videos
         var graphPath = "me/videos"
         if challenge.media == "photo" {
