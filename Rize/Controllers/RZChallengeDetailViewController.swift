@@ -89,7 +89,8 @@ class RZChallengeDetailViewController: UIViewController, UIScrollViewDelegate, R
     
     func updateClock()
     {
-        let comps = Calendar.current.dateComponents([.day, .hour, .minute, .second], from: Date(), to: Date(timeIntervalSince1970: Double(self.challenge.endDate!)))
+        
+        let comps = Calendar.current.dateComponents([.day, .hour, .minute, .second], from: Date(), to: challenge.getEndDateObject()!)
         daysLabel.text = String(format: "%d", (comps.day! < 0 ? 0 : comps.day!))
         timeLabel.text = String(format: "%d:%02d:%02d", (comps.hour! < 0 ? 0 : comps.hour!), (comps.minute! < 0 ? 0 : comps.minute!), (comps.second! < 0 ? 0 : comps.second!))
     }

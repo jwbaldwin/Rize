@@ -135,7 +135,8 @@ class RZDatabase: NSObject {
             challenge.bannerUrl = item["banner"] as? String
             challenge.videoUrl = item["video"] as? String
             challenge.videoThumbnailUrl = item["video_thumbnail"] as? String
-            challenge.endDate = item["end_date"] as? Int
+            challenge.startDate = item["start-date"] as? String
+            challenge.endDate = item["end-date"] as? String
             challenge.maxSubmissions = item["max_submissions"] as? Int
             challenge.submissions = item["submissions"] as? Int
             if let media = item["media"] as? String {
@@ -256,10 +257,7 @@ class RZDatabase: NSObject {
             if onlyActive {
                 // test if each challenge is active
                 
-                guard let endDate = challenge.endDate
-                    else { break }
-                
-                if Int(Date().timeIntervalSince1970) > endDate {
+                if !challenge.isActive() {
                     // this challenge is inactive, don't include it
                     shouldInclude = false
                 }

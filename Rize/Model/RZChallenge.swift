@@ -16,7 +16,8 @@ class RZChallenge: NSObject {
     var bannerUrl : String?
     var videoUrl : String?
     var videoThumbnailUrl : String?
-    var endDate : Int?
+    var startDate : String?
+    var endDate : String?
     var liked : Bool = false
     var geofence : RZGeofence?
     var maxSubmissions : Int?
@@ -25,10 +26,32 @@ class RZChallenge: NSObject {
     var media : String = "video" // default to video challenge
     
     func isActive() -> Bool {
-        let date = Date().timeIntervalSince1970
+        let currentDate = Date()
+        guard let _ = startDate
+            else { return false }
         guard let _ = endDate
             else { return false }
         
-        return (Int(date) < endDate!)
+        let startDateObj = getStartDateObject()
+        let endDateObj = getEndDateObject()
+        return (currentDate.compare(startDateObj!) == .orderedDescending && currentDate.compare(endDateObj!) == .orderedAscending)
+    }
+    
+    func getStartDateObject() -> Date?
+    {
+        guard let _ = startDate
+            else { return nil }
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        return dateFormatter.date(from: startDate!)
+    }
+    
+    func getEndDateObject() -> Date?
+    {
+        guard let _ = endDate
+            else { return nil }
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        return dateFormatter.date(from: endDate!)
     }
 }

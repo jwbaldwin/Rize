@@ -82,7 +82,6 @@ class RZSubmission: NSObject {
             else { return false }
         guard let challenge = RZDatabase.sharedInstance().getChallenge(challenge_id!)
             else { return false }
-        let date = Date().timeIntervalSince1970
-        return (Int(date) < challenge.endDate!)
+        return challenge.isActive()
     }
 }
