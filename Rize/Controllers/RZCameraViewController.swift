@@ -92,6 +92,9 @@ class RZCameraViewController: UIViewController, AVCaptureFileOutputRecordingDele
         showRecordUI()
         setShadowButton(shutterButton!)
         setShadowButton(uploadButton!)
+        
+        // always show the pop tip
+        RZPoptipHelper.shared().setDidShowTips(false, forScreen: .Camera)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -103,7 +106,10 @@ class RZCameraViewController: UIViewController, AVCaptureFileOutputRecordingDele
         })
         
         // show the pop tip
-        showShutterButtonPopTip()
+        if RZPoptipHelper.shared().shouldShowTips(forScreen: .Camera) {
+            showShutterButtonPopTip()
+            RZPoptipHelper.shared().setDidShowTips(true, forScreen: .Camera)
+        }
     }
     
     // shutterButton and uploadButton shadow
@@ -367,7 +373,11 @@ class RZCameraViewController: UIViewController, AVCaptureFileOutputRecordingDele
             imagePicker.allowsEditing = true
             imagePicker.sourceType = .photoLibrary
             imagePicker.delegate = self
-            imagePicker.mediaTypes = [kUTTypeMovie as String]
+            if self.challenge.media == "photo" {
+                imagePicker.mediaTypes = [kUTTypeImage as String]
+            } else {
+                imagePicker.mediaTypes = [kUTTypeMovie as String]
+            }
             imagePicker.videoMaximumDuration = 6.0
             self.present(imagePicker, animated: true, completion: nil)
         }
