@@ -17,6 +17,8 @@ protocol RZCameraViewControllerDelegate: class {
 
 class RZCameraViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, RZUploadAlertViewControllerDelegate, RZPostMessageViewControllerDelegate {
 
+    let MAX_VIDEO_DURATION = 9.0
+
     // which challenge this capture is for
     // we assume this has been set from the presenting controller
     var challenge : RZChallenge!
@@ -202,7 +204,7 @@ class RZCameraViewController: UIViewController, AVCaptureFileOutputRecordingDele
                 captureSession?.sessionPreset = AVCaptureSessionPresetHigh
                 self.videoFileOutput = AVCaptureMovieFileOutput()
                 self.captureSession?.addOutput(self.videoFileOutput)
-                let maxDuration: CMTime = CMTimeMakeWithSeconds(10, 1)
+                let maxDuration: CMTime = CMTimeMakeWithSeconds(MAX_VIDEO_DURATION, 1)
                 self.videoFileOutput?.maxRecordedDuration = maxDuration
             }
             
@@ -378,7 +380,7 @@ class RZCameraViewController: UIViewController, AVCaptureFileOutputRecordingDele
             } else {
                 imagePicker.mediaTypes = [kUTTypeMovie as String]
             }
-            imagePicker.videoMaximumDuration = 6.0
+            imagePicker.videoMaximumDuration = MAX_VIDEO_DURATION
             self.present(imagePicker, animated: true, completion: nil)
         }
     }
@@ -433,7 +435,7 @@ class RZCameraViewController: UIViewController, AVCaptureFileOutputRecordingDele
             // animate the progress bar
             self.progressBar?.isHidden = false
             self.progressBar?.frame = CGRect(x: 0, y: 0, width: 0, height: 10)
-            UIView.animate(withDuration: 10.0, delay: 0, options: .curveLinear, animations: { () in
+            UIView.animate(withDuration: MAX_VIDEO_DURATION, delay: 0, options: .curveLinear, animations: { () in
                 self.progressBar?.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 10)
             }) { (completed) in
                 self.progressBar?.isHidden = true
