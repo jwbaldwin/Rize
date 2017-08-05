@@ -14,6 +14,7 @@
 		343910C61E0AD071003DA86D /* ArrowTipShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343910C51E0AD071003DA86D /* ArrowTipShape.swift */; };
 		343910C81E0B0E97003DA86D /* RZSubmission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343910C71E0B0E97003DA86D /* RZSubmission.swift */; };
 		343D51E11D329B5800E8741E /* RZSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343D51E01D329B5800E8741E /* RZSettingsTableViewController.swift */; };
+		343F6D831F3006EC00A55E6F /* RZPoptipHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343F6D821F3006EC00A55E6F /* RZPoptipHelper.swift */; };
 		344429931D2821EA00F44401 /* RZMeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344429921D2821EA00F44401 /* RZMeViewController.swift */; };
 		344429951D28447100F44401 /* RZUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344429941D28447100F44401 /* RZUser.swift */; };
 		3445D3D91D0F8D4B00866BB2 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3445D3D81D0F8D4B00866BB2 /* MediaPlayer.framework */; };
@@ -97,6 +98,7 @@
 		343910C51E0AD071003DA86D /* ArrowTipShape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrowTipShape.swift; sourceTree = "<group>"; };
 		343910C71E0B0E97003DA86D /* RZSubmission.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RZSubmission.swift; sourceTree = "<group>"; };
 		343D51E01D329B5800E8741E /* RZSettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RZSettingsTableViewController.swift; sourceTree = "<group>"; };
+		343F6D821F3006EC00A55E6F /* RZPoptipHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RZPoptipHelper.swift; sourceTree = "<group>"; };
 		344429921D2821EA00F44401 /* RZMeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RZMeViewController.swift; sourceTree = "<group>"; };
 		344429941D28447100F44401 /* RZUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RZUser.swift; sourceTree = "<group>"; };
 		3445D3D81D0F8D4B00866BB2 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
@@ -289,6 +291,7 @@
 				344BF1571E9180EA003009A2 /* RZChallengeTier.swift */,
 				DA94F0091E981FF300C0A32D /* RZReward.swift */,
 				3417EB081EFF1E36001B059A /* RZLegalDocument.swift */,
+				343F6D821F3006EC00A55E6F /* RZPoptipHelper.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -632,6 +635,7 @@
 				345A51451E0C219D0051840F /* RZCircularProgressView.swift in Sources */,
 				34E00F2F1E09AE2E00542A06 /* RZUploadAlertViewController.swift in Sources */,
 				344429931D2821EA00F44401 /* RZMeViewController.swift in Sources */,
+				343F6D831F3006EC00A55E6F /* RZPoptipHelper.swift in Sources */,
 				344BF1581E9180EA003009A2 /* RZChallengeTier.swift in Sources */,
 				34360ACE1E8C07D30022D1CB /* RZSubmissionProgressCircleView.swift in Sources */,
 				345A51431E0C1F4E0051840F /* RZSubmissionDetailViewController.swift in Sources */,

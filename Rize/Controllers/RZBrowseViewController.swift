@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 import FirebaseDatabase
 import CoreLocation
+import AMPopTip
 
 private let reuseIdentifier = "ChallengeCell"
 
@@ -56,6 +57,18 @@ class RZBrowseViewController: UIViewController, UICollectionViewDelegateFlowLayo
         
         // disable tab bar until loaded
         self.tabBarController?.tabBar.isUserInteractionEnabled = false
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        /* check to show tips */
+        #if DEBUG
+        RZPoptipHelper.shared().setDidShowTips(false, forScreen: .Browse)
+        #endif
+        if (RZPoptipHelper.shared().shouldShowTips(forScreen: .Browse)) {
+            self.showNextPoptip()
+            RZPoptipHelper.shared().setDidShowTips(true, forScreen: .Browse)
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -212,6 +225,33 @@ class RZBrowseViewController: UIViewController, UICollectionViewDelegateFlowLayo
         
         // Push it onto the navigation stack! Let's GO!
         self.navigationController?.pushViewController(detailViewController, animated: true)
+    }
+    
+    // MARK: - Poptip sequence
+    func showNextPoptip()
+    {
+        struct Holder {
+            static var popTipIndex = 0;
+        }
+        switch Holder.popTipIndex {
+        case 0:
+            /* browse tip */
+            RZPoptipHelper.shared().showPopTip(text: "Tap a challenge to find out more about it", direction: .down, in: self.view, fromFrame: self.navigationController!.navigationBar.frame) { self.showNextPoptip() }
+        case 1:
+            /* me tip */
+            var itemFrame = (self.tabBarController!.tabBar.items![1].value(forKey: "view") as! UIView).frame
+            itemFrame = itemFrame.offsetBy(dx: self.tabBarController!.tabBar.frame.origin.x, dy: self.tabBarController!.tabBar.frame.origin.y)
+            RZPoptipHelper.shared().showPopTip(text: "Your challenge submissions will appear down here", direction: .up, in: self.view, fromFrame: itemFrame) { self.showNextPoptip() }
+        case 2:
+            /* wallet tip */
+            var itemFrame = (self.tabBarController!.tabBar.items![2].value(forKey: "view") as! UIView).frame
+            itemFrame = itemFrame.offsetBy(dx: self.tabBarController!.tabBar.frame.origin.x, dy: self.tabBarController!.tabBar.frame.origin.y)
+            RZPoptipHelper.shared().showPopTip(text: "Check out your wallet to find the rewards you've earned", direction: .up, in: self.view, fromFrame: itemFrame) { }
+        default:
+            break;
+        }
+        /* go to next index */
+        Holder.popTipIndex += 1;
     }
 
 }

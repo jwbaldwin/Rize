@@ -51,9 +51,6 @@ class RZCameraViewController: UIViewController, AVCaptureFileOutputRecordingDele
     @IBOutlet var shutterButton: UIButton?
     @IBOutlet var uploadButton: UIButton?
     
-    // use a pop tip!
-    var popTip : AMPopTip?
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -90,9 +87,6 @@ class RZCameraViewController: UIViewController, AVCaptureFileOutputRecordingDele
         {
             beginSession(usingFrontCamera)
         }
-        
-        // setup the pop tip
-        setupPopTip()
         
         // Show the record UI first
         showRecordUI()
@@ -135,15 +129,6 @@ class RZCameraViewController: UIViewController, AVCaptureFileOutputRecordingDele
     }
     
     // MARK: - Tooltip Functions
-    func setupPopTip()
-    {
-        self.popTip = AMPopTip()
-        self.popTip?.edgeMargin = 5.0;
-        self.popTip?.edgeInsets = UIEdgeInsetsMake(0, 10, 0, 10);
-        self.popTip?.offset = 10.0;
-        self.popTip?.popoverColor = RZColors.primary
-    }
-    
     func showShutterButtonPopTip()
     {
         // show a tooltip describing whether the user should record a video or take a photo
@@ -153,7 +138,7 @@ class RZCameraViewController: UIViewController, AVCaptureFileOutputRecordingDele
         } else {
             message = "Tap and hold to record a video!"
         }
-        self.popTip?.showText(message, direction: .up, maxWidth: 200.0, in: self.view, fromFrame: self.shutterButton!.frame)
+        RZPoptipHelper.shared().showPopTip(text: message, direction: .up, in: self.view, fromFrame: self.self.shutterButton!.frame) { }
     }
     
     // MARK: - Visibility setup

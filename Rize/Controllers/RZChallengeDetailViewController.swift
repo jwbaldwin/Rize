@@ -51,6 +51,13 @@ class RZChallengeDetailViewController: UIViewController, UIScrollViewDelegate, R
         self.bannerImageView.contentMode = .scaleAspectFill
         ImageLoader.setImageViewImage(self.challenge.bannerUrl!, view: self.bannerImageView, round: false)
         
+        // Setup the right image for the rize button
+        if self.challenge.media == "photo" {
+            self.rizeButton.setImage(UIImage(named: "rize"), for: .normal)
+        } else {
+            self.rizeButton.setImage(UIImage(named: "record"), for: .normal)
+        }
+        
         // disable the rize button if the user has already uploaded a submission
         if (RZDatabase.sharedInstance().getSubmission(self.challenge.id!) != nil) {
             // challenge submission already exists
@@ -78,6 +85,17 @@ class RZChallengeDetailViewController: UIViewController, UIScrollViewDelegate, R
 
         // setup the timer
         Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateClock), userInfo: nil, repeats: true)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        /* check to show tips */
+        #if DEBUG
+        RZPoptipHelper.shared().setDidShowTips(false, forScreen: .ChallengeDetail)
+        #endif
+        if (RZPoptipHelper.shared().shouldShowTips(forScreen: .ChallengeDetail)) {
+            RZPoptipHelper.shared().setDidShowTips(true, forScreen: .ChallengeDetail)
+            self.showNextPoptip()
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -159,4 +177,28 @@ class RZChallengeDetailViewController: UIViewController, UIScrollViewDelegate, R
         // Pass the selected object to the new view controller.
     }
     */
+    
+    // MARK: - Poptip sequence
+    func showNextPoptip()
+    {
+        /* Note that the frames are offset 60 px vertically. Must have something to do with the scroll view */
+        struct Holder {
+            static var popTipIndex = 0;
+        }
+        switch Holder.popTipIndex {
+        case 0:
+            /* video tip */
+            RZPoptipHelper.shared().showPopTip(text: "Watch the video to learn about the challenge", direction: .up, in: self.view, fromFrame: self.videoThumbnailView.frame.offsetBy(dx: 0, dy: 60)) { self.showNextPoptip() }
+        case 1:
+            /* time tip */
+            RZPoptipHelper.shared().showPopTip(text: "Each challenge is only available for a limited time!", direction: .down, in: self.view, fromFrame: self.timeLabel.frame.offsetBy(dx: 0, dy: 60)) { self.showNextPoptip() }
+        case 2:
+            /* rize tip */
+            RZPoptipHelper.shared().showPopTip(text: "Tap here to Rize to the challenge!", direction: .left, in: self.view, fromFrame: self.rizeButton.frame.offsetBy(dx: 0, dy: 60)) { self.showNextPoptip() }
+        default:
+            break;
+        }
+        /* go to next index */
+        Holder.popTipIndex += 1;
+    }
 }
