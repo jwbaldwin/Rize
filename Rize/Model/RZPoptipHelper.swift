@@ -12,6 +12,7 @@ import AMPopTip
 class RZPoptipHelper: NSObject {
 
     fileprivate static var instance : RZPoptipHelper?
+    fileprivate var activeTips : [AMPopTip] = []
     
     /* +1 for shared static helpers *fist pump* */
     static func shared() -> RZPoptipHelper {
@@ -42,6 +43,17 @@ class RZPoptipHelper: NSObject {
         let popTip = makePoptip()
         popTip.dismissHandler = completion
         popTip.showText(text, direction: direction, maxWidth: 250.0, in: view, fromFrame: frame)
+        activeTips.append(popTip)
+    }
+    
+    func dismissAll()
+    {
+        for tip in activeTips
+        {
+            tip.hide()
+        }
+        // no visible tips
+        activeTips = []
     }
     
         // MARK: - tutorial settings
@@ -101,5 +113,18 @@ class RZPoptipHelper: NSObject {
         case .Wallet:
             defaults.set(didShow, forKey: "tutorial-wallet")
         }
+    }
+    
+    func resetAllScreens()
+    {
+        let defaults = UserDefaults.standard
+        defaults.set(false, forKey: "tutorial-browse")
+        defaults.set(false, forKey: "tutorial-challenge")
+        defaults.set(false, forKey: "tutorial-camera")
+        defaults.set(false, forKey: "tutorial-me")
+        defaults.set(false, forKey: "tutorial-settings")
+        defaults.set(false, forKey: "tutorial-login")
+        defaults.set(false, forKey: "tutorial-submission")
+        defaults.set(false, forKey: "tutorial-wallet")
     }
 }

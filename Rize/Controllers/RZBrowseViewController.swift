@@ -29,6 +29,9 @@ class RZBrowseViewController: UIViewController, UICollectionViewDelegateFlowLayo
     // start location manager
     let locationManager = CLLocationManager()
     
+    // track which poptip we are on
+    var popTipCounter = 0
+    
     // MARK: View loading
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,13 +65,18 @@ class RZBrowseViewController: UIViewController, UICollectionViewDelegateFlowLayo
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         /* check to show tips */
-        #if DEBUG
-        RZPoptipHelper.shared().setDidShowTips(false, forScreen: .Browse)
-        #endif
         if (RZPoptipHelper.shared().shouldShowTips(forScreen: .Browse)) {
+            popTipCounter = 0;
             self.showNextPoptip()
             RZPoptipHelper.shared().setDidShowTips(true, forScreen: .Browse)
         }
+    }
+
+    // check when view will disappear so we can get rid of active pop tips
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        // cleanup pop tips
+        RZPoptipHelper.shared().dismissAll()
     }
     
     override func didReceiveMemoryWarning() {
@@ -230,10 +238,7 @@ class RZBrowseViewController: UIViewController, UICollectionViewDelegateFlowLayo
     // MARK: - Poptip sequence
     func showNextPoptip()
     {
-        struct Holder {
-            static var popTipIndex = 0;
-        }
-        switch Holder.popTipIndex {
+        switch popTipCounter {
         case 0:
             /* browse tip */
             RZPoptipHelper.shared().showPopTip(text: "Tap a challenge to find out more about it", direction: .down, in: self.view, fromFrame: self.navigationController!.navigationBar.frame) { self.showNextPoptip() }
@@ -251,7 +256,7 @@ class RZBrowseViewController: UIViewController, UICollectionViewDelegateFlowLayo
             break;
         }
         /* go to next index */
-        Holder.popTipIndex += 1;
+        popTipCounter += 1;
     }
 
 }

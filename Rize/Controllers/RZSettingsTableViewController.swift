@@ -12,6 +12,7 @@ import Firebase
 class RZSettingsTableViewController: UITableViewController {
 
     let SIGNOUT_INDEXPATH = IndexPath(row: 0, section: 0)
+    let RESET_POPTIPS_INDEXPATH = IndexPath(row: 1, section: 0)
     let TERMS_INDEXPATH   = IndexPath(row: 0, section: 1)
     let PRIVACY_INDEXPATH = IndexPath(row: 1, section: 1)
     let LICENSE_INDEXPATH = IndexPath(row: 2, section: 1)
@@ -19,6 +20,8 @@ class RZSettingsTableViewController: UITableViewController {
     
     @IBOutlet var profileImageView : UIImageView!
     @IBOutlet var nameLabel : UILabel!
+    
+    @IBOutlet var resetTipsCell : UITableViewCell!
 
     var userId : String?
 
@@ -52,6 +55,8 @@ class RZSettingsTableViewController: UITableViewController {
                 }
             }
         }
+        // don't show the reset check mark initially
+        self.resetTipsCell.accessoryType = .none
     }
 
     override func didReceiveMemoryWarning() {
@@ -129,6 +134,9 @@ class RZSettingsTableViewController: UITableViewController {
             FBSDKLoginManager().logOut()
             let appDelegate = UIApplication.shared.delegate
             appDelegate?.window??.rootViewController = self.storyboard?.instantiateViewController(withIdentifier: "LoginViewController")
+        } else if (indexPath == RESET_POPTIPS_INDEXPATH) {
+            RZPoptipHelper.shared().resetAllScreens()
+            self.resetTipsCell.accessoryType = .checkmark
         } else if (indexPath == PRIVACY_INDEXPATH) {
             // show the privacy policy
             let legalController = self.storyboard!.instantiateViewController(withIdentifier: "LegalViewController") as! RZLegalViewController

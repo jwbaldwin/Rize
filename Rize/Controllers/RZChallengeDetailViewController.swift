@@ -23,6 +23,9 @@ class RZChallengeDetailViewController: UIViewController, UIScrollViewDelegate, R
     @IBOutlet var videoThumbnailView : UIImageView!
     @IBOutlet var giftLabel : UILabel!
     @IBOutlet var giftContainerView : UIView!
+    
+    // track which poptip we are on
+    var popTipCounter = 0;
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -89,13 +92,17 @@ class RZChallengeDetailViewController: UIViewController, UIScrollViewDelegate, R
     
     override func viewDidAppear(_ animated: Bool) {
         /* check to show tips */
-        #if DEBUG
-        RZPoptipHelper.shared().setDidShowTips(false, forScreen: .ChallengeDetail)
-        #endif
         if (RZPoptipHelper.shared().shouldShowTips(forScreen: .ChallengeDetail)) {
+            popTipCounter = 0;
             RZPoptipHelper.shared().setDidShowTips(true, forScreen: .ChallengeDetail)
             self.showNextPoptip()
         }
+    }
+    // check when view will disappear so we can get rid of active pop tips
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        // cleanup pop tips
+        RZPoptipHelper.shared().dismissAll()
     }
     
     override func viewDidLayoutSubviews() {
@@ -182,10 +189,7 @@ class RZChallengeDetailViewController: UIViewController, UIScrollViewDelegate, R
     func showNextPoptip()
     {
         /* Note that the frames are offset 60 px vertically. Must have something to do with the scroll view */
-        struct Holder {
-            static var popTipIndex = 0;
-        }
-        switch Holder.popTipIndex {
+        switch popTipCounter {
         case 0:
             /* video tip */
             RZPoptipHelper.shared().showPopTip(text: "Watch the video to learn about the challenge", direction: .up, in: self.view, fromFrame: self.videoThumbnailView.frame.offsetBy(dx: 0, dy: 60)) { self.showNextPoptip() }
@@ -199,6 +203,6 @@ class RZChallengeDetailViewController: UIViewController, UIScrollViewDelegate, R
             break;
         }
         /* go to next index */
-        Holder.popTipIndex += 1;
+        popTipCounter += 1;
     }
 }
