@@ -13,18 +13,18 @@ import UIKit
 struct RZWalletLayoutConstants {
     struct Cell {
         /* The height of the non-featured cell */
-        static let standardHeight: CGFloat = 150
+        static let standardHeight: CGFloat = 130
         /* The height of the first visible cell */
         static let featuredHeight: CGFloat = 280
     }
 }
 
-class RZWalletLayout:UICollectionViewLayout{
+class RZWalletLayout:UICollectionViewFlowLayout{
     
     // MARK: Properties and Variables
     
     /* The amount the user needs to scroll before the featured cell changes */
-    let dragOffset: CGFloat = 240.0
+    let dragOffset: CGFloat = 150.0
     
     var cache = [UICollectionViewLayoutAttributes]()
     
@@ -46,7 +46,7 @@ class RZWalletLayout:UICollectionViewLayout{
     /* Returns the width of the collection view */
     var width: CGFloat {
         get {
-            return collectionView!.bounds.width
+            return collectionView!.bounds.width - 10
         }
     }
     
@@ -75,6 +75,7 @@ class RZWalletLayout:UICollectionViewLayout{
     
     override func prepare() {
         cache.removeAll(keepingCapacity: false)
+        
         let standardHeight = RZWalletLayoutConstants.Cell.standardHeight
         let featuredHeight = RZWalletLayoutConstants.Cell.featuredHeight
         
@@ -94,19 +95,19 @@ class RZWalletLayout:UICollectionViewLayout{
             if indexPath.item == featuredItemIndex {
                 // 4
                 let yOffset = standardHeight * nextItemPercentageOffset
-                y = collectionView!.contentOffset.y - yOffset + 100
+                y = collectionView!.contentOffset.y - yOffset + 70
                 height = featuredHeight
             } else if indexPath.item == (featuredItemIndex + 1) && indexPath.item != numberOfItems {
                 // 5
                 let maxY = y + standardHeight
-                height = standardHeight + max((featuredHeight - standardHeight) * nextItemPercentageOffset, 0)
+                height = standardHeight + max(((featuredHeight - standardHeight) * nextItemPercentageOffset), 0)
                 y = maxY - height
             }
             
             // 6
-            print(width)
-            frame = CGRect(x: 5, y: y, width: width, height: height)
+            frame = CGRect(x: 5, y: y + 10, width: width, height: height)
             attributes.frame = frame
+    
             cache.append(attributes)
             y = frame.maxY
         }

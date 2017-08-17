@@ -61,7 +61,7 @@ class RZWalletCollectionViewCell: UICollectionViewCell {
         ImageLoader.setImageViewImage(url, view: backgroundUrl!, round: false) {
         }
         
-        backgroundUrl.layer.cornerRadius = 5
+        backgroundUrl.layer.cornerRadius = 3
         backgroundUrl.clipsToBounds = true
     }
     

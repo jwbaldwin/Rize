@@ -52,6 +52,7 @@
 		DA263A2E1E92D09C0047FE8C /* RZWalletCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA263A2D1E92D09C0047FE8C /* RZWalletCollectionViewController.swift */; };
 		DA263A301E92D1A90047FE8C /* RZWalletCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA263A2F1E92D1A90047FE8C /* RZWalletCollectionViewCell.swift */; };
 		DA61A3EE1F22C814007A4E3F /* RZWalletLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA61A3ED1F22C814007A4E3F /* RZWalletLayout.swift */; };
+		DA61A3F41F32C915007A4E3F /* RZWalletHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA61A3F31F32C915007A4E3F /* RZWalletHeader.swift */; };
 		DA94F00A1E981FF300C0A32D /* RZReward.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA94F0091E981FF300C0A32D /* RZReward.swift */; };
 		DABF76A41F1C5E3000CE2E2F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DABF76A31F1C5E3000CE2E2F /* Assets.xcassets */; };
 /* End PBXBuildFile section */
@@ -145,6 +146,7 @@
 		DA263A2D1E92D09C0047FE8C /* RZWalletCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RZWalletCollectionViewController.swift; sourceTree = "<group>"; };
 		DA263A2F1E92D1A90047FE8C /* RZWalletCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RZWalletCollectionViewCell.swift; path = ../Controllers/RZWalletCollectionViewCell.swift; sourceTree = "<group>"; };
 		DA61A3ED1F22C814007A4E3F /* RZWalletLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RZWalletLayout.swift; sourceTree = "<group>"; };
+		DA61A3F31F32C915007A4E3F /* RZWalletHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RZWalletHeader.swift; sourceTree = "<group>"; };
 		DA94F0091E981FF300C0A32D /* RZReward.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RZReward.swift; sourceTree = "<group>"; };
 		DABF76A31F1C5E3000CE2E2F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F9B769BA519B135B3790B051 /* Pods-Rize.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rize.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Rize/Pods-Rize.debug.xcconfig"; sourceTree = "<group>"; };
@@ -304,6 +306,7 @@
 				34360ACD1E8C07D30022D1CB /* RZSubmissionProgressCircleView.swift */,
 				34EC2E791E156BD20033E827 /* RZSubmissionTableViewCell.swift */,
 				DA263A2F1E92D1A90047FE8C /* RZWalletCollectionViewCell.swift */,
+				DA61A3F31F32C915007A4E3F /* RZWalletHeader.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -629,6 +632,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA61A3F41F32C915007A4E3F /* RZWalletHeader.swift in Sources */,
 				3447A1351D01227800AAB490 /* ImageLoader.swift in Sources */,
 				343910C81E0B0E97003DA86D /* RZSubmission.swift in Sources */,
 				DA61A3EE1F22C814007A4E3F /* RZWalletLayout.swift in Sources */,

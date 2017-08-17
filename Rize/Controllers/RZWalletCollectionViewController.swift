@@ -23,17 +23,54 @@ class RZWalletCollectionViewController: UICollectionViewController, RZDatabaseDe
     @IBOutlet weak var dismissReward: UIButton!
     @IBOutlet weak var shareReward: UIButton!
     @IBOutlet weak var visualEffectView: UIVisualEffectView!
-    
+    @IBOutlet var organizeView: UITableView!
+
     var rewards : [RZReward]?
     var effect : UIVisualEffect!
     var db: FIRDatabaseReference!
+    var open = false
+    var option = "all"
+    /* The height of the non-featured cell */
+    let standardHeight: CGFloat = 130
+    /* The height of the first visible cell */
+    let featuredHeight: CGFloat = 280
     
+    @IBOutlet weak var showActive: UIButton!
+    @IBOutlet weak var showAll: UIButton!
+    @IBOutlet weak var orgBtn: UIBarButtonItem!
     @IBAction func dismissReward(_ sender: Any) {
         animateOut();
     }
     
     @IBAction func emailInputActionTriggered(_ sender: Any) {
         print("GO")
+    }
+    
+    @IBAction func organizeBtn(_ sender: Any) {
+        switch(open){
+            case true:
+                animateOutOrganize()
+                break
+            case false:
+                animateInOrganize()
+                break
+        }
+        open = !open
+    }
+    
+    @IBAction func showAll(_ sender: Any) {
+        option = "all"
+        print("Active option:", option)
+        animateOutOrganize()
+        self.collectionView?.reloadData()
+        open = false
+    }
+    @IBAction func showActive(_ sender: Any) {
+        option = "active"
+        print("Active option:", option)
+        animateOutOrganize()
+        self.collectionView?.reloadData()
+        open = false
     }
     
     @IBAction func shareReward(_ sender: Any) {
@@ -84,7 +121,7 @@ class RZWalletCollectionViewController: UICollectionViewController, RZDatabaseDe
         self.navigationController?.navigationBar.titleTextAttributes?[NSForegroundColorAttributeName] = RZColors.primary
         
         //Set up
-        self.collectionView?.contentInset = UIEdgeInsetsMake(-100, 0, -20, 0)
+//        self.collectionView?.contentInset = UIEdgeInsetsMake(-50, 0, 0, 10)
         
         RZDatabase.sharedInstance().delegate = self
         loadWalletInfo()
@@ -101,7 +138,7 @@ class RZWalletCollectionViewController: UICollectionViewController, RZDatabaseDe
     }
     
     func loadWalletInfo(){
-        rewards = RZDatabase.sharedInstance().getWallet()
+        rewards = RZDatabase.sharedInstance().getWallet(filter: .all)
         self.collectionView?.reloadData()
     }
 
@@ -114,19 +151,61 @@ class RZWalletCollectionViewController: UICollectionViewController, RZDatabaseDe
         // Pass the selected object to the new view controller.
     }
     */
+    
+    // MARK: - Table View data source/delegate
+    
+//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//        switch section {
+//        case 0:
+//            return "ACTIVE SUBMISSIONS"
+//        case 1:
+//            return "PREVIOUS SUBMISSIONS"
+//        default:
+//            return nil
+//        }
+//    }
+    
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView
+    {
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "SectionHeader", for: indexPath) as! RZWalletHeader
+        let section = indexPath.section
+        switch section {
+            case 0:
+                header.header.text = "Active Rewards"
+                return header
+            case 1:
+                header.header.text = "Used Rewards"
+                return header
+            default:
+                header.header.text = nil
+                return header
+        }
+    }
 
     // MARK: UICollectionViewDataSource
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
+        if (RZDatabase.sharedInstance().getWallet(filter: .used)!.count > 0) {
+            if(option == "all") {
+                return 2
+            } else {
+                return 1
+            }
+        }
         return 1
     }
 
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        //Count num of codes in coredata/db
-        if rewards!.count == 0{
+        switch section {
+        case 0:
+            let activeCount = (RZDatabase.sharedInstance().getWallet(filter: .active)?.count)!
+            return (activeCount > 0 ? activeCount : 1)
+        case 1:
+            return (RZDatabase.sharedInstance().getWallet(filter: .used)?.count)!
+
+        default:
             return 1
         }
-        return rewards!.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -142,27 +221,32 @@ class RZWalletCollectionViewController: UICollectionViewController, RZDatabaseDe
             cell!.companyLocation.text = rewards![indexPath.row].challenge_title!.lowercased()
             cell!.expDate.text = "No Expiration"
             cell!.tier.text = rewards![indexPath.row].tier
-            //cell!.topView.backgroundColor = RZColors.cardColorArray[indexPath.row]
             cell!.setImageFromURL(rewards![indexPath.row].icon!)
             cell!.setBackgroundImageFromURL(rewards![indexPath.row].banner!)
             
             //Configure cell's appearance
+            cell!.bottomView.layer.cornerRadius = 3
+            
             cell!.shareBtn.layer.cornerRadius = 5
-            cell!.showReward.layer.cornerRadius = 5
-            cell!.topView.layer.cornerRadius = 5
-            cell!.bottomView.layer.cornerRadius = 5
             cell!.shareBtn.layer.masksToBounds = false
             cell!.shareBtn.layer.shadowOffset = CGSize(width: -1, height: -1)
             cell!.shareBtn.layer.shadowRadius = 5
             cell!.shareBtn.layer.shadowOpacity = 0.2
+            cell!.shareBtn.layer.borderWidth = 0.5
+            cell!.shareBtn.layer.borderColor = UIColor.lightGray.cgColor
+            
+            cell!.showReward.layer.cornerRadius = 5
             cell!.showReward.layer.masksToBounds = false
             cell!.showReward.layer.shadowOffset = CGSize(width: -1, height: -1)
             cell!.showReward.layer.shadowRadius = 5
             cell!.showReward.layer.shadowOpacity = 0.2
-            cell!.layer.cornerRadius = 5
+            cell!.showReward.layer.borderWidth = 0.5
+            cell!.showReward.layer.borderColor = UIColor.lightGray.cgColor
+            
+            cell!.layer.cornerRadius = 3
             cell!.layer.masksToBounds = false
             cell!.layer.shadowOffset = CGSize(width: -1, height: -1)
-            cell!.layer.shadowRadius = 5
+            cell!.layer.shadowRadius = 3
             cell!.layer.shadowOpacity = 0.8
             
             cell!.tag = indexPath.row
@@ -227,21 +311,28 @@ class RZWalletCollectionViewController: UICollectionViewController, RZDatabaseDe
     //SEND
     func handleSendReward(user : (key: String, Any), reward: RZReward){
         let receiverId = user.key
+        let active = reward.active!
         
         //Cannot send to self
+        //And not innactive rewards
         if (receiverId != FIRAuth.auth()!.currentUser!.uid) {
-            let challengeId = reward.challenge_id!
-            let tier = reward.tier!
-            let title = reward.title!
-            let code = reward.code!
-            let icon = reward.icon!
-            let challengeTitle = reward.challenge_title!
-            let banner = reward.banner!
-            
-            
-            RZDatabase.sharedInstance().shareReward(recieverId: receiverId, challengeId: challengeId, tier: tier, title: title, code: code, icon: icon, challengeTitle: challengeTitle, banner: banner)
-            displaySuccessAlertMessage(messageToDisplay: "Congratulations! Your reward has been sent!")
-            loadWalletInfo()
+            if(active != "no"){
+                let challengeId = reward.challenge_id!
+                let tier = reward.tier!
+                let title = reward.title!
+                let code = reward.code!
+                let icon = reward.icon!
+                let challengeTitle = reward.challenge_title!
+                let banner = reward.banner!
+                let active = reward.active!
+                
+                
+                RZDatabase.sharedInstance().shareReward(recieverId: receiverId, challengeId: challengeId, tier: tier, title: title, code: code, icon: icon, challengeTitle: challengeTitle, banner: banner, active: active)
+                displaySuccessAlertMessage(messageToDisplay: "Congratulations! Your reward has been sent!")
+                loadWalletInfo()
+            } else {
+                self.displayErrorAlertMessage(messageToDisplay: "You cannot send innactive rewards.")
+            }
         } else {
             self.displayErrorAlertMessage(messageToDisplay: "Sharing is caring! Try sending it to someone who is not yourself.")
         }
@@ -284,21 +375,6 @@ class RZWalletCollectionViewController: UICollectionViewController, RZDatabaseDe
         })
     }
     
-    func animateOut() {
-        UIView.animate(withDuration: 0.3, animations: {
-            self.rewardCodeView.transform = CGAffineTransform.init(scaleX: 1.3, y:1.3)
-            self.rewardCodeView.alpha = 0
-            self.visualEffectView.transform = CGAffineTransform.init(scaleX: 1.3, y:1.3)
-            self.visualEffectView.alpha = 0
-        }) { (success:Bool) in
-            self.visualEffectView.removeFromSuperview()
-            self.rewardCodeView.removeFromSuperview()
-        }
-        //Clear email input
-        self.emailInput.text = ""
-        
-    }
-    
     // ==== For Sharing
     func animateInShare(_ cellSender: UICollectionViewCell) {
         self.view.addSubview(visualEffectView)
@@ -316,6 +392,44 @@ class RZWalletCollectionViewController: UICollectionViewController, RZDatabaseDe
             self.rewardCodeView.alpha = 1
         })
         
+    }
+    
+    // ==== For Organization
+    func animateInOrganize() {
+        self.view.addSubview(organizeView)
+        
+        //Show share elements & hide redeem & pass tag
+        setUpOrganizeView()
+        
+        UIView.animate(withDuration: 0.2, animations: {
+            self.organizeView.transform = CGAffineTransform.identity
+            self.organizeView.alpha = 1
+        })
+        
+    }
+    
+    // ==== For Share & Redeem
+    func animateOut() {
+        UIView.animate(withDuration: 0.3, animations: {
+            self.rewardCodeView.transform = CGAffineTransform.init(scaleX: 1.3, y:1.3)
+            self.rewardCodeView.alpha = 0
+            self.visualEffectView.transform = CGAffineTransform.init(scaleX: 1.3, y:1.3)
+            self.visualEffectView.alpha = 0
+        }) { (success:Bool) in
+            self.visualEffectView.removeFromSuperview()
+            self.rewardCodeView.removeFromSuperview()
+        }
+        //Clear email input
+        self.emailInput.text = ""
+        
+    }
+    
+    func animateOutOrganize(){
+        UIView.animate(withDuration: 0.2, animations: {
+            self.organizeView.alpha = 0
+        }) { (success:Bool) in
+            self.organizeView.removeFromSuperview()
+        }
     }
     
     func showRedeemElements() {
@@ -361,10 +475,38 @@ class RZWalletCollectionViewController: UICollectionViewController, RZDatabaseDe
         rewardCodeView.layer.shadowOpacity = 0.5
         visualEffectView.bounds = self.view.bounds
     }
+    
+    func setUpOrganizeView() {
+        if option == "all" {
+            self.showAll.layer.backgroundColor = RZColors.primary.cgColor
+            self.showAll.titleLabel?.textColor = UIColor.white
+            
+            self.showActive.layer.backgroundColor = UIColor.white.cgColor
+            self.showActive.titleLabel?.textColor = RZColors.primary
+        } else{
+            self.showAll.layer.backgroundColor = UIColor.white.cgColor
+            self.showAll.titleLabel?.textColor = RZColors.primary
+            
+            self.showActive.layer.backgroundColor = RZColors.primary.cgColor
+            self.showActive.titleLabel?.textColor = UIColor.white
+        }
+        
+        organizeView.center = CGPoint(x: self.view.frame.width - 75 , y: 100)
+        organizeView.layer.borderWidth = 1.25
+        organizeView.layer.borderColor = RZColors.primary.cgColor
+        organizeView.layer.cornerRadius = 3
+        organizeView.layer.masksToBounds = true
+        organizeView.layer.shadowOffset = CGSize(width: -1, height: -1)
+        organizeView.layer.shadowRadius = 3
+        organizeView.layer.shadowOpacity = 0.8
+        organizeView.alpha = 0
+        
+    }
 
     // MARK: UICollectionViewDelegate
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt: IndexPath) -> CGSize {
-//    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt: IndexPath) -> CGSize {
+        return CGSize(width: self.view.frame.width - 10, height: self.featuredHeight)
+    }
 
     /*
     // Uncomment this method to specify if the specified item should be highlighted during tracking
