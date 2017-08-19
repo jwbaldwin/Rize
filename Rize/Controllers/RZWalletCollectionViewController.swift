@@ -120,9 +120,6 @@ class RZWalletCollectionViewController: UICollectionViewController, RZDatabaseDe
         self.navigationController?.navigationBar.tintColor = RZColors.primary
         self.navigationController?.navigationBar.titleTextAttributes?[NSForegroundColorAttributeName] = RZColors.primary
         
-        //Set up
-//        self.collectionView?.contentInset = UIEdgeInsetsMake(-50, 0, 0, 10)
-        
         RZDatabase.sharedInstance().delegate = self
         loadWalletInfo()
     }
@@ -141,29 +138,6 @@ class RZWalletCollectionViewController: UICollectionViewController, RZDatabaseDe
         rewards = RZDatabase.sharedInstance().getWallet(filter: .all)
         self.collectionView?.reloadData()
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
-    
-    // MARK: - Table View data source/delegate
-    
-//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        switch section {
-//        case 0:
-//            return "ACTIVE SUBMISSIONS"
-//        case 1:
-//            return "PREVIOUS SUBMISSIONS"
-//        default:
-//            return nil
-//        }
-//    }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView
     {
@@ -171,10 +145,10 @@ class RZWalletCollectionViewController: UICollectionViewController, RZDatabaseDe
         let section = indexPath.section
         switch section {
             case 0:
-                header.header.text = "Active Rewards"
+                header.header.text = "ACTIVE REWARDS"
                 return header
             case 1:
-                header.header.text = "Used Rewards"
+                header.header.text = "USED REWARDS"
                 return header
             default:
                 header.header.text = nil
@@ -202,7 +176,6 @@ class RZWalletCollectionViewController: UICollectionViewController, RZDatabaseDe
             return (activeCount > 0 ? activeCount : 1)
         case 1:
             return (RZDatabase.sharedInstance().getWallet(filter: .used)?.count)!
-
         default:
             return 1
         }
@@ -213,35 +186,22 @@ class RZWalletCollectionViewController: UICollectionViewController, RZDatabaseDe
         
         //set delegate to self
         cell?.delegate = self
+        let section = indexPath.section
         
-        
-        if rewards!.count != 0 {
-            //Configure cell's attributes
-            cell!.rewardName.text = rewards![indexPath.row].title
-            cell!.companyLocation.text = rewards![indexPath.row].challenge_title!.lowercased()
-            cell!.expDate.text = "No Expiration"
-            cell!.tier.text = rewards![indexPath.row].tier
-            cell!.setImageFromURL(rewards![indexPath.row].icon!)
-            cell!.setBackgroundImageFromURL(rewards![indexPath.row].banner!)
-            
             //Configure cell's appearance
             cell!.bottomView.layer.cornerRadius = 3
+            cell!.topView.layer.cornerRadius = 3
             
-            cell!.shareBtn.layer.cornerRadius = 5
-            cell!.shareBtn.layer.masksToBounds = false
-            cell!.shareBtn.layer.shadowOffset = CGSize(width: -1, height: -1)
-            cell!.shareBtn.layer.shadowRadius = 5
-            cell!.shareBtn.layer.shadowOpacity = 0.2
-            cell!.shareBtn.layer.borderWidth = 0.5
-            cell!.shareBtn.layer.borderColor = UIColor.lightGray.cgColor
-            
-            cell!.showReward.layer.cornerRadius = 5
-            cell!.showReward.layer.masksToBounds = false
-            cell!.showReward.layer.shadowOffset = CGSize(width: -1, height: -1)
-            cell!.showReward.layer.shadowRadius = 5
-            cell!.showReward.layer.shadowOpacity = 0.2
-            cell!.showReward.layer.borderWidth = 0.5
-            cell!.showReward.layer.borderColor = UIColor.lightGray.cgColor
+            let btns = [cell!.shareBtn, cell!.showReward]
+            for btn in btns {
+                btn!.layer.cornerRadius = 5
+                btn!.layer.masksToBounds = false
+                btn!.layer.shadowOffset = CGSize(width: -1, height: -1)
+                btn!.layer.shadowRadius = 5
+                btn!.layer.shadowOpacity = 0.2
+                btn!.layer.borderWidth = 0.5
+                btn!.layer.borderColor = UIColor.lightGray.cgColor
+            }
             
             cell!.layer.cornerRadius = 3
             cell!.layer.masksToBounds = false
@@ -249,16 +209,58 @@ class RZWalletCollectionViewController: UICollectionViewController, RZDatabaseDe
             cell!.layer.shadowRadius = 3
             cell!.layer.shadowOpacity = 0.8
             
-            cell!.tag = indexPath.row
-            return cell!
-        } else {
-            //no rewards
-            let noRewardsCell = collectionView.dequeueReusableCell(withReuseIdentifier: "NoRewardsCell", for: indexPath)
-            return noRewardsCell
-        }
+            switch section {
+            case 0:
+                rewards = RZDatabase.sharedInstance().getWallet(filter: .active)
+                if( rewards!.count == 0) {
+                    let noRewardsCell = collectionView.dequeueReusableCell(withReuseIdentifier: "NoRewardsCell", for: indexPath)
+                    return noRewardsCell
+                }
+                //Configure cell's attributes
+                cell!.rewardName.text = rewards![indexPath.row].title
+                cell!.companyLocation.text = rewards![indexPath.row].challenge_title!.lowercased()
+                cell!.expDate.text = "No Expiration"
+                cell!.tier.text = rewards![indexPath.row].tier
+                cell!.setImageFromURL(rewards![indexPath.row].icon!)
+                cell!.setBackgroundImageFromURL(rewards![indexPath.row].banner!)
+                
+                cell!.usedView.layer.opacity = 0
+                
+                for btn in btns {
+                    btn?.isEnabled = true
+                }
+                cell!.markUsed.isEnabled = true
+                
+                cell!.tag = indexPath.row
+                return cell!
+            case 1:
+                rewards = RZDatabase.sharedInstance().getWallet(filter: .used)
+                //Configure cell's attributes
+                cell!.rewardName.text = rewards![indexPath.row].title
+                cell!.companyLocation.text = rewards![indexPath.row].challenge_title!.lowercased()
+                cell!.expDate.text = "No Expiration"
+                cell!.tier.text = rewards![indexPath.row].tier
+                cell!.setImageFromURL(rewards![indexPath.row].icon!)
+                cell!.setBackgroundImageFromURL(rewards![indexPath.row].banner!)
+                
+                cell!.tag = indexPath.row
+                
+                cell!.usedView.layer.cornerRadius = 3
+                cell!.usedView.layer.masksToBounds = true
+                cell!.usedView.layer.opacity = 0.35
+                
+                for btn in btns {
+                    btn?.isEnabled = false
+                }
+                
+                cell!.markUsed.isEnabled = false
+                
+                return cell!
+            default: return cell!
+            }
     }
     
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 //        let cell = self.collectionView?.cellForItem(at: indexPath) as! RZWalletCollectionViewCell
 //        
 //        UIView.transition(with: collectionView, duration: 0.6, options: UIViewAnimationOptions.curveEaseIn , animations: {
@@ -272,7 +274,7 @@ class RZWalletCollectionViewController: UICollectionViewController, RZDatabaseDe
 //            if(finished) {
 //            print("Finished")
 //            }})
-    }
+//    }
     
     func getCodeForCell(_ cell : UICollectionViewCell) {
         rewardCode!.text = rewards![cell.tag].code
@@ -408,6 +410,21 @@ class RZWalletCollectionViewController: UICollectionViewController, RZDatabaseDe
         
     }
     
+    func markAsUsed(_ cell: UICollectionViewCell) {
+        rewards = RZDatabase.sharedInstance().getWallet(filter: .active)
+        let reward = self.rewards![cell.tag]
+        
+        let alert = SCLAlertView()
+        
+        alert.addButton("Yes", action: {
+            reward.active = "no"
+            RZDatabase.sharedInstance().updateRewardState(challengeId: reward.challenge_id!, tier: reward.tier!, active: reward.active!)
+            self.collectionView?.reloadData()
+        })
+        
+        alert.showInfo("Mark as Used?", subTitle: "Warning: This action cannot be undone.", closeButtonTitle: "No")
+    }
+    
     // ==== For Share & Redeem
     func animateOut() {
         UIView.animate(withDuration: 0.3, animations: {
@@ -491,7 +508,7 @@ class RZWalletCollectionViewController: UICollectionViewController, RZDatabaseDe
             self.showActive.titleLabel?.textColor = UIColor.white
         }
         
-        organizeView.center = CGPoint(x: self.view.frame.width - 75 , y: 100)
+        organizeView.center = CGPoint(x: self.view.frame.width - 65 , y: 98)
         organizeView.layer.borderWidth = 1.25
         organizeView.layer.borderColor = RZColors.primary.cgColor
         organizeView.layer.cornerRadius = 3
@@ -504,9 +521,24 @@ class RZWalletCollectionViewController: UICollectionViewController, RZDatabaseDe
     }
 
     // MARK: UICollectionViewDelegate
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt: IndexPath) -> CGSize {
-        return CGSize(width: self.view.frame.width - 10, height: self.featuredHeight)
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if( self.view.frame.width != 375){
+            return CGSize(width: self.view.frame.width, height: featuredHeight);
+        }
+        return CGSize(width: self.view.frame.width, height: featuredHeight);
     }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsetsMake(0.0, 10.0, 10.0, 0.0);
+    }
+    
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+//        return 20.0
+//    }
+//    
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+//        return 20.0
+//    }
 
     /*
     // Uncomment this method to specify if the specified item should be highlighted during tracking

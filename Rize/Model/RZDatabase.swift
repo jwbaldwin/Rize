@@ -308,14 +308,14 @@ class RZDatabase: NSObject {
         
         let walletEntry = [ "challenge_id" : challengeId, "title" : title, "code" : code , "icon" : icon, "challenge_title" : challengeTitle, "banner": banner, "tier" : String(tier), "active": active]
         
-        print("🔥 FROM: ", FIRAuth.auth()!.currentUser!.uid)
-        print("🔥 SEND TO: ", recieverId)
-        print("🔥 REWARD TITLE: ", title)
-        
         //Add reward
         self.firebaseRef!.child("users/\(recieverId)/wallet/\(challengeId)-\(tier)").setValue(walletEntry)
         //Remove sent reward
         self.firebaseRef!.child("users/\(FIRAuth.auth()!.currentUser!.uid)/wallet/\(challengeId)-\(tier)").setValue(nil)
+    }
+    
+    func updateRewardState(challengeId: String, tier: String, active: String){
+        self.firebaseRef!.child("users/\(FIRAuth.auth()!.currentUser!.uid)/wallet/\(challengeId)-\(tier)/active").setValue(active)
     }
     
     //MARK: - Wallet
