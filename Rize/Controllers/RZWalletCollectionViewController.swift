@@ -232,6 +232,10 @@ class RZWalletCollectionViewController: UICollectionViewController, RZDatabaseDe
                 cell!.markUsed.isEnabled = true
                 
                 cell!.tag = indexPath.row
+                
+                if(self.view.frame.width < 375) {
+                    scaleForSize(cell!)
+                }
                 return cell!
             case 1:
                 rewards = RZDatabase.sharedInstance().getWallet(filter: .used)
@@ -255,26 +259,31 @@ class RZWalletCollectionViewController: UICollectionViewController, RZDatabaseDe
                 
                 cell!.markUsed.isEnabled = false
                 
+                if(self.view.frame.width < 375) {
+                    scaleForSize(cell!)
+                }
                 return cell!
             default: return cell!
             }
     }
     
-//    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        let cell = self.collectionView?.cellForItem(at: indexPath) as! RZWalletCollectionViewCell
-//        
-//        UIView.transition(with: collectionView, duration: 0.6, options: UIViewAnimationOptions.curveEaseIn , animations: {
-//            if(cell.frame.height != 280){
-//                cell.frame = CGRect(x: cell.frame.origin.x, y: cell.frame.origin.y, width: cell.frame.width, height: 280)
-//            } else{
-//                print(cell.frame.height)
-//                cell.frame = CGRect(x: cell.frame.origin.x, y: cell.frame.origin.y, width: cell.frame.width, height: 150)
-//            }
-//        }, completion: { finished in
-//            if(finished) {
-//            print("Finished")
-//            }})
-//    }
+    func scaleForSize(_ cell : RZWalletCollectionViewCell){
+        let viewItems = [cell.bottomView, cell.backgroundUrl, cell.shareBtn, cell.topView, cell.usedView]
+        
+        for item in viewItems{
+            item!.frame = CGRect(x: item!.frame.origin.x, y: item!.frame.origin.y, width: item!.frame.width*0.85, height: item!.frame.height)
+        }
+        
+        let subviewItems = [cell.companyLocation, cell.rewardName, cell.markUsed]
+        
+        for item in subviewItems {
+            item!.frame = CGRect(x: item!.frame.origin.x - 50, y: item!.frame.origin.y, width: item!.frame.width, height: item!.frame.height)
+        }
+        
+        cell.iconUrl.frame = CGRect(x: cell.iconUrl!.frame.origin.x - 20, y: cell.iconUrl!.frame.origin.y, width: cell.iconUrl!.frame.width, height: cell.iconUrl!.frame.height)
+        cell.expDate.frame = CGRect(x: cell.expDate!.frame.origin.x - 30, y: cell.expDate!.frame.origin.y, width: cell.expDate!.frame.width, height: cell.expDate!.frame.height)
+
+    }
     
     func getCodeForCell(_ cell : UICollectionViewCell) {
         rewardCode!.text = rewards![cell.tag].code
