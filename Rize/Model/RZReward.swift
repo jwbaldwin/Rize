@@ -14,4 +14,15 @@ class RZReward: NSObject {
     var title : String?
     var icon : String?
     var code : String?
+    var tier : String?
+    var banner : String?
+    var active : String?
+    
+    func isActive() -> Bool {
+        if( active == "no") {
+            return false
+        }
+        return true
+    }
+    
 }

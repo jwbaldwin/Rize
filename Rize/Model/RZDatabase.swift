@@ -320,11 +320,25 @@ class RZDatabase: NSObject {
         })
     }
     
-    func addCodeToWallet(challengeId: String, tier: Int, title: String, code: String, icon: String, challengeTitle: String)
+    func addCodeToWallet(challengeId: String, tier: Int, title: String, code: String, icon: String, challengeTitle: String, banner: String)
     {
         // add a new entry to the user's wallet
-        let entry = [ "challenge_id" : challengeId, "title" : title, "code" : code , "icon" : icon, "challenge_title" : challengeTitle]
+        let entry = [ "challenge_id" : challengeId, "title" : title, "code" : code , "icon" : icon, "challenge_title" : challengeTitle, "banner": banner, "tier" : String(tier), "active": "yes"]
         self.firebaseRef!.child("users/\(FIRAuth.auth()!.currentUser!.uid)/wallet/\(challengeId)-\(tier)").setValue(entry)
+    }
+    
+    func shareReward(recieverId: String, challengeId: String, tier: String, title: String, code: String, icon: String, challengeTitle: String, banner: String, active: String){
+        
+        let walletEntry = [ "challenge_id" : challengeId, "title" : title, "code" : code , "icon" : icon, "challenge_title" : challengeTitle, "banner": banner, "tier" : String(tier), "active": active]
+        
+        //Add reward
+        self.firebaseRef!.child("users/\(recieverId)/wallet/\(challengeId)-\(tier)").setValue(walletEntry)
+        //Remove sent reward
+        self.firebaseRef!.child("users/\(FIRAuth.auth()!.currentUser!.uid)/wallet/\(challengeId)-\(tier)").setValue(nil)
+    }
+    
+    func updateRewardState(challengeId: String, tier: String, active: String){
+        self.firebaseRef!.child("users/\(FIRAuth.auth()!.currentUser!.uid)/wallet/\(challengeId)-\(tier)/active").setValue(active)
     }
     
     //MARK: - Wallet
@@ -346,19 +360,50 @@ class RZDatabase: NSObject {
             reward.title = item["title"] as? String
             reward.challenge_title = item["challenge_title"] as? String
             reward.icon = item["icon"] as? String
+            reward.tier = item["tier"] as? String
+            reward.banner = item["banner"] as? String
+            reward.active = item["active"] as? String
 
             self._rewards!.append(reward)
         }
         
     }
     
-    func getWallet() -> [RZReward]?
+    enum RZWalletFilter {
+        case all, active, used
+    }
+    func getWallet(filter: RZWalletFilter) -> [RZReward]?
     {
-        if (self._rewards != nil) {
-            print("***HERE***")
-            return _rewards
+        var filteredRewards : [ RZReward ] = []
+        
+        guard let _ = _rewards
+            else { return nil }
+        
+        for reward in _rewards! {
+            var shouldInclude = true
+            
+            // check for the filters
+            switch filter {
+            case .all:
+                break
+            case .active:
+                if !reward.isActive() {
+                    shouldInclude = false
+                }
+            case .used:
+                if reward.isActive() {
+                    shouldInclude = false
+                }
+            }
+            
+            // add the submission to the list if it passes the filters
+            if shouldInclude {
+                filteredRewards.append(reward)
+            }
         }
-        return nil
+        
+        // return the submissions
+        return filteredRewards
     }
 
     

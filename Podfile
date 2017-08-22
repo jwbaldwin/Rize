@@ -6,6 +6,7 @@ pod 'Firebase/Auth'
 pod 'Firebase/Database'
 pod 'Firebase/Storage'
 pod 'AMPopTip'
+pod 'SCLAlertView'
 
 target 'Rize' do
   # Comment this line if you're not using Swift and don't want to use dynamic frameworks
