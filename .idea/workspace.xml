@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="aab56bc3-83cb-41f5-9d34-18a17c6f793e" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pods/FirebaseCore/Frameworks/frameworks/FirebaseCore.framework/FirebaseCore" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Rize.xcworkspace/xcuserdata/jbaldwin.xcuserdatad/UserInterfaceState.xcuserstate" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Rize/Assets.xcassets/location.imageset/Location.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Rize/Assets.xcassets/location.imageset/Location@2x.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Rize/Assets.xcassets/location.imageset/Location@3x.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Rize/Assets.xcassets/mark.imageset/check_mark.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Rize/Assets.xcassets/mark.imageset/check_mark@2x.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Rize/Assets.xcassets/mark.imageset/check_mark@3x.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Rize/Assets.xcassets/ribbon.imageset/ribbon.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Rize/Assets.xcassets/ribbon.imageset/ribbon@2x.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Rize/Assets.xcassets/ribbon.imageset/ribbon@3x.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Rize/Assets.xcassets/time.imageset/Time.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Rize/Assets.xcassets/time.imageset/Time@2x.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Rize/Assets.xcassets/time.imageset/Time@3x.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Rize/Assets.xcassets/used_overlay.imageset/used.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Rize/Assets.xcassets/used_overlay.imageset/used@2x.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Rize/Assets.xcassets/used_overlay.imageset/used@3x.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pods/FirebaseCore/Frameworks/frameworks/FirebaseCore.framework/Headers/FIRAnalyticsConfiguration.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pods/FirebaseCore/Frameworks/frameworks/FirebaseCore.framework/Headers/FIRApp.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pods/FirebaseCore/Frameworks/frameworks/FirebaseCore.framework/Headers/FIRConfiguration.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pods/FirebaseCore/Frameworks/frameworks/FirebaseCore.framework/Headers/FIROptions.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pods/FirebaseCore/Frameworks/frameworks/FirebaseCore.framework/Headers/FirebaseCore.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pods/FirebaseCore/Frameworks/frameworks/FirebaseCore.framework/Modules/module.modulemap" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pods/GTMOAuth2/LICENSE" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pods/GTMOAuth2/README.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pods/GTMOAuth2/Source/GTMOAuth2Authentication.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pods/GTMOAuth2/Source/GTMOAuth2Authentication.m" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pods/GTMOAuth2/Source/GTMOAuth2SignIn.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pods/GTMOAuth2/Source/GTMOAuth2SignIn.m" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pods/GTMOAuth2/Source/Touch/GTMOAuth2ViewControllerTouch.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pods/GTMOAuth2/Source/Touch/GTMOAuth2ViewControllerTouch.m" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pods/GTMOAuth2/Source/Touch/GTMOAuth2ViewTouch.xib" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pods/GTMSessionFetcher/LICENSE" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pods/GTMSessionFetcher/README.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pods/GTMSessionFetcher/Source/GTMGatherInputStream.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pods/GTMSessionFetcher/Source/GTMGatherInputStream.m" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pods/GTMSessionFetcher/Source/GTMMIMEDocument.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pods/GTMSessionFetcher/Source/GTMMIMEDocument.m" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pods/GTMSessionFetcher/Source/GTMReadMonitorInputStream.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pods/GTMSessionFetcher/Source/GTMReadMonitorInputStream.m" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pods/GTMSessionFetcher/Source/GTMSessionFetcher.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pods/GTMSessionFetcher/Source/GTMSessionFetcher.m" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pods/GTMSessionFetcher/Source/GTMSessionFetcherLogging.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pods/GTMSessionFetcher/Source/GTMSessionFetcherLogging.m" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pods/GTMSessionFetcher/Source/GTMSessionFetcherService.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pods/GTMSessionFetcher/Source/GTMSessionFetcherService.m" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pods/GTMSessionFetcher/Source/GTMSessionUploadFetcher.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pods/GTMSessionFetcher/Source/GTMSessionUploadFetcher.m" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pods/GoogleToolboxForMac/DebugUtils/GTMDebugSelectorValidation.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pods/GoogleToolboxForMac/DebugUtils/GTMDebugThreadValidation.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pods/GoogleToolboxForMac/DebugUtils/GTMMethodCheck.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pods/GoogleToolboxForMac/Foundation/GTMNSData+zlib.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pods/GoogleToolboxForMac/Foundation/GTMNSData+zlib.m" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pods/GoogleToolboxForMac/Foundation/GTMNSDictionary+URLArguments.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pods/GoogleToolboxForMac/Foundation/GTMNSDictionary+URLArguments.m" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pods/GoogleToolboxForMac/Foundation/GTMNSString+URLArguments.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pods/GoogleToolboxForMac/Foundation/GTMNSString+URLArguments.m" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pods/GoogleToolboxForMac/GTMDefines.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pods/GoogleToolboxForMac/LICENSE" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pods/GoogleToolboxForMac/README.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pods/Pods.xcodeproj/xcuserdata/jbaldwin.xcuserdatad/xcschemes/Pods-Rize.xcscheme" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pods/Pods.xcodeproj/xcuserdata/jbaldwin.xcuserdatad/xcschemes/Pods-RizeTests.xcscheme" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pods/Pods.xcodeproj/xcuserdata/jbaldwin.xcuserdatad/xcschemes/Pods-RizeUITests.xcscheme" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pods/Pods.xcodeproj/xcuserdata/jbaldwin.xcuserdatad/xcschemes/SCLAlertView.xcscheme" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pods/Pods.xcodeproj/xcuserdata/jbaldwin.xcuserdatad/xcschemes/xcschememanagement.plist" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pods/SCLAlertView/LICENCE" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pods/SCLAlertView/README.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pods/SCLAlertView/SCLAlertView/SCLAlertView.swift" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pods/SCLAlertView/SCLAlertView/SCLExtensions.swift" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pods/Target Support Files/SCLAlertView/Info.plist" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pods/Target Support Files/SCLAlertView/SCLAlertView-dummy.m" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pods/Target Support Files/SCLAlertView/SCLAlertView-prefix.pch" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pods/Target Support Files/SCLAlertView/SCLAlertView-umbrella.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pods/Target Support Files/SCLAlertView/SCLAlertView.modulemap" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pods/Target Support Files/SCLAlertView/SCLAlertView.xcconfig" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Rize.xcodeproj/xcuserdata/jbaldwin.xcuserdatad/xcschemes/Rize.xcscheme" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Rize.xcodeproj/xcuserdata/jbaldwin.xcuserdatad/xcschemes/xcschememanagement.plist" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Rize.xcworkspace/xcuserdata/jbaldwin.xcuserdatad/WorkspaceSettings.xcsettings" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Rize.xcworkspace/xcuserdata/jbaldwin.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Rize/Assets.xcassets/location.imageset/Contents.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Rize/Assets.xcassets/mark.imageset/Contents.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Rize/Assets.xcassets/ribbon.imageset/Contents.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Rize/Components/Footer.swift" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Rize/Components/Header.swift" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Rize/Components/RZWalletFooter.swift" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Rize/Components/RZWalletHeader.swift" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Rize/Controllers/RZWalletLayout.swift" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Rize/Controllers/RZWalletTableViewController.swift" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Rize/Assets.xcassets/arrow_space.imageset/arrow_spacearrows@2x.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Rize/Assets.xcassets/arrow_space.imageset/arrow_spacearrows@3x.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Rize/Assets.xcassets/reward.imageset/Coupon@2x.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Rize/Assets.xcassets/reward.imageset/Coupon@3x.png" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Rize/Assets.xcassets/arrow_space.imageset/Contents.json" afterPath="$PROJECT_DIR$/Rize/Assets.xcassets/used_overlay.imageset/Contents.json" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Rize/Assets.xcassets/reward.imageset/Contents.json" afterPath="$PROJECT_DIR$/Rize/Assets.xcassets/time.imageset/Contents.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Podfile" afterPath="$PROJECT_DIR$/Podfile" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Pods/Pods.xcodeproj/project.pbxproj" afterPath="$PROJECT_DIR$/Pods/Pods.xcodeproj/project.pbxproj" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Pods/Target Support Files/Pods-Rize/Pods-Rize-acknowledgements.markdown" afterPath="$PROJECT_DIR$/Pods/Target Support Files/Pods-Rize/Pods-Rize-acknowledgements.markdown" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Pods/Target Support Files/Pods-Rize/Pods-Rize-acknowledgements.plist" afterPath="$PROJECT_DIR$/Pods/Target Support Files/Pods-Rize/Pods-Rize-acknowledgements.plist" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Pods/Target Support Files/Pods-Rize/Pods-Rize-frameworks.sh" afterPath="$PROJECT_DIR$/Pods/Target Support Files/Pods-Rize/Pods-Rize-frameworks.sh" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Pods/Target Support Files/Pods-Rize/Pods-Rize-resources.sh" afterPath="$PROJECT_DIR$/Pods/Target Support Files/Pods-Rize/Pods-Rize-resources.sh" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Pods/Target Support Files/Pods-Rize/Pods-Rize-umbrella.h" afterPath="$PROJECT_DIR$/Pods/Target Support Files/Pods-Rize/Pods-Rize-umbrella.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Pods/Target Support Files/Pods-Rize/Pods-Rize.debug.xcconfig" afterPath="$PROJECT_DIR$/Pods/Target Support Files/Pods-Rize/Pods-Rize.debug.xcconfig" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Pods/Target Support Files/Pods-Rize/Pods-Rize.release.xcconfig" afterPath="$PROJECT_DIR$/Pods/Target Support Files/Pods-Rize/Pods-Rize.release.xcconfig" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Pods/Target Support Files/Pods-RizeTests/Pods-RizeTests-resources.sh" afterPath="$PROJECT_DIR$/Pods/Target Support Files/Pods-RizeTests/Pods-RizeTests-resources.sh" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Pods/Target Support Files/Pods-RizeTests/Pods-RizeTests-umbrella.h" afterPath="$PROJECT_DIR$/Pods/Target Support Files/Pods-RizeTests/Pods-RizeTests-umbrella.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Pods/Target Support Files/Pods-RizeTests/Pods-RizeTests.debug.xcconfig" afterPath="$PROJECT_DIR$/Pods/Target Support Files/Pods-RizeTests/Pods-RizeTests.debug.xcconfig" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Pods/Target Support Files/Pods-RizeTests/Pods-RizeTests.release.xcconfig" afterPath="$PROJECT_DIR$/Pods/Target Support Files/Pods-RizeTests/Pods-RizeTests.release.xcconfig" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Pods/Target Support Files/Pods-RizeUITests/Pods-RizeUITests-resources.sh" afterPath="$PROJECT_DIR$/Pods/Target Support Files/Pods-RizeUITests/Pods-RizeUITests-resources.sh" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Pods/Target Support Files/Pods-RizeUITests/Pods-RizeUITests-umbrella.h" afterPath="$PROJECT_DIR$/Pods/Target Support Files/Pods-RizeUITests/Pods-RizeUITests-umbrella.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Pods/Target Support Files/Pods-RizeUITests/Pods-RizeUITests.debug.xcconfig" afterPath="$PROJECT_DIR$/Pods/Target Support Files/Pods-RizeUITests/Pods-RizeUITests.debug.xcconfig" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Pods/Target Support Files/Pods-RizeUITests/Pods-RizeUITests.release.xcconfig" afterPath="$PROJECT_DIR$/Pods/Target Support Files/Pods-RizeUITests/Pods-RizeUITests.release.xcconfig" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Rize.xcodeproj/project.pbxproj" afterPath="$PROJECT_DIR$/Rize.xcodeproj/project.pbxproj" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Rize/Base.lproj/Main.storyboard" afterPath="$PROJECT_DIR$/Rize/Base.lproj/Main.storyboard" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Rize/Controllers/RZSubmissionDetailViewController.swift" afterPath="$PROJECT_DIR$/Rize/Controllers/RZSubmissionDetailViewController.swift" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Rize/Controllers/RZWalletCollectionViewCell.swift" afterPath="$PROJECT_DIR$/Rize/Controllers/RZWalletCollectionViewCell.swift" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Rize/Controllers/RZWalletCollectionViewController.swift" afterPath="$PROJECT_DIR$/Rize/Controllers/RZWalletCollectionViewController.swift" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Rize/Info.plist" afterPath="$PROJECT_DIR$/Rize/Info.plist" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Rize/Model/RZColors.swift" afterPath="$PROJECT_DIR$/Rize/Model/RZColors.swift" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Rize/Model/RZDatabase.swift" afterPath="$PROJECT_DIR$/Rize/Model/RZDatabase.swift" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Rize/Model/RZReward.swift" afterPath="$PROJECT_DIR$/Rize/Model/RZReward.swift" />
+    </list>
+    <ignored path="$USER_HOME$/Library/Caches/AppCode2017.2/DerivedData/Rize-cuszvbhayirrqlgbhspknuwbapjg/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file leaf-file-name="Podfile" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Podfile">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="105">
+              <caret line="7" column="14" lean-forward="false" selection-start-line="7" selection-start-column="14" selection-end-line="7" selection-end-column="14" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/Podfile" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="140" />
+    <option name="y" value="43" />
+    <option name="width" value="1400" />
+    <option name="height" value="941" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="Cidr.FilesView" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Cidr.FilesView">
+        <subPane>
+          <expand>
+            <path>
+              <item name="Rize" type="dad4c3:CidrFilesViewHelper$MyProjectTreeStructure$1" />
+              <item name="rize" type="47feb1d3:ProjectViewModuleNode" />
+            </path>
+            <path>
+              <item name="Rize" type="dad4c3:CidrFilesViewHelper$MyProjectTreeStructure$1" />
+              <item name="rize" type="47feb1d3:ProjectViewModuleNode" />
+              <item name="Rize.xcworkspace" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="ProjectPane" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="aab56bc3-83cb-41f5-9d34-18a17c6f793e" name="Default" comment="" />
+      <created>1503430790099</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1503430790099</updated>
+      <workItem from="1503430791898" duration="152000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="152000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="140" y="43" width="1400" height="941" extended-state="0" />
+    <layout>
+      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager />
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/Podfile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="14" lean-forward="false" selection-start-line="7" selection-start-column="14" selection-end-line="7" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

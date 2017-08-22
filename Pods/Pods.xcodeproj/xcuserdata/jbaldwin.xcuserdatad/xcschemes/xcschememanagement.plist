@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>AMPopTip.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-Rize.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -32,7 +37,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4B95B31E00D9246D1FDE2866F882DB98</key>
+		<key>774DA0E8F0789D5CA65BA58693C1DCD1</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>9F64F691C3C68E6FDA6FB1E22434EBA5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -42,7 +52,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>CCCFE8165BB354DFB03279DA3438C39C</key>
+		<key>D795731BB1A30CB3F87D5D72F2E32093</key>
 		<dict>
 			<key>primary</key>
 			<true/>
