@@ -2,7 +2,7 @@
 //  RZWalletHeader.swift
 //  Rize
 //
-//  Created by James Baldwin on 8/2/17.
+//  Created by James Baldwin on 8/22/17.
 //  Copyright © 2017 Rize. All rights reserved.
 //
 
