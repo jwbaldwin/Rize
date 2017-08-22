@@ -55,6 +55,7 @@
 		DA263A2E1E92D09C0047FE8C /* RZWalletCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA263A2D1E92D09C0047FE8C /* RZWalletCollectionViewController.swift */; };
 		DA263A301E92D1A90047FE8C /* RZWalletCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA263A2F1E92D1A90047FE8C /* RZWalletCollectionViewCell.swift */; };
 		DA94F00A1E981FF300C0A32D /* RZReward.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA94F0091E981FF300C0A32D /* RZReward.swift */; };
+		DAC80EBF1F4CCF600002DF43 /* RZWalletHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC80EBE1F4CCF600002DF43 /* RZWalletHeader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -149,6 +150,7 @@
 		DA263A2D1E92D09C0047FE8C /* RZWalletCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RZWalletCollectionViewController.swift; sourceTree = "<group>"; };
 		DA263A2F1E92D1A90047FE8C /* RZWalletCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RZWalletCollectionViewCell.swift; path = ../Controllers/RZWalletCollectionViewCell.swift; sourceTree = "<group>"; };
 		DA94F0091E981FF300C0A32D /* RZReward.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RZReward.swift; sourceTree = "<group>"; };
+		DAC80EBE1F4CCF600002DF43 /* RZWalletHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RZWalletHeader.swift; sourceTree = "<group>"; };
 		F9B769BA519B135B3790B051 /* Pods-Rize.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rize.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Rize/Pods-Rize.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -299,6 +301,7 @@
 		34DC55AC1CFE6D0500359C44 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				DAC80EBE1F4CCF600002DF43 /* RZWalletHeader.swift */,
 				34DC55AD1CFE6D5D00359C44 /* RZChallengeCollectionViewCell.swift */,
 				34E00F301E09C43100542A06 /* LoadingArcShape.swift */,
 				343910C31E0AD05E003DA86D /* ArrowBaseShape.swift */,
@@ -635,6 +638,7 @@
 				3417EB091EFF1E36001B059A /* RZLegalDocument.swift in Sources */,
 				3447A1351D01227800AAB490 /* ImageLoader.swift in Sources */,
 				343910C81E0B0E97003DA86D /* RZSubmission.swift in Sources */,
+				DAC80EBF1F4CCF600002DF43 /* RZWalletHeader.swift in Sources */,
 				343910C41E0AD05E003DA86D /* ArrowBaseShape.swift in Sources */,
 				34DC55AE1CFE6D5D00359C44 /* RZChallengeCollectionViewCell.swift in Sources */,
 				DA263A2E1E92D09C0047FE8C /* RZWalletCollectionViewController.swift in Sources */,
@@ -824,7 +828,10 @@
 				INFOPLIST_FILE = Rize/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				"OTHER_LDFLAGS[arch=*]" = "$(OTHER_LDFLAGS) -ObjC";
+				"OTHER_LDFLAGS[arch=*]" = (
+					"$(OTHER_LDFLAGS)",
+					"-ObjC",
+				);
 				"OTHER_SWIFT_FLAGS[arch=*]" = "-DDEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.rize.Rize;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -851,7 +858,10 @@
 				INFOPLIST_FILE = Rize/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				"OTHER_LDFLAGS[arch=*]" = "$(OTHER_LDFLAGS) -ObjC";
+				"OTHER_LDFLAGS[arch=*]" = (
+					"$(OTHER_LDFLAGS)",
+					"-ObjC",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.rize.Rize;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

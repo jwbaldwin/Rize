@@ -309,7 +309,7 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </tabBarItem>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="5bM-Os-diX">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="5bM-Os-diX">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="0.91372549020000005" green="0.1176470588" blue="0.38823529410000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -713,7 +713,7 @@
                         </userDefinedRuntimeAttributes>
                     </tabBarItem>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Stf-Zg-xJz">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Stf-Zg-xJz">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="0.91372549020000005" green="0.1176470588" blue="0.38823529410000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -743,7 +743,7 @@
                         </userDefinedRuntimeAttributes>
                     </tabBarItem>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="76K-fR-h1v">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="76K-fR-h1v">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <textAttributes key="titleTextAttributes">
@@ -764,7 +764,7 @@
         <scene sceneID="rUq-J3-xl8">
             <objects>
                 <collectionViewController title="Wallet" id="x5z-Kr-IXm" customClass="RZWalletCollectionViewController" customModule="Rize" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" directionalLockEnabled="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" id="Idv-wf-G9u" customClass="RZWalletCollectionView">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" id="Idv-wf-G9u" customClass="RZWalletCollectionView">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" red="0.99194711538461544" green="0.99194711538461544" blue="0.99194711538461544" alpha="1" colorSpace="calibratedRGB"/>
@@ -1128,12 +1128,36 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="oWC-I8-AOH" detailTextLabel="bw8-fS-C5R" style="IBUITableViewCellStyleSubtitle" id="3tZ-fO-PhB">
+                                        <rect key="frame" x="0.0" y="213" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3tZ-fO-PhB" id="uv1-0E-SvN">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Reset Tutorial Tips" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="oWC-I8-AOH">
+                                                    <rect key="frame" x="15" y="4" width="142" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Show pop-up tips on important screens again" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bw8-fS-C5R">
+                                                    <rect key="frame" x="15" y="25" width="258" height="15"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                             <tableViewSection headerTitle="Legal" id="cqn-EH-ceV">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="e6E-Cp-TIS" style="IBUITableViewCellStyleDefault" id="hpJ-LT-Fhu">
-                                        <rect key="frame" x="0.0" y="270" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="314" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hpJ-LT-Fhu" id="dOI-hx-3ey">
                                             <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
@@ -1150,7 +1174,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="0PQ-GT-Igi" style="IBUITableViewCellStyleDefault" id="aog-AE-9pc">
-                                        <rect key="frame" x="0.0" y="314" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="358" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aog-AE-9pc" id="cdt-cU-NaV">
                                             <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
@@ -1167,7 +1191,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="RLb-pH-nxM" style="IBUITableViewCellStyleDefault" id="HpS-oi-Kfq">
-                                        <rect key="frame" x="0.0" y="358" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="402" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="HpS-oi-Kfq" id="emV-cU-wJU">
                                             <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
@@ -1188,7 +1212,7 @@
                             <tableViewSection headerTitle="Feedback" id="CO7-JW-Fmt">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="0el-cK-1dc" style="IBUITableViewCellStyleDefault" id="xKq-8f-krg">
-                                        <rect key="frame" x="0.0" y="459" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="503" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xKq-8f-krg" id="jDE-pX-HEC">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
@@ -1216,6 +1240,7 @@
                     <connections>
                         <outlet property="nameLabel" destination="6k4-T0-ZnZ" id="jcd-i2-WEY"/>
                         <outlet property="profileImageView" destination="g2g-fx-ibd" id="VzQ-6j-yVX"/>
+                        <outlet property="resetTipsCell" destination="3tZ-fO-PhB" id="cmk-r5-uCy"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eYU-0f-fNl" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1227,7 +1252,7 @@
             <objects>
                 <navigationController id="lLQ-V9-kHp" userLabel="WalletNav" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="WALLET" image="wallet" id="9gX-fb-ozq"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Idq-hn-zvz">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Idq-hn-zvz">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="0.91372549020000005" green="0.1176470588" blue="0.38823529410000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
