@@ -10,5 +10,4 @@ import UIKit
 
 class RZWalletHeader: UICollectionReusableView {
     @IBOutlet weak var header: UILabel!
-        
 }
