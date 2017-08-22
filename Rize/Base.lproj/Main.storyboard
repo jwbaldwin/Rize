@@ -900,10 +900,10 @@
                                 </connections>
                             </collectionViewCell>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.80000000000000004" contentMode="center" reuseIdentifier="NoRewardsCell" id="fBu-Zu-nDC">
-                                <rect key="frame" x="0.0" y="320" width="342" height="198"/>
+                                <rect key="frame" x="0.0" y="320" width="320" height="217"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="342" height="198"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="217"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" alpha="0.59999999999999998" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="sad_face" translatesAutoresizingMaskIntoConstraints="NO" id="KPO-Bm-AlG">
@@ -919,7 +919,7 @@
                                         </label>
                                     </subviews>
                                 </view>
-                                <size key="customSize" width="342" height="198"/>
+                                <size key="customSize" width="320" height="217"/>
                             </collectionViewCell>
                         </cells>
                         <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SectionHeader" id="frA-7g-3hQ" customClass="RZWalletHeader" customModule="Rize" customModuleProvider="target">
@@ -1071,7 +1071,7 @@
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
             </objects>
-            <point key="canvasLocation" x="202.40000000000001" y="1594.4527736131936"/>
+            <point key="canvasLocation" x="200.625" y="1594.0140845070423"/>
         </scene>
         <!--Settings View Controller-->
         <scene sceneID="U99-WT-5Bo">
