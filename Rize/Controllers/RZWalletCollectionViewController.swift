@@ -27,7 +27,7 @@ class RZWalletCollectionViewController: UICollectionViewController, RZDatabaseDe
 
     var rewards : [RZReward]?
     var effect : UIVisualEffect!
-    var db: FIRDatabaseReference!
+    var dbUsers: FIRDatabaseReference!
     var open = false
     var option = "all"
     /* The height of the non-featured cell */
@@ -83,7 +83,7 @@ class RZWalletCollectionViewController: UICollectionViewController, RZDatabaseDe
             print("Email address is valid: ",
                   self.emailInput.text!)
             
-            db.queryOrdered(byChild: "email")
+            dbUsers.queryOrdered(byChild: "email")
                 .queryEqual(toValue: providedEmailAddress)
                 .observe(.value, with: { snapshot in
                     
@@ -109,7 +109,7 @@ class RZWalletCollectionViewController: UICollectionViewController, RZDatabaseDe
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.db = FIRDatabase.database().reference().child("users")
+        self.dbUsers = FIRDatabase.database().reference().child("users")
         
         // Do any additional setup after loading the view.
         self.activityIndicator?.startAnimating()
@@ -223,7 +223,6 @@ class RZWalletCollectionViewController: UICollectionViewController, RZDatabaseDe
                 cell!.tier.text = rewards![indexPath.row].tier
                 cell!.setImageFromURL(rewards![indexPath.row].icon!)
                 cell!.setBackgroundImageFromURL(rewards![indexPath.row].banner!)
-                
                 cell!.usedView.layer.opacity = 0
                 
                 for btn in btns {
@@ -274,10 +273,10 @@ class RZWalletCollectionViewController: UICollectionViewController, RZDatabaseDe
             item!.frame = CGRect(x: item!.frame.origin.x, y: item!.frame.origin.y, width: item!.frame.width*0.85, height: item!.frame.height)
         }
         
-        let subviewItems = [cell.companyLocation, cell.rewardName, cell.markUsed] as! [UILabel]
+        let subviewItems = [cell.companyLocation, cell.rewardName, cell.markUsed]
         
         for item in subviewItems {
-            item.frame = CGRect(x: item.frame.origin.x - 50, y: item.frame.origin.y, width: item.frame.width, height: item.frame.height)
+            item!.frame = CGRect(x: item!.frame.origin.x - 50, y: item!.frame.origin.y, width: item!.frame.width, height: item!.frame.height)
         }
         
         cell.iconUrl.frame = CGRect(x: cell.iconUrl!.frame.origin.x - 20, y: cell.iconUrl!.frame.origin.y, width: cell.iconUrl!.frame.width, height: cell.iconUrl!.frame.height)
