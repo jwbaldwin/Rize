@@ -27,9 +27,13 @@ class RZWalletCollectionViewController: UICollectionViewController, RZDatabaseDe
 
     var rewards : [RZReward]?
     var effect : UIVisualEffect!
-    var db: FIRDatabaseReference!
+    var dbUsers: FIRDatabaseReference!
+    /* track whether the organization view is open or closed */
     var open = false
+    /* track current organization option */
     var option = "all"
+    /* track which poptip we are on */
+    var popTipCounter = 0
     /* The height of the non-featured cell */
     let standardHeight: CGFloat = 130
     /* The height of the first visible cell */
@@ -83,7 +87,7 @@ class RZWalletCollectionViewController: UICollectionViewController, RZDatabaseDe
             print("Email address is valid: ",
                   self.emailInput.text!)
             
-            db.queryOrdered(byChild: "email")
+            dbUsers.queryOrdered(byChild: "email")
                 .queryEqual(toValue: providedEmailAddress)
                 .observe(.value, with: { snapshot in
                     
@@ -109,7 +113,7 @@ class RZWalletCollectionViewController: UICollectionViewController, RZDatabaseDe
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.db = FIRDatabase.database().reference().child("users")
+        self.dbUsers = FIRDatabase.database().reference().child("users")
         
         // Do any additional setup after loading the view.
         self.activityIndicator?.startAnimating()
@@ -127,6 +131,23 @@ class RZWalletCollectionViewController: UICollectionViewController, RZDatabaseDe
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         loadWalletInfo()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        /* check to show tips */
+        if (RZPoptipHelper.shared().shouldShowTips(forScreen: .Wallet)) {
+            popTipCounter = 0;
+            self.showNextPoptip()
+            RZPoptipHelper.shared().setDidShowTips(true, forScreen: .Wallet)
+        }
+    }
+    
+    // check when view will disappear so we can get rid of active pop tips
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        // cleanup pop tips
+        RZPoptipHelper.shared().dismissAll()
     }
 
     override func didReceiveMemoryWarning() {
@@ -223,7 +244,6 @@ class RZWalletCollectionViewController: UICollectionViewController, RZDatabaseDe
                 cell!.tier.text = rewards![indexPath.row].tier
                 cell!.setImageFromURL(rewards![indexPath.row].icon!)
                 cell!.setBackgroundImageFromURL(rewards![indexPath.row].banner!)
-                
                 cell!.usedView.layer.opacity = 0
                 
                 for btn in btns {
@@ -274,10 +294,10 @@ class RZWalletCollectionViewController: UICollectionViewController, RZDatabaseDe
             item!.frame = CGRect(x: item!.frame.origin.x, y: item!.frame.origin.y, width: item!.frame.width*0.85, height: item!.frame.height)
         }
         
-        let subviewItems = [cell.companyLocation, cell.rewardName, cell.markUsed] as! [UIView]
+        let subviewItems = [cell.companyLocation, cell.rewardName, cell.markUsed]
         
         for item in subviewItems {
-            item.frame = CGRect(x: item.frame.origin.x - 50, y: item.frame.origin.y, width: item.frame.width, height: item.frame.height)
+            item!.frame = CGRect(x: item!.frame.origin.x - 50, y: item!.frame.origin.y, width: item!.frame.width, height: item!.frame.height)
         }
         
         cell.iconUrl.frame = CGRect(x: cell.iconUrl!.frame.origin.x - 20, y: cell.iconUrl!.frame.origin.y, width: cell.iconUrl!.frame.width, height: cell.iconUrl!.frame.height)
@@ -577,5 +597,35 @@ class RZWalletCollectionViewController: UICollectionViewController, RZDatabaseDe
     
     }
     */
+    
+    // MARK: - Poptip sequence
+    func showNextPoptip()
+    {
+        switch popTipCounter {
+        case 0:
+            /* browse tip */
+            RZPoptipHelper.shared().showPopTip(text: "The wallet holds all of the rewards you earn", direction: .down, in: self.view, fromFrame: self.navigationController!.navigationBar.frame) {
+                self.rewards = RZDatabase.sharedInstance().getWallet(filter: .all)
+                if (!(self.rewards?.isEmpty)!){
+                    self.showNextPoptip()
+                }
+            }
+        case 1:
+            /* redeem tip */
+            var itemFrame = self.navigationController!.navigationBar.frame
+            itemFrame = itemFrame.offsetBy(dx: self.view.frame.width/4, dy: featuredHeight)
+            RZPoptipHelper.shared().showPopTip(text: "Tap here to redeem your reward", direction: .up, in: self.view, fromFrame: itemFrame) { self.showNextPoptip() }
+        case 2:
+            /* share tip */
+            var itemFrame = self.navigationController!.navigationBar.frame
+            itemFrame = itemFrame.offsetBy(dx: -self.view.frame.width/4, dy: featuredHeight)
+            RZPoptipHelper.shared().showPopTip(text: "Or tap here to gift your reward to a friend", direction: .up, in: self.view, fromFrame: itemFrame) { }
+        default:
+            break;
+        }
+        /* go to next index */
+        popTipCounter += 1;
+    }
+    
 
 }
