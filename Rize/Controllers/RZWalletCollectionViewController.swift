@@ -294,10 +294,10 @@ class RZWalletCollectionViewController: UICollectionViewController, RZDatabaseDe
             item!.frame = CGRect(x: item!.frame.origin.x, y: item!.frame.origin.y, width: item!.frame.width*0.85, height: item!.frame.height)
         }
         
-        let subviewItems = [cell.companyLocation, cell.rewardName, cell.markUsed]
+        let subviewItems = [cell.companyLocation, cell.rewardName, cell.markUsed] as! [UIView]
         
         for item in subviewItems {
-            item!.frame = CGRect(x: item!.frame.origin.x - 50, y: item!.frame.origin.y, width: item!.frame.width, height: item!.frame.height)
+            item.frame = CGRect(x: item.frame.origin.x - 50, y: item.frame.origin.y, width: item.frame.width, height: item.frame.height)
         }
         
         cell.iconUrl.frame = CGRect(x: cell.iconUrl!.frame.origin.x - 20, y: cell.iconUrl!.frame.origin.y, width: cell.iconUrl!.frame.width, height: cell.iconUrl!.frame.height)
