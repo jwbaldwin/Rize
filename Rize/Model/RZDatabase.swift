@@ -17,7 +17,7 @@ import CoreLocation
 class RZDatabase: NSObject {
 
     // use "challenges" for release, "challenges-debug" for testing
-#if DEBUG
+#if !DEBUG
     // NEVER commit with "challenges-debug"
     static let CHALLENGE_PATH = "challenges-debug"
 #else

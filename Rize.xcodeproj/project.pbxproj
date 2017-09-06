@@ -26,6 +26,7 @@
 		345A51471E0C4C7A0051840F /* RZGeofence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 345A51461E0C4C7A0051840F /* RZGeofence.swift */; };
 		345B93B91CF7D4BA00456D84 /* RZChallenge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 345B93B81CF7D4BA00456D84 /* RZChallenge.swift */; };
 		345DFEE51E143E7D00DB216A /* RZColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 345DFEE41E143E7D00DB216A /* RZColors.swift */; };
+		345FD5981F5F741F00EF9B99 /* UIImageViewURLExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 345FD5971F5F741F00EF9B99 /* UIImageViewURLExtension.swift */; };
 		3478F0401D61197100113EB1 /* RZDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3478F03F1D61197100113EB1 /* RZDatabase.swift */; };
 		34813A0D1CE7783400417CD2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34813A0C1CE7783400417CD2 /* AppDelegate.swift */; };
 		34813A121CE7783400417CD2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34813A101CE7783400417CD2 /* Main.storyboard */; };
@@ -112,6 +113,7 @@
 		345A51461E0C4C7A0051840F /* RZGeofence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RZGeofence.swift; sourceTree = "<group>"; };
 		345B93B81CF7D4BA00456D84 /* RZChallenge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RZChallenge.swift; sourceTree = "<group>"; };
 		345DFEE41E143E7D00DB216A /* RZColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RZColors.swift; sourceTree = "<group>"; };
+		345FD5971F5F741F00EF9B99 /* UIImageViewURLExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageViewURLExtension.swift; sourceTree = "<group>"; };
 		3478F03F1D61197100113EB1 /* RZDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RZDatabase.swift; sourceTree = "<group>"; };
 		34813A091CE7783400417CD2 /* Rize.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rize.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		34813A0C1CE7783400417CD2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -255,6 +257,7 @@
 				34813A151CE7783400417CD2 /* LaunchScreen.storyboard */,
 				34813A181CE7783400417CD2 /* Info.plist */,
 				3447A1341D01227800AAB490 /* ImageLoader.swift */,
+				345FD5971F5F741F00EF9B99 /* UIImageViewURLExtension.swift */,
 				34B606AD1D6003490031DA5D /* GoogleService-Info.plist */,
 				348E7A3C1D6004E800232D50 /* Rize-Bridging-Header.h */,
 			);
@@ -650,6 +653,7 @@
 				345A51471E0C4C7A0051840F /* RZGeofence.swift in Sources */,
 				34F800AD1E120642005D11E0 /* RZFBGraphRequestHelper.swift in Sources */,
 				34CB5F701D1A124B00B0E95B /* RZCameraViewController.swift in Sources */,
+				345FD5981F5F741F00EF9B99 /* UIImageViewURLExtension.swift in Sources */,
 				34E00F311E09C43100542A06 /* LoadingArcShape.swift in Sources */,
 				34B38FC71E4FA0CF00077A8F /* RZPostMessageViewController.swift in Sources */,
 				345A51451E0C219D0051840F /* RZCircularProgressView.swift in Sources */,

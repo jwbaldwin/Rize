@@ -207,7 +207,7 @@ class RZBrowseViewController: UIViewController, UICollectionViewDelegateFlowLayo
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsetsMake(84.0, 20.0, 20.0, 20.0);
+        return UIEdgeInsetsMake(84.0, 10.0, 20.0, 10.0);
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {

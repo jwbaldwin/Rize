@@ -73,8 +73,11 @@ class RZChallengeCollectionViewCell: UICollectionViewCell {
     // Public function to set the image via URL
     func setImageFromURL(_ url: String) {
         // Load the image
-        ImageLoader.setImageViewImage(url, view:imageView!, round: false) {
+        self.imageView!.imageFromURL(urlString: url)
+        /*
+        ImageLoader.setImageViewImage(url, view:self.imageView!, round: false) {
         }
+        */
     }
     
     func setLiked(_ liked: Bool)
