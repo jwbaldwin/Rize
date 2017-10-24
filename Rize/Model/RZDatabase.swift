@@ -17,12 +17,12 @@ import CoreLocation
 class RZDatabase: NSObject {
 
     // use "challenges" for release, "challenges-debug" for testing
-#if DEBUG
+//#if DEBUG
     // NEVER commit with "challenges-debug"
-    static let CHALLENGE_PATH = "challenges-debug"
-#else
+//    static let CHALLENGE_PATH = "challenges-debug"
+//#else
     static let CHALLENGE_PATH = "challenges"
-#endif
+//#endif
     
     static let PRIVACY_UPDATED = "privacy-updated"
     static let TERMS_UPDATED = "terms-updated"
@@ -64,8 +64,11 @@ class RZDatabase: NSObject {
         _terms.updated = UserDefaults.standard.string(forKey: RZDatabase.TERMS_UPDATED)
     }
     
-    func observe() {
+    func refresh() {
+        let loadGroup = DispatchGroup()
+        
         // get demographic info
+        loadGroup.enter()
         RZFBGraphRequestHelper.getFBGraphData(endpoint: "me?fields=age_range,email") { (result, error) in
             // check to make sure we successfully got the age
             if let ageRange = result?["age_range"]
@@ -82,41 +85,49 @@ class RZDatabase: NSObject {
             {
                 RZDatabase.sharedInstance().setDatabaseValue(value: email as! String, forKey: "email")
             }
+            
+            loadGroup.leave()
         }
         
         // begin observation of Firebase data
         
         // observe challenge data
-        print(RZDatabase.CHALLENGE_PATH)
-        self.firebaseRef?.child(RZDatabase.CHALLENGE_PATH).observe(.value, with: { (snapshot) in
+        loadGroup.enter()
+        self.firebaseRef?.child(RZDatabase.CHALLENGE_PATH).observeSingleEvent(of: .value, with: { (snapshot) in
             self.updateChallenges(fromSnapshot: snapshot)
-            self.delegate?.databaseDidUpdate(self)
+            loadGroup.leave()
         })
         
         // observe the submission data
-        self.firebaseRef?.child("users/\(FIRAuth.auth()!.currentUser!.uid)/submissions").observe(.value, with: { (snapshot) in
+        loadGroup.enter()
+        self.firebaseRef?.child("users/\(FIRAuth.auth()!.currentUser!.uid)/submissions").observeSingleEvent(of: .value, with: { (snapshot) in
             self.updateSubmissions(fromSnapshot: snapshot) {
-                self.delegate?.databaseDidUpdate(self)
+                loadGroup.leave()
             }
         })
         
         // observe the likes data
-        self.firebaseRef?.child("users/\(FIRAuth.auth()!.currentUser!.uid)/likes").observe(.value, with: { (snapshot) in
+        loadGroup.enter()
+        self.firebaseRef?.child("users/\(FIRAuth.auth()!.currentUser!.uid)/likes").observeSingleEvent(of: .value, with: { (snapshot) in
             if (snapshot.hasChildren()) {
                 self._likes = snapshot.value as! [String]
-                self.delegate?.databaseDidUpdate(self)
+                loadGroup.leave()
             }
         })
         
         // observe the wallet data
-        self.firebaseRef?.child("users/\(FIRAuth.auth()!.currentUser!.uid)/wallet").observe(.value, with: { (snapshot) in
+        loadGroup.enter()
+        self.firebaseRef?.child("users/\(FIRAuth.auth()!.currentUser!.uid)/wallet").observeSingleEvent(of: .value, with: { (snapshot) in
             self.updateWallet(fromSnapshot: snapshot)
-            self.delegate?.databaseDidUpdate(self)
+            loadGroup.leave()
         })
         
         // observe legal
         self.setupLegal()
         
+        loadGroup.notify(queue: DispatchQueue.main) {
+            self.delegate?.databaseDidUpdate(self)
+        }
     }
     
     func updateChallenges(fromSnapshot snapshot : FIRDataSnapshot) {

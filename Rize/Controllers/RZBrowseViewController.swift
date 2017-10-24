@@ -62,6 +62,12 @@ class RZBrowseViewController: UIViewController, UICollectionViewDelegateFlowLayo
         self.tabBarController?.tabBar.isUserInteractionEnabled = false
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        /* refresh data on view appear */
+        RZDatabase.sharedInstance().refresh()
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         /* check to show tips */
@@ -70,6 +76,7 @@ class RZBrowseViewController: UIViewController, UICollectionViewDelegateFlowLayo
             self.showNextPoptip()
             RZPoptipHelper.shared().setDidShowTips(true, forScreen: .Browse)
         }
+
     }
 
     // check when view will disappear so we can get rid of active pop tips
@@ -85,8 +92,6 @@ class RZBrowseViewController: UIViewController, UICollectionViewDelegateFlowLayo
     }
     
     func setupData() {
-        RZDatabase.sharedInstance().observe()
-    
         // request location data
         if CLLocationManager.authorizationStatus() == .denied {
             let alert = UIAlertController(title: "We Need Your Location", message: "Looks like we can't get your location to show you challenges near you. Please go to Settings to give us permission", preferredStyle: .alert)
@@ -127,7 +132,7 @@ class RZBrowseViewController: UIViewController, UICollectionViewDelegateFlowLayo
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         self.location = locations[0]
         // reload data to include any new views
-        self.collectionView?.reloadData()
+        //self.collectionView?.reloadData()
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
@@ -162,6 +167,8 @@ class RZBrowseViewController: UIViewController, UICollectionViewDelegateFlowLayo
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! RZChallengeCollectionViewCell
     
         // Configure the cell
+        // erase any previous image
+        cell.imageView?.image = nil
         
         // make sure we have the challenges
         guard let challenges = RZDatabase.sharedInstance().getChallenges(onlyActive: true, forLocation: self.location)
@@ -207,7 +214,7 @@ class RZBrowseViewController: UIViewController, UICollectionViewDelegateFlowLayo
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsetsMake(84.0, 20.0, 20.0, 20.0);
+        return UIEdgeInsetsMake(84.0, 10.0, 20.0, 10.0);
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
